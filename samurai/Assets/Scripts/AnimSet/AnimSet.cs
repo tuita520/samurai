@@ -162,7 +162,8 @@ public abstract class AnimSet : MonoBehaviour
     public abstract string GetInjuryAnim( WeaponType weapon, DamageType type );
     public abstract string GetDeathAnim( WeaponType weapon, DamageType type );
 
-    // 以下两函数可以删除
+    // 以下函数可以删除
     public virtual AnimAttackData GetFirstAttackAnim(WeaponType weapon, AttackType attackType) { return null; }
     public virtual AnimAttackData GetWhirlAttackAnim() { return null; }
+    public virtual AnimAttackData GetRollAttackAnim() { return null; }
 }
