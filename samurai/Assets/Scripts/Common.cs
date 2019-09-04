@@ -12,21 +12,21 @@ public enum HardwareType
 
 public enum WeaponType 
 {
-	None = -1,
-	Katana = 0,
-	Body,
-    Bow,
-	Max,
+	NONE = -1,
+	KATANA = 0,
+	BODY,
+    BOW,
+	MAX,
 }
 
 public enum BlockState
 {
-    None = -1,
-    Start = 0,
-    Loop,
-    End,
-    HitBlocked,
-    Failed
+    NONE = -1,
+    START = 0,          // 起式
+    HOLD,               // 蓄势
+    END,                // 收式
+    BLOCK_SUCCESS,      // 格挡成功
+    BLOCK_FAIL,         // 格挡失败
 }
 
 public enum KnockdownState
@@ -40,8 +40,8 @@ public enum KnockdownState
 
 public enum WeaponState
 {
-    NotInHands,
-	Ready,
+    NOT_IN_HANDS,
+	IN_HAND,
 	//Attacking,
 	//Reloading,
 	//Empty,
@@ -49,14 +49,14 @@ public enum WeaponState
 
 public enum AttackType
 {
-	None = -1,
+	NONE = -1,
 	X = 0,
 	O = 1,
-    BossBash = 2,
-    Fatality = 3,
-    Counter = 4,
-    Berserk = 5,
-	Max = 6,
+    BOSS_BASH = 2,  // 暂时无用
+    FATALITY = 3,   // 一击必杀（如针对倒地敌人的跳杀）
+    COUNTER = 4,    // 反击
+    BERSERK = 5,    // 暴击
+	MAX = 6,
 }
     
 public enum AgentType
@@ -71,7 +71,8 @@ public enum AgentType
     MINI_BOSS01,    
     BOSS_OROCHI,
 	NPC_MAX,
-    PLAYER
+    PLAYER,
+    AI_PLAYER,
 }
 
 public enum GameState
@@ -102,19 +103,28 @@ public enum GameDifficulty
 	Hard,
 }
 
+public enum DamageResultType
+{
+    NONE,
+    INJURY,
+    KNOCK_DOWN,
+    DEATH,
+}
+
 public enum DamageType
 {
-    Front,
-    Back,
-    BreakBlock, // 破防
-    InKnockdown,    
+    NONE,
+    FRONT,
+    BACK,
+    //BREAK_BLOCK, // 破防
+    IN_KNOCK_DOWN,    
 }
 
 public enum CriticalHitType
 {
-    None,
-    Vertical,
-	Horizontal,
+    NONE,
+    VERTICAL,
+	HORIZONTAL,
 }
 
 public enum ComboLevel
@@ -181,10 +191,11 @@ public enum MotionType
     ROLL,
     ATTACK,
     BLOCK,
-    //BLOCKING_ATTACK,
+    BLOCKING_ATTACK,
     INJURY,    
     DEATH,
-    KNOCKDOWN,
+    KNOCK_DOWN,
+    ANIMATION_DRIVE
 }
 
 public enum MoveType
@@ -217,14 +228,6 @@ public enum EventTypes
     //FriendInjured,
 }
 
-public enum OrderType
-{
-    NONE = -1,
-    GOTO,
-    ATTACK,
-    DODGE,    
-    STOPMOVE,
-}
 
 public enum Direction
 {
@@ -243,7 +246,7 @@ public enum BlockResult
     FAIL,
 }
 
-public enum FullComboType
+public enum ComboType
 {
     NONE = 0,
     RAISE_WAVE,         // XXXXO 浪翻（快速）
@@ -252,4 +255,10 @@ public enum FullComboType
     WALKING_DEATH,      // XXOXX 踏死（击倒）
     CRASH_GENERAL,      // OXOOO 破将（重击、群伤）
     FLYING_DRAGON,      // XOOXX 飞龙
+        
+    MULTI_SWORDS,       // N刀流
+    WHIRL,              // 旋风斩
+    COUNTER,            // 反击
+    ATTACK_ROLL,        // 冲滚
+    JUMP_KILL,          // 跳杀
 }

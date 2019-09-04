@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Phenix.Unity.AI;
 
 public class BlackBoard : MonoBehaviour
 {
@@ -95,16 +94,18 @@ public class BlackBoard : MonoBehaviour
                 _fear = maxFear;
             }
         }
-    }    
+    }
 
+    [System.NonSerialized]
+    public AnimFSMEvent curFSMEvent = null;                                
     [System.NonSerialized]
     public AgentAction curAction = null;                                // 当前执行的action
     [System.NonSerialized]
     public MotionType motionType = MotionType.NONE;                     // 动作类型
     [System.NonSerialized]
-    public WeaponState weaponState = WeaponState.NotInHands;            // 武器在手状态
+    public WeaponState weaponState = WeaponState.NOT_IN_HANDS;            // 武器在手状态
     [System.NonSerialized]
-    public WeaponType weaponSelected = WeaponType.Katana;               // 武器类型    
+    public WeaponType weaponSelected = WeaponType.KATANA;               // 武器类型    
 
     public float weaponRange = 2;
     public float SqrWeaponRange { get { return weaponRange * weaponRange; } }
@@ -114,7 +115,7 @@ public class BlackBoard : MonoBehaviour
 
     public bool IsBlocking { get { return motionType == MotionType.BLOCK/* || motionType == MotionType.BLOCKING_ATTACK*/; } }
     public bool IsAlive { get { return health > 0 && gameObject.activeSelf; } }    
-    public bool IsKnockedDown { get { return motionType == MotionType.KNOCKDOWN/* && knockDownDamageDeadly*/; } }
+    public bool IsKnockedDown { get { return motionType == MotionType.KNOCK_DOWN/* && knockDownDamageDeadly*/; } }
 
     public float maxSprintSpeed = 8;
     public float maxRunSpeed = 4;

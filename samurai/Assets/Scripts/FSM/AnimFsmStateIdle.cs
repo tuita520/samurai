@@ -67,26 +67,26 @@ public class AnimFsmStateIdle : AnimFsmState
         {
             if (Owner.BlackBoard.desiredTarget != null)
             {
-                if (Owner.BlackBoard.weaponState != WeaponState.Ready)
+                if (Owner.BlackBoard.weaponState != WeaponState.IN_HAND)
                 {
                     // 拔刀
                     string name = Owner.AnimSet.GetShowWeaponAnim(Owner.BlackBoard.weaponSelected);
                     _timeToFinishWeapon = Time.timeSinceLevelLoad + Owner.AnimEngine[name].length * 0.8f;
                     Owner.AnimEngine.CrossFade(name, 0.1f);
-                    Owner.BlackBoard.weaponState = WeaponState.Ready;
+                    Owner.BlackBoard.weaponState = WeaponState.IN_HAND;
                 }
                 else if (Owner.isPlayer == false)
                 {
                     RotateToTarget();
                 }                
             }
-            else if (Owner.BlackBoard.weaponState != WeaponState.NotInHands)
+            else if (Owner.BlackBoard.weaponState != WeaponState.NOT_IN_HANDS)
             {
                 // 收刀
                 string name = Owner.AnimSet.GetHideWeaponAnim(Owner.BlackBoard.weaponSelected);
                 _timeToFinishWeapon = Time.timeSinceLevelLoad + Owner.AnimEngine[name].length * 0.8f;
                 Owner.AnimEngine.CrossFade(name, 0.1f);
-                Owner.BlackBoard.weaponState = WeaponState.NotInHands;
+                Owner.BlackBoard.weaponState = WeaponState.NOT_IN_HANDS;
             }
         }
         else if (_timeToFinishWeapon < Time.timeSinceLevelLoad) // 拔刀或者收刀完毕

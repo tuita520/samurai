@@ -90,13 +90,13 @@ public class AnimFsmStateAttackMelee : AnimFsmState
 
     public override void Loop()
     {
-        if (Owner.BlackBoard.weaponState != WeaponState.Ready)
+        if (Owner.BlackBoard.weaponState != WeaponState.IN_HAND)
         {
             // 拔刀
             string name = Owner.AnimSet.GetShowWeaponAnim(Owner.BlackBoard.weaponSelected);
             _timeToFinishWeapon = Time.timeSinceLevelLoad + Owner.AnimEngine[name].length * 0.8f;
             Owner.AnimEngine.CrossFade(name, 0.1f);
-            Owner.BlackBoard.weaponState = WeaponState.Ready;
+            Owner.BlackBoard.weaponState = WeaponState.IN_HAND;
         }
         else if (_timeToFinishWeapon > Time.timeSinceLevelLoad)
         {
@@ -196,7 +196,7 @@ public class AnimFsmStateAttackMelee : AnimFsmState
                 //if (BlackBoard.isPlayer && AnimAttackData.FullCombo)
                   //  GuiManager.Instance.ShowComboMessage(AnimAttackData.ComboIndex);              
 
-                if (_attackAction.attackType == AttackType.Fatality)
+                if (_attackAction.attackType == AttackType.FATALITY)
                     Owner.DoDamageFatality(_attackAction.target, Owner.BlackBoard.weaponSelected, 
                         _attackAction.data);
                 else
@@ -251,7 +251,7 @@ public class AnimFsmStateAttackMelee : AnimFsmState
                 CameraBehavior.Instance.ChangeFov(25, 0.5f);
                 CameraBehavior.Instance.Invoke("RestoreTimeScaleAndFov", 0.7f);
             }
-            else if (_attackAction.attackType == AttackType.Fatality)
+            else if (_attackAction.attackType == AttackType.FATALITY)
             {
                 CameraBehavior.Instance.ChangeTimeScale(0.25f, 0.7f);
                 CameraBehavior.Instance.ChangeFov(25, 0.65f);
@@ -339,7 +339,7 @@ public class AnimFsmStateAttackMelee : AnimFsmState
         _currentRotationTime = 0;
         _currentMoveTime = 0;
 
-        if (Owner.isPlayer && _attackAction.data.hitCriticalType != CriticalHitType.None && _attackAction.target && 
+        if (Owner.isPlayer && _attackAction.data.hitCriticalType != CriticalHitType.NONE && _attackAction.target && 
             _attackAction.target.GetComponent<BlackBoard>().criticalAllowed && _attackAction.target.GetComponent<BlackBoard>().IsBlocking == false &&
             _attackAction.target.GetComponent<BlackBoard>().invulnerable == false)
         {

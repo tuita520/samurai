@@ -18,11 +18,11 @@ public class AnimAttackData
     public float hitAngle;
     public float hitMomentum;
     public CriticalHitType hitCriticalType;
-    public bool hitAreaKnockdown;
-    public bool breakBlock;
+    public bool hitAreaKnockdown; // 有击倒效果
+    //public bool breakBlock; // 有破防效果
     public bool useImpuls;
     public float criticalModificator = 1;
-    public bool sloMotion;
+    //public bool sloMotion;
 
     // trail
     public GameObject trail;
@@ -85,8 +85,7 @@ public class AnimAttackData
         this.hitAngle = hitAngle;
         this.hitMomentum = hitMomentum;
         hitCriticalType = criticalType;
-        hitAreaKnockdown = areaKnockDown;
-        breakBlock = false;
+        hitAreaKnockdown = areaKnockDown;        
         useImpuls = false;
         criticalModificator = 1;
 
@@ -140,11 +139,10 @@ public class AnimAttackData
         this.hitAngle = hitAngle;
         this.hitMomentum = hitMomentum;
         hitCriticalType = criticalType;
-        hitAreaKnockdown = areaKnockDown;
-        this.breakBlock = breakBlock;
+        hitAreaKnockdown = areaKnockDown;        
         this.useImpuls = useImpuls;
         criticalModificator = criticalMod;
-        this.sloMotion = sloMotion;
+        //this.sloMotion = sloMotion;
     }
 
 

@@ -27,7 +27,7 @@ public class GOAPActionAttackMeleeOnce : GOAPAction
         AgentActionAttackMelee agentAction = AgentActionFactory.Get(AgentActionType.ATTACK_MELEE, Owner) as AgentActionAttackMelee;
         if (Owner.BlackBoard.IsBlocking)
         {
-            agentAction.attackType = AttackType.Counter;  // 反击
+            agentAction.attackType = AttackType.COUNTER;  // 反击
         }
         else
         {

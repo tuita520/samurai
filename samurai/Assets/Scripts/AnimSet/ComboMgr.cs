@@ -12,7 +12,7 @@ public class ComboMgr : MonoBehaviour
 
     class Combo
     {
-        public FullComboType fullComboType;
+        public ComboType fullComboType;
         public ComboStep[] comboSteps;
     }
 
@@ -30,77 +30,77 @@ public class ComboMgr : MonoBehaviour
         _animSetPlayer = GetComponent<AnimSetPlayer>();
         _playerComboAttacks[0] = new Combo()
         {
-            fullComboType = FullComboType.RAISE_WAVE,
+            fullComboType = ComboType.RAISE_WAVE,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[0]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[1]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[2]},                                
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[3]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[0]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[1]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[2]},                                
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[3]},
                 //new ComboStep(){attackType = AttackType.None, data = _animSetPlayer.AttackData[3]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[4]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[4]},
             }
         };
         _playerComboAttacks[1] = new Combo()
         {
-            fullComboType = FullComboType.HALF_MOON,
+            fullComboType = ComboType.HALF_MOON,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[5]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[6]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[7]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[8]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[9]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[5]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[6]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[7]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[8]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[9]},
             }
         };
         _playerComboAttacks[2] = new Combo()
         {
-            fullComboType = FullComboType.CLOUD_CUT,
+            fullComboType = ComboType.CLOUD_CUT,
             comboSteps = new ComboStep[]
             {               
-                    new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[5]},
-                    new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[6]},
-                    new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[17]},
-                    new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[18]},
-                    new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[19]},
+                    new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[5]},
+                    new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[6]},
+                    new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[17]},
+                    new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[18]},
+                    new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[19]},
             }
         };
 
         _playerComboAttacks[3] = new Combo()
         {
-            fullComboType = FullComboType.FLYING_DRAGON,
+            fullComboType = ComboType.FLYING_DRAGON,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[0]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[10]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[11]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[12]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[13]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[0]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[10]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[11]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[12]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[13]},
             }
         };
         _playerComboAttacks[4] = new Combo()
         {
-            fullComboType = FullComboType.WALKING_DEATH,
+            fullComboType = ComboType.WALKING_DEATH,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[0]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[1]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[14]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[15]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[16]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[0]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[1]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[14]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[15]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[16]},
             }
         };
 
         _playerComboAttacks[5] = new Combo()
         {
-            fullComboType = FullComboType.CRASH_GENERAL,
+            fullComboType = ComboType.CRASH_GENERAL,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[5]},
-                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.AttackData[20]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[21]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[22]},
-                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.AttackData[23]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[5]},
+                new ComboStep(){attackType = AttackType.X, data = _animSetPlayer.attackDataList[20]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[21]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[22]},
+                new ComboStep(){attackType = AttackType.O, data = _animSetPlayer.attackDataList[23]},
             }
         };
     }    

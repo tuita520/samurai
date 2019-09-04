@@ -36,7 +36,7 @@ public class AnimFsmStateKnockdown : AnimFsmState
     public override void Enter(AgentAction action)
     {        
         base.Enter(action);
-        Owner.BlackBoard.motionType = MotionType.KNOCKDOWN;
+        Owner.BlackBoard.motionType = MotionType.KNOCK_DOWN;
         Owner.BlackBoard.moveDir = Vector3.zero;
         Owner.BlackBoard.speed = 0;
     }
@@ -82,7 +82,7 @@ public class AnimFsmStateKnockdown : AnimFsmState
                 PositionOK = true;
         }
 
-        if (_status != KnockdownStatus.DEATH && Owner.BlackBoard.damageType == DamageType.InKnockdown)
+        if (_status != KnockdownStatus.DEATH && Owner.BlackBoard.damageType == DamageType.IN_KNOCK_DOWN)
         {
             InitializeDeath();
         }

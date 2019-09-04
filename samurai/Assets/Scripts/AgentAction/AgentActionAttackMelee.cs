@@ -18,7 +18,7 @@ public class AgentActionAttackMelee : AgentAction
         hit = false;
         attackPhaseDone = false;
         data = null;
-        attackType = AttackType.None;
+        attackType = AttackType.NONE;
     }
     public override string ToString() { return "HumanActionAttack " + (target != null ? target.name : "no target") + " " + attackType.ToString(); }
 
@@ -29,7 +29,7 @@ public class AgentActionAttackMelee : AgentAction
 
     public void Initialize(/*Agent owner*/)
     {
-        if (attackType == AttackType.None)
+        if (attackType == AttackType.NONE)
         {
             return;
         }
@@ -45,8 +45,8 @@ public class AgentActionAttackMelee : AgentAction
         {
             if (target != null && target.BlackBoard.IsKnockedDown)
             {
-                data = Owner.AnimSet.GetFirstAttackAnim(Owner.BlackBoard.weaponSelected, AttackType.Fatality);
-                attackType = AttackType.Fatality;
+                data = Owner.AnimSet.GetFirstAttackAnim(Owner.BlackBoard.weaponSelected, AttackType.FATALITY);
+                attackType = AttackType.FATALITY;
                 comboMgr.Reset();
             }
             else

@@ -77,9 +77,9 @@ public class AnimFsmStateMove : AnimFsmState
     private WeaponState GetWeaponState()
     {
         if (Owner.BlackBoard.desiredTarget != null)
-            return WeaponState.Ready;
+            return WeaponState.IN_HAND;
         else
-            return WeaponState.NotInHands;
+            return WeaponState.NOT_IN_HANDS;
     }
 
     public override void Loop()

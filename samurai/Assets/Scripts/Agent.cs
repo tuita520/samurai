@@ -175,7 +175,7 @@ public class Agent : MonoBehaviour
 
             if (len > this.BlackBoard.weaponRange)
             {
-                if (data.hitAreaKnockdown == true && knockdown && len < this.BlackBoard.weaponRange * 1.2f)
+                if (data.hitAreaKnockdown && knockdown && len < this.BlackBoard.weaponRange * 1.2f)
                 {
                     knock = true;
                     enemy.ReceiveKnockDown(this, dirToEnemy * data.hitMomentum);
@@ -197,7 +197,7 @@ public class Agent : MonoBehaviour
                 continue;
             }
 
-            if (enemy.BlackBoard.criticalAllowed && data.hitCriticalType != CriticalHitType.None && 
+            if (enemy.BlackBoard.criticalAllowed && data.hitCriticalType != CriticalHitType.NONE && 
                 Vector3.Angle(attackerDir, enemy.Forward) < 45) // from behind
             {                
                 enemy.ReceiveCriticalHit(enemy, this, data.hitCriticalType, false);
@@ -209,12 +209,12 @@ public class Agent : MonoBehaviour
                 block = true;
             }
             else if (enemy.BlackBoard.criticalAllowed && critical && 
-                (mainTarget == enemy || (data.hitCriticalType == CriticalHitType.Horizontal && Random.Range(0, 100) < 30)))
+                (mainTarget == enemy || (data.hitCriticalType == CriticalHitType.HORIZONTAL && Random.Range(0, 100) < 30)))
             {                
                 enemy.ReceiveCriticalHit(enemy, this, data.hitCriticalType, false);
                 hit = true;
             }
-            else if (data.hitAreaKnockdown == true && knockdown)
+            else if (data.hitAreaKnockdown && knockdown)
             {             
                 enemy.ReceiveKnockDown(this, dirToEnemy * (1 - (len / this.BlackBoard.weaponRange) + data.hitMomentum));
                 knock = true;
@@ -257,16 +257,16 @@ public class Agent : MonoBehaviour
         {
             BlackBoard.blockResult = BlockResult.FAIL;
             BlackBoard.health = Mathf.Max(1, BlackBoard.health - damage);
-            BlackBoard.damageType = DamageType.BreakBlock; // 抵挡破防失败（扣血）
+            //BlackBoard.damageType = DamageType.BREAK_BLOCK; // 抵挡破防失败（扣血）
             CombatEffectMgr.Instance.PlayBloodEffect(Transform.position, -attacker.Forward);
             //SpriteEffectsManager.Instance.CreateBlood(Transform);
         }
         else
         {            
-            if (data.breakBlock) // 如果对方招式有破防效果
+            if (true/*data.breakBlock*/) // 如果对方招式有破防效果
             {
                 BlackBoard.blockResult = BlockResult.FAIL;
-                BlackBoard.damageType = DamageType.BreakBlock; // 抵挡破防失败（但不扣血）
+                //BlackBoard.damageType = DamageType.BREAK_BLOCK; // 抵挡破防失败（但不扣血）
                 //if (attacker.isPlayer)
                   //  Game.Instance.NumberOfBreakBlocks++;
                 //CombatEffectsManager.Instance.PlayBlockBreakEffect(Transform.position, -attacker.Forward);
@@ -274,7 +274,7 @@ public class Agent : MonoBehaviour
             else
             {
                 BlackBoard.blockResult = BlockResult.SUCCESS;
-                BlackBoard.damageType = DamageType.Front; // 抵挡破防成功
+                BlackBoard.damageType = DamageType.FRONT; // 抵挡破防成功
                 //if (attacker.isPlayer)
                   //  Game.Instance.NumberOfBlockedHits++;
                 CombatEffectMgr.Instance.PlayBlockHitEffect(ChestPosition, -attacker.Forward);
@@ -285,9 +285,9 @@ public class Agent : MonoBehaviour
     public void ReceiveImpuls(Agent attacker, Vector3 impuls)
     {        
         BlackBoard.attacker = attacker;
-        BlackBoard.attackerWeapon = WeaponType.None;
+        BlackBoard.attackerWeapon = WeaponType.NONE;
         BlackBoard.impuls = impuls;
-        BlackBoard.damageType = DamageType.Front;
+        BlackBoard.damageType = DamageType.FRONT;
         _goapMgr.WorldState.SetWSProperty(WorldStatePropKey.EVENT, EventTypes.HIT);
     }
 
@@ -308,7 +308,7 @@ public class Agent : MonoBehaviour
         if (BlackBoard.IsKnockedDown)
         { 
             BlackBoard.health = 0;
-            BlackBoard.damageType = DamageType.InKnockdown;
+            BlackBoard.damageType = DamageType.IN_KNOCK_DOWN;
             //_goapMgr.WorldState.SetWSProperty(WorldStatePropKey.EVENT, EventTypes.DEAD);            
             //CombatEffectsManager.Instance.PlayCriticalEffect(Transform.position, -attacker.Forward);
             //StartCoroutine(Fadeout(3));
@@ -322,7 +322,7 @@ public class Agent : MonoBehaviour
         else
         {
             BlackBoard.health = Mathf.Max(0, BlackBoard.health - damage);
-            BlackBoard.damageType = DamageType.Front;            
+            BlackBoard.damageType = DamageType.FRONT;            
 
             if (BlackBoard.IsAlive)
             {
@@ -380,7 +380,7 @@ public class Agent : MonoBehaviour
         //BlackBoard.stop = true;
         BlackBoard.health = 0;
         
-        if (type == CriticalHitType.Horizontal)
+        if (type == CriticalHitType.HORIZONTAL)
         {
             int r = Random.Range(0, 100);
             if (r < 33)

@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class AnimSetDoubleSwordman : AnimSet
 {
+    // 以下三行可以删除
     protected AnimAttackData AnimAttacksSword1;
     protected AnimAttackData AnimAttacksSword2;
     protected AnimAttackData AnimAttackWhirl;
 
+    AnimAttackData[] _attackDataList = new AnimAttackData[3];
+
     void Awake()
-    {        AnimAttacksSword1 = new AnimAttackData("attackA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.None, false);
-        AnimAttacksSword2 = new AnimAttackData("attackAA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.None, false);
-        AnimAttackWhirl = new AnimAttackData("attackWhirl", null, 1, 0.25f, 0.40f, 7, 10, 1, CriticalHitType.None, false);
+    {        AnimAttacksSword1 = new AnimAttackData("attackA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false);
+        AnimAttacksSword2 = new AnimAttackData("attackAA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false);
+        AnimAttackWhirl = new AnimAttackData("attackWhirl", null, 1, 0.25f, 0.40f, 7, 10, 1, CriticalHitType.NONE, false);
         Animation anims = GetComponent<Animation>();
+        anims.wrapMode = WrapMode.Once;
+
         anims["idle"].layer = 0;
         anims["idleSword"].layer = 0;
-        anims["idleTaunt"].layer = 1;        anims["walk"].layer = 0;        anims["combatMoveF"].layer = 0;
+        anims["idleTaunt"].layer = 0;// 1; 须改成0，和move、attack等同layer，否则无法被后续动作打断        anims["walk"].layer = 0;        anims["combatMoveF"].layer = 0;
         anims["combatMoveB"].layer = 0;
         anims["combatMoveR"].layer = 0;
         anims["combatMoveL"].layer = 0;
@@ -50,23 +55,43 @@ public class AnimSetDoubleSwordman : AnimSet
         anims["showSword"].layer = 0;        anims["hideSword"].layer = 1;
 
         //        anims["spawn"].layer = 1;
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.MULTI_SWORDS,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                    ("attackA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},
+                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                    ("attackAA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},                
+            }
+        });
 
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.WHIRL,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){attackType = AttackType.O, data = new AnimAttackData
+                    ("attackWhirl", null, 1, 0.25f, 0.40f, 7, 10, 1, CriticalHitType.NONE, false)}
+            }
+        });
 
     }
 
     public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)
-    {        if (weaponState == WeaponState.NotInHands)            return "idle";        return "idleSword";
+    {        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleSword";
     }
 
     public override string GetIdleActionAnim(WeaponType weapon, WeaponState weaponState)
     {
-        if (weapon == WeaponType.Katana)
+        if (weapon == WeaponType.KATANA)
             return "idleTaunt";
 
         return "idle";
     }
 
-    public override string GetMoveAnim(MotionType motion, MoveType move, WeaponType weapon, WeaponState weaponState)    {        if (weaponState == WeaponState.NotInHands)        {            return "walk";        }        else
+    public override string GetMoveAnim(MotionType motion, MoveType move, WeaponType weapon, WeaponState weaponState)    {        if (weaponState == WeaponState.NOT_IN_HANDS)        {            return "walk";        }        else
         {
             if (motion == MotionType.WALK)
             {
@@ -132,7 +157,7 @@ public class AnimSetDoubleSwordman : AnimSet
     public override string GetInjuryAnim(WeaponType weapon, DamageType type)
     {
 
-        if (type == DamageType.Back)
+        if (type == DamageType.BACK)
             return "injuryBack";
 
         string[] anims = { "injury01", "injury02", "injury03" };

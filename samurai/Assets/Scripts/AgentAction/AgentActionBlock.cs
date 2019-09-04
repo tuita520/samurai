@@ -16,7 +16,7 @@ public class AgentActionBlock : AgentAction
     public override void Reset(Agent agent)
     {
         base.Reset(agent);
-        fromWeapon = WeaponType.None;
+        fromWeapon = WeaponType.NONE;
         attacker = null;
     }
 }

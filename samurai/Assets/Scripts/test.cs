@@ -10,7 +10,7 @@ public class test : MonoBehaviour
     ViewCtrlMain viewCtrlMain;
     List<AttackType> attackTypeList = new List<AttackType>();
     uint hitVal = 0;
-
+    
     // Use this for initialization
     void Start () {
         //Time.timeScale = 0;
@@ -68,7 +68,7 @@ public class test : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.V))
         {            
-            viewCtrlMain.ShowFullCombo(FullComboType.CLOUD_CUT);
+            viewCtrlMain.ShowFullCombo(ComboType.CLOUD_CUT);
         }
         float time = Time.timeSinceLevelLoad;        
     }

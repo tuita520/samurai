@@ -68,7 +68,7 @@ public class AnimFsmStateAttackWhirl : AnimFsmState
                 {
                     if ((Owner.BlackBoard.desiredTarget.Position - Owner.Position).sqrMagnitude < Owner.BlackBoard.weaponRange * Owner.BlackBoard.weaponRange)
                     {
-                        Owner.BlackBoard.desiredTarget.ReceiveDamage(Owner, WeaponType.Body, _agentAction.data.hitDamage, _agentAction.data);
+                        Owner.BlackBoard.desiredTarget.ReceiveDamage(Owner, WeaponType.BODY, _agentAction.data.hitDamage, _agentAction.data);
                         //Owner.SoundPlayHit();
                     }
                 }

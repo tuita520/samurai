@@ -70,26 +70,26 @@ public class ViewCtrlMain : ViewCtrlBase
         }
     }
 
-    public void ShowFullCombo(FullComboType fullComboType)
+    public void ShowFullCombo(ComboType fullComboType)
     {
         switch (fullComboType)
         {            
-            case FullComboType.RAISE_WAVE:
+            case ComboType.RAISE_WAVE:
                 fullCombo.sprite = uiSet.fullComboSprites[0];
                 break;
-            case FullComboType.HALF_MOON:
+            case ComboType.HALF_MOON:
                 fullCombo.sprite = uiSet.fullComboSprites[1];
                 break;
-            case FullComboType.CLOUD_CUT:
+            case ComboType.CLOUD_CUT:
                 fullCombo.sprite = uiSet.fullComboSprites[2];
                 break;
-            case FullComboType.WALKING_DEATH:
+            case ComboType.WALKING_DEATH:
                 fullCombo.sprite = uiSet.fullComboSprites[3];
                 break;
-            case FullComboType.CRASH_GENERAL:
+            case ComboType.CRASH_GENERAL:
                 fullCombo.sprite = uiSet.fullComboSprites[4];
                 break;
-            case FullComboType.FLYING_DRAGON:
+            case ComboType.FLYING_DRAGON:
                 fullCombo.sprite = uiSet.fullComboSprites[5];
                 break;
             default:

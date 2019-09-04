@@ -3,13 +3,12 @@
 [System.Serializable]
 public class AnimSetSwordman : AnimSet
 {
-
     protected AnimAttackData AnimAttacksSwordL;
     protected AnimAttackData AnimAttacksSwordCounter;
 
     void Awake()
-    {        AnimAttacksSwordL = new AnimAttackData("attackA", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.None, false);
-        AnimAttacksSwordCounter = new AnimAttackData("attackCounter", null, 1.0f, 0.65f, 0.4f, 0.68f, 0.7f, 15, 25, 2, CriticalHitType.None, 0, false, false, false, false);
+    {        AnimAttacksSwordL = new AnimAttackData("attackA", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false);
+        AnimAttacksSwordCounter = new AnimAttackData("attackCounter", null, 1.0f, 0.65f, 0.4f, 0.68f, 0.7f, 15, 25, 2, CriticalHitType.NONE, 0, false, false, false, false);
 
         Animation anims = GetComponent<Animation>();
         anims["idle"].layer = 0;
@@ -47,23 +46,46 @@ public class AnimSetSwordman : AnimSet
         anims["showSword"].layer = 0;        anims["hideSword"].layer = 1;
 
         //        anims["spawn"].layer = 1;
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.MULTI_SWORDS,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                    ("attackA", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},
+                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                    ("attackB", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},
+                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                    ("attackBB", null, 0.7f, 0.30f, 0.72f, 10, 25, 2, CriticalHitType.NONE, false)},                
+            }
+        });
 
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.COUNTER,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){attackType = AttackType.O, data = new AnimAttackData
+                    ("attackCounter", null, 1.0f, 0.65f, 0.4f, 0.68f, 0.7f, 15, 25, 2, CriticalHitType.NONE, 
+                    0, false, false, false, false)}
+            }
+        });
 
     }
 
     public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)
-    {        if (weaponState == WeaponState.NotInHands)            return "idle";        return "idleSword";
+    {        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleSword";
     }
 
     public override string GetIdleActionAnim(WeaponType weapon, WeaponState weaponState)
     {
-        if (weapon == WeaponType.Katana)
+        if (weapon == WeaponType.KATANA)
             return "idleTount";
 
         return "idle";
     }
 
-    public override string GetMoveAnim(MotionType motion, MoveType move, WeaponType weapon, WeaponState weaponState)    {        if (weaponState == WeaponState.NotInHands)        {            if (motion == MotionType.WALK)
+    public override string GetMoveAnim(MotionType motion, MoveType move, WeaponType weapon, WeaponState weaponState)    {        if (weaponState == WeaponState.NOT_IN_HANDS)        {            if (motion == MotionType.WALK)
                 return "walk";            else                return "run";        }        else
         {
             if (motion == MotionType.WALK)
@@ -103,13 +125,13 @@ public class AnimSetSwordman : AnimSet
         return "rotationRight";
     }
     public override string GetRollAnim(WeaponType weapon, WeaponState weaponState) { return null; }    public override string GetBlockAnim(BlockState state, WeaponType weapon)    {
-        if (state == BlockState.Start)
+        if (state == BlockState.START)
             return "blockStart";
-        else if (state == BlockState.Loop)
+        else if (state == BlockState.HOLD)
             return "blockLoop";
-        else if (state == BlockState.Failed)
+        else if (state == BlockState.BLOCK_FAIL)
             return "blockFailed";
-        else if (state == BlockState.HitBlocked)
+        else if (state == BlockState.BLOCK_SUCCESS)            
             return "blockHit";
         else
             return "blockEnd";    }    public override string GetShowWeaponAnim(WeaponType weapon)    {        return "showSword";    }    public override string GetHideWeaponAnim(WeaponType weapon)    {        return "hideSword";    }
@@ -117,7 +139,7 @@ public class AnimSetSwordman : AnimSet
 
     public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, AttackType attackType)
     {
-        if (attackType == AttackType.Counter)
+        if (attackType == AttackType.COUNTER)
             return AnimAttacksSwordCounter;
 
         return AnimAttacksSwordL;

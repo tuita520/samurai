@@ -2,7 +2,7 @@ using UnityEngine;[System.Serializable]
 public class AnimSetPeasant : AnimSet{   
     protected AnimAttackData AnimAttacksSwordL;
     	void Awake()	{
-        AnimAttacksSwordL = new AnimAttackData("attackPeasant", null, 0.8f, 0.68f, 0.55f, 0.75f, 0.8f, 5, 20, 1, CriticalHitType.None, 0, false, false, false, false);		        Animation anims = GetComponent<Animation>();
+        AnimAttacksSwordL = new AnimAttackData("attackPeasant", null, 0.8f, 0.68f, 0.55f, 0.75f, 0.8f, 5, 20, 1, CriticalHitType.NONE, 0, false, false, false, false);		        Animation anims = GetComponent<Animation>();
 
         anims.wrapMode = WrapMode.Once;
 
@@ -27,17 +27,17 @@ public class AnimSetPeasant : AnimSet{
         anims["attackPeasant"].speed = 1.1f;
 
          anims["showSword"].layer = 0;        anims["hideSword"].layer = 1;
-	}	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NotInHands)            return "idle";        return "idleSword";	}
+	}	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleSword";	}
 
     public override string GetIdleActionAnim(WeaponType weapon, WeaponState weaponState)
     {
-        if(weapon == WeaponType.Katana)
+        if(weapon == WeaponType.KATANA)
             return "idleTount";
 
         return "idle";
     }
 
-    public override string GetMoveAnim(MotionType motion, MoveType move, WeaponType weapon, WeaponState weaponState)    {        if (weaponState == WeaponState.NotInHands)        {            if (motion == MotionType.WALK)
+    public override string GetMoveAnim(MotionType motion, MoveType move, WeaponType weapon, WeaponState weaponState)    {        if (weaponState == WeaponState.NOT_IN_HANDS)        {            if (motion == MotionType.WALK)
                 return "walk";            else                return "run";        }        else         {
             if (motion == MotionType.WALK)
             {

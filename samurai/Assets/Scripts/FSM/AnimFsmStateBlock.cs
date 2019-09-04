@@ -131,7 +131,7 @@ public class AnimFsmStateBlock : AnimFsmState
         base.Initialize(action);
         _agentAction = Owner.BlackBoard.curAction as AgentActionBlock;
 
-        string animName = Owner.AnimSet.GetBlockAnim(BlockState.Start, Owner.BlackBoard.weaponSelected);
+        string animName = Owner.AnimSet.GetBlockAnim(BlockState.START, Owner.BlackBoard.weaponSelected);
 
         StartRotation = Owner.Transform.rotation;
         StartPosition = Owner.Transform.position;
@@ -167,7 +167,7 @@ public class AnimFsmStateBlock : AnimFsmState
 
     private void InitializeBlockLoop()
     {
-        string animName = Owner.AnimSet.GetBlockAnim(BlockState.Loop, Owner.BlackBoard.weaponSelected);
+        string animName = Owner.AnimSet.GetBlockAnim(BlockState.HOLD, Owner.BlackBoard.weaponSelected);
         CrossFade(animName, 0.05f); ;
 
         EndOfStateTime = BlockEndTime;
@@ -178,7 +178,7 @@ public class AnimFsmStateBlock : AnimFsmState
 
     private void InitializeBlockSuccess()
     {
-        string animName = Owner.AnimSet.GetBlockAnim(BlockState.HitBlocked, Owner.BlackBoard.weaponSelected);
+        string animName = Owner.AnimSet.GetBlockAnim(BlockState.BLOCK_SUCCESS, Owner.BlackBoard.weaponSelected);
         CrossFade(animName, 0.05f); ;
 
         StartRotation = Owner.Transform.rotation;
@@ -219,7 +219,7 @@ public class AnimFsmStateBlock : AnimFsmState
 
     private void InitializeBlockFailed()
     {
-        string animName = Owner.AnimSet.GetBlockAnim(BlockState.Failed, Owner.BlackBoard.weaponSelected);
+        string animName = Owner.AnimSet.GetBlockAnim(BlockState.BLOCK_FAIL, Owner.BlackBoard.weaponSelected);
         CrossFade(animName, 0.05f); ;
 
         StartRotation = Owner.Transform.rotation;
@@ -260,7 +260,7 @@ public class AnimFsmStateBlock : AnimFsmState
     {
         //Debug.Log(Time.timeSinceLevelLoad + Owner.name + "Block end");
 
-        string animName = Owner.AnimSet.GetBlockAnim(BlockState.End, Owner.BlackBoard.weaponSelected);
+        string animName = Owner.AnimSet.GetBlockAnim(BlockState.END, Owner.BlackBoard.weaponSelected);
         CrossFade(animName, 0.05f); ;
 
         EndOfStateTime = Time.timeSinceLevelLoad + Owner.AnimEngine[animName].length * 0.9f;
