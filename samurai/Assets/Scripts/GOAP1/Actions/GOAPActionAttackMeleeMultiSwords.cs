@@ -4,9 +4,7 @@ using Phenix.Unity.AI;
 public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
 {
     AnimFSMEventAttackMelee _eventAttack;
-    int _numberOfAttacks;
-    int _curAttackNumber;
-    //AttackType _curAttacktype;
+    int _remainAttackCount;    
 
     public GOAPActionAttackMeleeMultiSwords(Agent1 agent, FSMComponent fsm, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
@@ -19,15 +17,18 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
     {
         base.Reset();
         _eventAttack = null;
-        _curAttackNumber = _numberOfAttacks = 0;
-        //_curAttacktype = AttackType.NONE;
+        _remainAttackCount = 0;        
     }
 
     public override void OnEnter()
     {
-        //_curAttacktype = AttackType.X;
-        _numberOfAttacks = UnityEngine.Random.Range(1, 4);
-        _curAttackNumber = 1;
+        int attackCount = Agent.AnimSet.GetComboAttackCount(ComboType.MULTI_SWORDS);
+        if (attackCount == 0)
+        {
+            return;
+        }
+        _remainAttackCount = UnityEngine.Random.Range(1, attackCount+1);
+        Agent.AnimSet.ResetComboProgress();
         SendEvent();
     }
 
@@ -44,8 +45,7 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
     void SendEvent()
     {
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
-        _eventAttack.attackType = AttackType.X; // AttackType.O也行
-
+        
         if (Agent.BlackBoard.desiredTarget)
         {
             Agent.BlackBoard.desiredDirection = Agent.BlackBoard.desiredTarget.Position - Agent.Position;
@@ -56,13 +56,12 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
         {
             _eventAttack.attackDir = Agent.Forward;
         }
-
-        //_eventAttack.animAttackData = Agent.GetComponent<AnimSet>().GetFirstAttackAnim(
-        //  Agent.BlackBoard.weaponSelected, _eventAttack.attackType);
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.MULTI_SWORDS, ref _curAttackNumber);
-        _eventAttack.hitDone = false;
+        
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.MULTI_SWORDS);
+        _eventAttack.hitTimeStart = false;
         _eventAttack.attackPhaseDone = false;
-        FSMComponent.SendEvent(_eventAttack);        
+        FSMComponent.SendEvent(_eventAttack);
+        --_remainAttackCount;
     }
 
     public override void OnUpdate()
@@ -71,28 +70,16 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
         {
             return;
         }
-        if (_eventAttack.attackPhaseDone && _curAttackNumber <= _numberOfAttacks)
+        if (_eventAttack.attackPhaseDone && _remainAttackCount > 0)
         {
             //Owner.SoundPlayPrepareAttack();
             _eventAttack.Release();
             SendEvent();            
-        }
-        /*if (_eventAttack.attackPhaseDone && _numberOfAttacks > 0)
-        {
-            if (_curAttacktype == AttackType.X)
-                _curAttacktype = AttackType.O;
-            else
-                _curAttacktype = AttackType.X;
-
-            //Owner.SoundPlayPrepareAttack();
-            _eventAttack.Release();
-            SendEvent();
-            --_numberOfAttacks;
-        }*/
+        }       
     }
 
     public override bool IsFinished()
     {
-        return (_eventAttack != null && _eventAttack.IsFinished && _numberOfAttacks == 0);        
+        return (_eventAttack != null && _eventAttack.IsFinished && _remainAttackCount == 0);        
     }
 }

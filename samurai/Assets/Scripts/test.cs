@@ -8,7 +8,7 @@ public class test : MonoBehaviour
     public Transform player;
     GameObject blood;
     ViewCtrlMain viewCtrlMain;
-    List<AttackType> attackTypeList = new List<AttackType>();
+    List<OrderAttackType> attackTypeList = new List<OrderAttackType>();
     uint hitVal = 0;
     
     // Use this for initialization
@@ -53,12 +53,12 @@ public class test : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.N))
         {
-            attackTypeList.Add(AttackType.X);
+            attackTypeList.Add(OrderAttackType.X);
             viewCtrlMain.ShowCombo(attackTypeList);
         }
         if (Input.GetKeyUp(KeyCode.M))
         {
-            attackTypeList.Add(AttackType.O);
+            attackTypeList.Add(OrderAttackType.O);
             viewCtrlMain.ShowCombo(attackTypeList);
         }
         if (Input.GetKeyUp(KeyCode.B))

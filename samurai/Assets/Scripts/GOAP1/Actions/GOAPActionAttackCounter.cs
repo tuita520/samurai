@@ -19,7 +19,8 @@ public class GOAPActionAttackCounter : GOAPActionBase
     }
 
     public override void OnEnter()
-    {   
+    {
+        Agent.AnimSet.ResetComboProgress();
         SendEvent();
     }
 
@@ -38,9 +39,9 @@ public class GOAPActionAttackCounter : GOAPActionBase
         //Owner.SoundPlayBerserk();
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
         _eventAttack.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
-        _eventAttack.attackType = AttackType.COUNTER;
+        //_eventAttack.attackType = OrderAttackType.COUNTER;
         _eventAttack.attackDir = Agent.BlackBoard.desiredDirection;
-        _eventAttack.hitDone = false;
+        _eventAttack.hitTimeStart = false;
         _eventAttack.attackPhaseDone = false;
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.COUNTER);
         FSMComponent.SendEvent(_eventAttack);

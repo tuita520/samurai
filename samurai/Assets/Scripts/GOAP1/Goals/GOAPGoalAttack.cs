@@ -17,6 +17,11 @@ public class GOAPGoalAttack : GOAPGoalBase
     
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {
+        if (Agent.BlackBoard.InAttackMotion)
+        {
+            return Agent.BlackBoard.GOAPMaxWeightAttackTarget;
+        }
+
         if (Agent.BlackBoard.HasAttackTarget == false)
         {
             return 0;

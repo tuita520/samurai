@@ -60,9 +60,9 @@ public class AnimSetDoubleSwordman : AnimSet
             comboType = ComboType.MULTI_SWORDS,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},
-                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackAA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},                
             }
         });
@@ -72,7 +72,7 @@ public class AnimSetDoubleSwordman : AnimSet
             comboType = ComboType.WHIRL,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.O, data = new AnimAttackData
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackWhirl", null, 1, 0.25f, 0.40f, 7, 10, 1, CriticalHitType.NONE, false)}
             }
         });
@@ -138,9 +138,9 @@ public class AnimSetDoubleSwordman : AnimSet
     }    public override string GetShowWeaponAnim(WeaponType weapon)    {        return "showSword";    }    public override string GetHideWeaponAnim(WeaponType weapon)    {        return "hideSword";    }
 
 
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, OrderAttackType attackType)
     {
-        if (attackType == AttackType.X)
+        if (attackType == OrderAttackType.X)
             return AnimAttacksSword1;
 
 

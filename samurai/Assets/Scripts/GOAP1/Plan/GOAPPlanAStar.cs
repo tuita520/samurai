@@ -130,10 +130,11 @@ public class GOAPPlanAStar : Phenix.Unity.AI.GOAPPlan
                 if (CurWorldState.Get((int)WorldStatePropType.IN_WEAPON_RANGE) == false)
                 {
                     steps.Enqueue(actionsMap[(int)GOAPActionType1.GOTO_MELEE_RANGE]);
-                }                
+                }
                 //steps.Enqueue(actionsMap[(int)GOAPActionType1.ATTACK_COUNTER]);
-                steps.Enqueue(actionsMap[UnityEngine.Random.Range(0, 2) == 0 ?
-                    (int)GOAPActionType1.ATTACK_MELEE_MULTI_SWORDS : (int)GOAPActionType1.ATTACK_WHIRL]);                
+                //steps.Enqueue(actionsMap[(int)GOAPActionType1.ATTACK_WHIRL]);
+                //steps.Enqueue(actionsMap[(int)GOAPActionType1.ATTACK_MELEE_MULTI_SWORDS]);                
+                steps.Enqueue(actionsMap[(int)GOAPActionType1.ATTACK_MELEE_SINGLE_SWORD]);
                 break;
             case (int)GOAPGoalType1.REACT_TO_DAMAGE:
                 if (CurWorldState.Get((int)WorldStatePropType.WEAPON_IN_HAND) == false)

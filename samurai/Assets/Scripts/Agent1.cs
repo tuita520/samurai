@@ -61,7 +61,7 @@ public class Agent1 : MonoBehaviour
         BlackBoard.Rage = BlackBoard.Rage + BlackBoard.rageModificator * 1.2f * Time.deltaTime;
         BlackBoard.Berserk = BlackBoard.Berserk + BlackBoard.berserkModificator * 1.2f * Time.deltaTime;
 
-        if (BlackBoard.desiredTarget != null && BlackBoard.AheadOfTarget)
+        if (BlackBoard.desiredTarget != null && BlackBoard.AheadOfDesiredTarget)
             BlackBoard.Fear = BlackBoard.Fear + BlackBoard.fearModificator * Time.deltaTime;
         else
             BlackBoard.Fear = BlackBoard.Fear - BlackBoard.fearModificator * Time.deltaTime;
@@ -101,7 +101,7 @@ public class Agent1 : MonoBehaviour
                 BlackBoard.Rage = BlackBoard.minRage;
                 BlackBoard.Block = BlackBoard.Block + BlackBoard.blockAttackModificator;
                 BlackBoard.Fear = BlackBoard.Fear + BlackBoard.fearAttackModificator;
-                if ((ev as AnimFSMEventAttackMelee).attackType == AttackType.COUNTER)
+                if ((ev as AnimFSMEventAttackMelee).animAttackData.isCounter)
                 {
                     BlackBoard.Berserk = BlackBoard.minBerserk;
                 }

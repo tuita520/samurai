@@ -31,7 +31,7 @@ public class GOAPGoalPress : GOAPGoalBase
         }
         
         return Mathf.Min(Agent.BlackBoard.GOAPMaxWeightPress, 
-            (Agent.BlackBoard.DistanceToTarget - Agent.BlackBoard.combatRange) * 0.3f);
+            (Agent.BlackBoard.DistanceToDesiredTarget - Agent.BlackBoard.combatRange) * 0.3f);
     }
 
 }

@@ -20,7 +20,7 @@ public class GOAPGoalShow : GOAPGoalBase
         {
             return 0;
         }
-        if (Agent.BlackBoard.InWeaponRange)
+        if (Agent.BlackBoard.DesiredTargetInWeaponRange)
         {
             return 0;
         }

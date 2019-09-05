@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 using Phenix.Unity.Collection;
 
 public class AnimFSMEventAttackMelee : AnimFSMEvent
@@ -7,10 +6,9 @@ public class AnimFSMEventAttackMelee : AnimFSMEvent
     public static Pool<AnimFSMEventAttackMelee> pool = new Pool<AnimFSMEventAttackMelee>(10, Reset);
 
     public Agent1 target;
-    public AnimAttackData animAttackData;
-    public AttackType attackType;
+    public AnimAttackData animAttackData;    
     public Vector3 attackDir;
-    public bool hitDone;
+    public bool hitTimeStart;
     public bool attackPhaseDone;
 
     public override void Release()
@@ -22,10 +20,10 @@ public class AnimFSMEventAttackMelee : AnimFSMEvent
     {
         base.Reset();
         target = null;
-        hitDone = false;
+        attackDir = Vector3.zero;
+        hitTimeStart = false;
         attackPhaseDone = false;
         animAttackData = null;
-        attackType = AttackType.NONE;        
     }
     
     public AnimFSMEventAttackMelee()

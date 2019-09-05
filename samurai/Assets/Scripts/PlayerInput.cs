@@ -41,13 +41,13 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.J))
         {
             AgentActionAttackMelee attackMeleeAction = AgentActionFactory.Get(AgentActionType.ATTACK_MELEE, _owner) as AgentActionAttackMelee;
-            attackMeleeAction.attackType = AttackType.X;            
+            attackMeleeAction.attackType = OrderAttackType.X;            
             AddOrder(attackMeleeAction);
         }
         if (Input.GetKeyUp(KeyCode.K))
         {
             AgentActionAttackMelee attackMeleeAction = AgentActionFactory.Get(AgentActionType.ATTACK_MELEE, _owner) as AgentActionAttackMelee;
-            attackMeleeAction.attackType = AttackType.O;            
+            attackMeleeAction.attackType = OrderAttackType.O;            
             AddOrder(attackMeleeAction);
         }
 

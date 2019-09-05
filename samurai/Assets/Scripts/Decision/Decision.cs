@@ -3,6 +3,9 @@ using UnityEngine;
 
 public abstract class Decision : MonoBehaviour
 {
+    public float selectTargetCDForNPC = 1;
+    float _nextSelectTargetTimerForNPC = 0;
+
     protected Agent1 Agent { get; private set; }
 
     public virtual void Reset() { }
@@ -14,7 +17,7 @@ public abstract class Decision : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+       
     }
 
     protected virtual void Update()
@@ -24,7 +27,11 @@ public abstract class Decision : MonoBehaviour
 
     protected void UpdateTarget(float distanceRange, List<Agent1> enemies)
     {
-        Agent.BlackBoard.desiredTarget = SelectTarget(distanceRange, enemies);
+        if (_nextSelectTargetTimerForNPC <= Time.timeSinceLevelLoad)
+        {
+            Agent.BlackBoard.desiredTarget = SelectTarget(distanceRange, enemies);
+            _nextSelectTargetTimerForNPC = Time.timeSinceLevelLoad + selectTargetCDForNPC;
+        }        
     }
 
     public virtual Agent1 SelectTarget(float distanceRange, List<Agent1> agents)

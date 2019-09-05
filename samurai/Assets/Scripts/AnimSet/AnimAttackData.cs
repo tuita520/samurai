@@ -40,8 +40,11 @@ public class AnimAttackData
     public bool fullCombo;
     public int comboStep;
 
+    public bool isFatal = false; // 是否一击必杀
+    public bool isCounter = false; // 是否属于反击技能
+
     public AnimAttackData(string animName, GameObject trail, float moveDistance, float hitTime, float attackEndTime, float hitDamage, 
-        float hitAngle, float hitMomentum, CriticalHitType criticalType, bool areaKnockDown)
+        float hitAngle, float hitMomentum, CriticalHitType criticalType, bool areaKnockDown, bool isFatal = false, bool isCounter = false)
     {
         this.animName = animName;
         this.trail = trail;
@@ -88,12 +91,13 @@ public class AnimAttackData
         hitAreaKnockdown = areaKnockDown;        
         useImpuls = false;
         criticalModificator = 1;
-
+        this.isFatal = isFatal;
+        this.isCounter = isCounter;
     }
 
     public AnimAttackData(string animName, GameObject trail, float moveDistance, float hitTime, float moveStartTime, float moveEndTime, 
         float attackEndTime, float hitDamage, float hitAngle, float hitMomentum, CriticalHitType criticalType, float criticalMod, 
-        bool areaKnockDown, bool breakBlock, bool useImpuls, bool sloMotion)
+        bool areaKnockDown, bool breakBlock, bool useImpuls, bool sloMotion, bool isFatal = false, bool isCounter = false)
     {
         this.animName = animName;
         this.trail = trail;
@@ -143,6 +147,8 @@ public class AnimAttackData
         this.useImpuls = useImpuls;
         criticalModificator = criticalMod;
         //this.sloMotion = sloMotion;
+        this.isFatal = isFatal;
+        this.isCounter = isCounter;
     }
 
 

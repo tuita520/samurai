@@ -5,7 +5,7 @@ public abstract class AnimSet : MonoBehaviour
 {
     public class ComboStep
     {
-        public AttackType attackType;
+        public OrderAttackType orderAttackType;
         public AnimAttackData data;
     }
 
@@ -15,29 +15,34 @@ public abstract class AnimSet : MonoBehaviour
         public ComboStep[] comboSteps;
     }
     
-    List<AttackType> _comboProgress = new List<AttackType>();    // 连续攻击动作类型(出招表)
+    List<OrderAttackType> _comboProgress = new List<OrderAttackType>();    // 连续攻击动作类型(出招表)
     List<Combo> _comboAttacks = new List<Combo>();
+    int _curAttackIdx = 0;
     
-    protected List<AttackType> ComboProgress { get { return _comboProgress; } }
+    protected List<OrderAttackType> ComboProgress { get { return _comboProgress; } }
     protected List<Combo> ComboAttacks { get { return _comboAttacks; } }
 
     public void ResetComboProgress()
     {
         _comboProgress.Clear();
+        _curAttackIdx = 0;
+    }
+
+    public int GetComboAttackCount(ComboType comboType)
+    {
+        for (int i = 0; i < _comboAttacks.Count; ++i)
+        {
+            Combo combo = _comboAttacks[i];
+            if (combo.comboType == comboType)
+            {
+                return combo.comboSteps.Length;
+            }
+        }
+        return 0;
     }
 
     public AnimAttackData ProcessCombo(ComboType comboType)
     {
-        int step = 1;
-        return ProcessCombo(comboType, ref step);
-    }
-
-    public AnimAttackData ProcessCombo(ComboType comboType, ref int step)
-    {
-        if (step < 1)
-        {
-            return null;
-        }
         for (int i = 0; i < _comboAttacks.Count; ++i)
         {
             Combo combo = _comboAttacks[i];
@@ -50,14 +55,14 @@ public abstract class AnimSet : MonoBehaviour
             {
                 return null;
             }
-            return combo.comboSteps[((step++)-1) % len].data;       
+            return combo.comboSteps[_curAttackIdx++ % len].data;       
         }
         return null;
     }
 
-    public AnimAttackData ProcessCombo(AttackType attackType)
+    public AnimAttackData ProcessOrderCombo(OrderAttackType attackType)
     {
-        if (attackType != AttackType.O && attackType != AttackType.X)
+        if (attackType != OrderAttackType.O && attackType != OrderAttackType.X)
             return null;
 
         _comboProgress.Add(attackType);
@@ -71,7 +76,7 @@ public abstract class AnimSet : MonoBehaviour
             // 遍历出招记录
             for (int ii = 0; ii < _comboProgress.Count && ii < combo.comboSteps.Length; ++ii)
             {
-                if (_comboProgress[ii] != combo.comboSteps[ii].attackType)
+                if (_comboProgress[ii] != combo.comboSteps[ii].orderAttackType)
                 {
                     valid = false;
                     break;
@@ -81,7 +86,7 @@ public abstract class AnimSet : MonoBehaviour
             if (valid)
             {
                 combo.comboSteps[_comboProgress.Count - 1].data.lastAttackInCombo = 
-                    (NextAttackIsAvailable(AttackType.X) == false && NextAttackIsAvailable(AttackType.O) == false);
+                    (NextAttackIsAvailable(OrderAttackType.X) == false && NextAttackIsAvailable(OrderAttackType.O) == false);
                 combo.comboSteps[_comboProgress.Count - 1].data.firstAttackInCombo = false;
                 combo.comboSteps[_comboProgress.Count - 1].data.comboIndex = i;
                 combo.comboSteps[_comboProgress.Count - 1].data.fullCombo = 
@@ -98,7 +103,7 @@ public abstract class AnimSet : MonoBehaviour
 
         for (int i = 0; i < _comboAttacks.Count; i++)
         {
-            if (_comboAttacks[i].comboSteps[0].attackType == attackType)
+            if (_comboAttacks[i].comboSteps[0].orderAttackType == attackType)
             {
                 // Debug.Log(Time.timeSinceLevelLoad + " New combo " + i + " step " + ComboProgress.Count);
                 _comboAttacks[i].comboSteps[0].data.lastAttackInCombo = false;
@@ -117,15 +122,15 @@ public abstract class AnimSet : MonoBehaviour
         return null;
     }
 
-    bool NextAttackIsAvailable(AttackType attackType)
+    bool NextAttackIsAvailable(OrderAttackType attackType)
     {
-        if (attackType != AttackType.O && attackType != AttackType.X)
+        if (attackType != OrderAttackType.O && attackType != OrderAttackType.X)
             return false;
 
         if (_comboProgress.Count == 5)
             return false;
 
-        List<AttackType> progress = new List<AttackType>(_comboProgress);
+        List<OrderAttackType> progress = new List<OrderAttackType>(_comboProgress);
         progress.Add(attackType);
 
         for (int i = 0; i < _comboAttacks.Count; i++)
@@ -135,7 +140,7 @@ public abstract class AnimSet : MonoBehaviour
             bool valid = true;
             for (int ii = 0; ii < progress.Count; ii++)
             {
-                if (progress[ii] != combo.comboSteps[ii].attackType)
+                if (progress[ii] != combo.comboSteps[ii].orderAttackType)
                 {
                     valid = false;
                     break;
@@ -163,7 +168,7 @@ public abstract class AnimSet : MonoBehaviour
     public abstract string GetDeathAnim( WeaponType weapon, DamageType type );
 
     // 以下函数可以删除
-    public virtual AnimAttackData GetFirstAttackAnim(WeaponType weapon, AttackType attackType) { return null; }
+    public virtual AnimAttackData GetFirstAttackAnim(WeaponType weapon, OrderAttackType attackType) { return null; }
     public virtual AnimAttackData GetWhirlAttackAnim() { return null; }
     public virtual AnimAttackData GetRollAttackAnim() { return null; }
 }

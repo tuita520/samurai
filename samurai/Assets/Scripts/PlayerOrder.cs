@@ -24,7 +24,7 @@ public class OrderDataMove : OrderData
 
 public class OrderDataAttack : OrderData
 {
-    public AttackType attackType;
+    public OrderAttackType attackType;
 
     public OrderDataAttack() : base((int)OrderType.ATTACK) { }
 }
@@ -66,6 +66,11 @@ public class PlayerOrder : MonoBehaviour
 
     public bool Add(OrderData order)
     {
+        if (order == null)
+        {
+            return false;
+        }
+
         if (_maxCachedOrderCount <= 0)
         {
             return false;

@@ -79,7 +79,7 @@ public class AnimSetPeasant : AnimSet{
         return "idle";    }    public override string GetShowWeaponAnim(WeaponType weapon)    {        return "showSword";    }    public override string GetHideWeaponAnim(WeaponType weapon)    {        return "hideSword";    }
 
 
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, OrderAttackType attackType)
     {
         return AnimAttacksSwordL;
     }  

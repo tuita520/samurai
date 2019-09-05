@@ -33,6 +33,6 @@ public class GOAPGoalAlert : GOAPGoalBase
             return 0;
         }
 
-        return Mathf.Min(Agent.BlackBoard.GOAPMaxWeightAlert, Agent.BlackBoard.ForwardAngleToTarget * 0.01f);
+        return Mathf.Min(Agent.BlackBoard.GOAPMaxWeightAlert, Agent.BlackBoard.ForwardAngleToDesiredTarget * 0.01f);
     }
 }

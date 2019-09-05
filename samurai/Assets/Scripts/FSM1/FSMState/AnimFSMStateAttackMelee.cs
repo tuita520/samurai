@@ -186,12 +186,12 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                 // Debug.Log(Time.timeSinceLevelLoad + " moving");
             }
 
-            if (_eventAttackMelee.hitDone == false && _hitTime <= Time.timeSinceLevelLoad)
+            if (_eventAttackMelee.hitTimeStart == false && _hitTime <= Time.timeSinceLevelLoad)
             {
-                _eventAttackMelee.hitDone = true;
+                _eventAttackMelee.hitTimeStart = true;
                 HandleAttackResult.DoMeleeDamage(Agent, _eventAttackMelee.target, Agent.BlackBoard.attackerWeapon,
                     _eventAttackMelee.animAttackData, _isCritical, _knockdown, 
-                    _eventAttackMelee.attackType == AttackType.FATALITY);
+                    _eventAttackMelee.animAttackData.isFatal);
             }
         }
         else if (_attackStatus == AttackStatus.FINISHED && _endOfStateTime <= Time.timeSinceLevelLoad)
@@ -269,7 +269,7 @@ public class AnimFSMStateAttackMelee : AnimFSMState
     {
         MontageShotData montageData = new MontageShotData();
         montageData.isCritical = _isCritical;
-        montageData.isFatalAttack = (_eventAttackMelee.attackType == AttackType.FATALITY);
+        montageData.isFatalAttack = (_eventAttackMelee.animAttackData.isFatal);
         onMontageShot.Invoke(montageData);
     }
 }

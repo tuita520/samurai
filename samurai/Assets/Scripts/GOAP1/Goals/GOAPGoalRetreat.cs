@@ -36,13 +36,13 @@ public class GOAPGoalRetreat : GOAPGoalBase
         if (Agent.BlackBoard.InAttackCD)
         {
             return Agent.BlackBoard.GOAPMaxWeightRetreat * Agent.BlackBoard.desiredTarget.BlackBoard.weaponRange
-                / Agent.BlackBoard.DistanceToTarget;
+                / Agent.BlackBoard.DistanceToDesiredTarget;
         }
         
         float ret = Agent.BlackBoard.GOAPMaxWeightRetreat * (Agent.BlackBoard.Fear * 0.01f);
-        if (Agent.BlackBoard.DistanceToTarget <= Agent.BlackBoard.desiredTarget.BlackBoard.weaponRange)
+        if (Agent.BlackBoard.DistanceToDesiredTarget <= Agent.BlackBoard.desiredTarget.BlackBoard.weaponRange)
             ret += 0.2f;        
-        if (Agent.BlackBoard.AheadOfTarget == false)
+        if (Agent.BlackBoard.AheadOfDesiredTarget == false)
             ret *= 0.5f;
         if (ret > Agent.BlackBoard.GOAPMaxWeightRetreat)
             ret = Agent.BlackBoard.GOAPMaxWeightRetreat;

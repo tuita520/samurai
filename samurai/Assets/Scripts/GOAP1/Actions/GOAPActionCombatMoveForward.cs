@@ -42,17 +42,17 @@ public class GOAPActionCombatMoveForward : GOAPActionBase
         {
             return true;
         }
-        return _eventCombatMove.IsFinished || Agent.BlackBoard.InCombatRange;
+        return _eventCombatMove.IsFinished || Agent.BlackBoard.DesiredTargetInCombatRange;
     }
 
     void SendEvent()
     {
         _eventCombatMove = AnimFSMEventCombatMove.pool.Get();
         _eventCombatMove.moveType = MoveType.FORWARD;
-        _eventCombatMove.motionType = Agent.BlackBoard.DistanceToTarget - Agent.BlackBoard.combatRange <= 4 ? MotionType.WALK : MotionType.RUN;
+        _eventCombatMove.motionType = Agent.BlackBoard.DistanceToDesiredTarget - Agent.BlackBoard.combatRange <= 4 ? MotionType.WALK : MotionType.RUN;
         _eventCombatMove.target = Agent.BlackBoard.desiredTarget;
-        _eventCombatMove.totalMoveDistance = Random.Range((Agent.BlackBoard.DistanceToTarget - Agent.BlackBoard.combatRange * 0.5f) * 0.5f, 
-            Agent.BlackBoard.DistanceToTarget - Agent.BlackBoard.combatRange * 0.5f);
+        _eventCombatMove.totalMoveDistance = Random.Range((Agent.BlackBoard.DistanceToDesiredTarget - Agent.BlackBoard.combatRange * 0.5f) * 0.5f, 
+            Agent.BlackBoard.DistanceToDesiredTarget - Agent.BlackBoard.combatRange * 0.5f);
         _eventCombatMove.minDistanceToTarget = 3;
         FSMComponent.SendEvent(_eventCombatMove);
     }

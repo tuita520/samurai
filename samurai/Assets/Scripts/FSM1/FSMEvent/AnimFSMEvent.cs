@@ -20,6 +20,7 @@ public enum AnimFSMEventCode
     BLOCK,
     BREAK_BLOCK,
     ATTACK_ROLL,
+    ATTACK_CROSS,
     COUNT,
 }
 

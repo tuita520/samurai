@@ -20,15 +20,15 @@ public class GOAPGoalBlock1 : GOAPGoalBase
         {
             return 0;
         }
-        if (Agent.BlackBoard.InCombatRange == false)
+        if (Agent.BlackBoard.DesiredTargetInCombatRange == false)
         {
             return 0;
         }
-        if (Agent.BlackBoard.LookAtTarget == false)
+        if (Agent.BlackBoard.LookAtDesiredTarget == false)
         {
             return 0;
         }
-        if (Agent.BlackBoard.AheadOfTarget == false)
+        if (Agent.BlackBoard.AheadOfDesiredTarget == false)
         {
             return 0;
         }

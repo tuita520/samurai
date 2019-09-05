@@ -52,7 +52,7 @@ public class GOAPActionCombatMoveLeft : GOAPActionBase
         _eventCombatMove.motionType = MotionType.WALK;
         _eventCombatMove.target = Agent.BlackBoard.desiredTarget;
         _eventCombatMove.totalMoveDistance = Random.Range(2f, 4f);
-        _eventCombatMove.minDistanceToTarget = Agent.BlackBoard.DistanceToTarget * 0.7f;
+        _eventCombatMove.minDistanceToTarget = Agent.BlackBoard.DistanceToDesiredTarget * 0.7f;
         FSMComponent.SendEvent(_eventCombatMove);
     }
 }

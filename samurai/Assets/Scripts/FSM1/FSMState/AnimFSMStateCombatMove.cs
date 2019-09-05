@@ -50,7 +50,7 @@ public class AnimFSMStateCombatMove : AnimFSMState
                 _eventCombatMove.IsFinished = true;
             }
         }
-        else if (_eventCombatMove.minDistanceToTarget > Agent.BlackBoard.DistanceToTarget)            
+        else if (_eventCombatMove.minDistanceToTarget > Agent.BlackBoard.DistanceToDesiredTarget)            
         {
             IsFinished = true;
             _eventCombatMove.IsFinished = true;

@@ -13,10 +13,10 @@ public class GOAPGoalCalm : GOAPGoalBase
         base.OnEnter(ws);
         UnityEngine.Debug.Log("calm");
     }
-    public override bool IsAborted()
-    {
-        return false;
-    }
+    //public override bool IsAborted()
+    //{
+    //    return false;
+    //}
 
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {

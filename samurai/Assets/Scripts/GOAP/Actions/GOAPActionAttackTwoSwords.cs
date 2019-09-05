@@ -5,7 +5,7 @@ using UnityEngine;
 public class GOAPActionAttackTwoSwords : GOAPAction
 {	
     int NumberOfAttacks;
-    AttackType CurrentAttacktype;
+    OrderAttackType CurrentAttacktype;
 
     public GOAPActionAttackTwoSwords(Agent owner)
         : base(GOAPActionType.ATTACK_MELEE_TWO_SWORDS, owner)
@@ -27,7 +27,7 @@ public class GOAPActionAttackTwoSwords : GOAPAction
 
     public override void Activate()
     {        
-        CurrentAttacktype = AttackType.X;
+        CurrentAttacktype = OrderAttackType.X;
         NumberOfAttacks = UnityEngine.Random.Range(2, 4);
         base.Activate();
     }
@@ -36,10 +36,10 @@ public class GOAPActionAttackTwoSwords : GOAPAction
     {
         if ((AgentAction as AgentActionAttackMelee).attackPhaseDone && NumberOfAttacks > 0)
         {
-            if (CurrentAttacktype == AttackType.X)
-                CurrentAttacktype = AttackType.O;
+            if (CurrentAttacktype == OrderAttackType.X)
+                CurrentAttacktype = OrderAttackType.O;
             else
-                CurrentAttacktype = AttackType.X;
+                CurrentAttacktype = OrderAttackType.X;
 
             //Owner.SoundPlayPrepareAttack();
             if (AgentAction != null)

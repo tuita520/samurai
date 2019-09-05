@@ -47,16 +47,16 @@ public enum WeaponState
 	//Empty,
 }
 
-public enum AttackType
+public enum OrderAttackType
 {
 	NONE = -1,
 	X = 0,
 	O = 1,
-    BOSS_BASH = 2,  // 暂时无用
-    FATALITY = 3,   // 一击必杀（如针对倒地敌人的跳杀）
-    COUNTER = 4,    // 反击
-    BERSERK = 5,    // 暴击
-	MAX = 6,
+    //BOSS_BASH = 2,  // 暂时无用
+    //FATALITY = 3,   // 一击必杀（如针对倒地敌人的跳杀）
+    //COUNTER = 4,    // 反击
+    //BERSERK = 5,    // 暴击
+	//MAX = 6,
 }
     
 public enum AgentType
@@ -191,7 +191,7 @@ public enum MotionType
     ROLL,
     ATTACK,
     BLOCK,
-    BLOCKING_ATTACK,
+    //BLOCKING_ATTACK,
     INJURY,    
     DEATH,
     KNOCK_DOWN,
@@ -255,10 +255,12 @@ public enum ComboType
     WALKING_DEATH,      // XXOXX 踏死（击倒）
     CRASH_GENERAL,      // OXOOO 破将（重击、群伤）
     FLYING_DRAGON,      // XOOXX 飞龙
-        
-    MULTI_SWORDS,       // N刀流
-    WHIRL,              // 旋风斩
-    COUNTER,            // 反击
-    ATTACK_ROLL,        // 冲滚
-    JUMP_KILL,          // 跳杀
+
+    SINGLE_SWORD,       // 一刀流
+    MULTI_SWORDS,       // N刀流（N连击）
+    JUMP_KILL,          // 跳杀（samurai）
+    WHIRL,              // 旋风斩（double sword man）
+    COUNTER,            // 反击（swordman）
+    ATTACK_ROLL,        // 冲滚（miniboss）
+    CROSS,              // 左右交叉（miniboss）
 }

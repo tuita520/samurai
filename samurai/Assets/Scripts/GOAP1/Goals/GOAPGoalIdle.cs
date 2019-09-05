@@ -13,10 +13,11 @@ public class GOAPGoalIdle : GOAPGoalBase
         base.OnEnter(ws);
         UnityEngine.Debug.Log("idle");
     }
-    public override bool IsAborted()
-    {
-        return false;
-    }
+
+    //public override bool IsAborted()
+    //{
+    //    return false;
+    //}
 
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {

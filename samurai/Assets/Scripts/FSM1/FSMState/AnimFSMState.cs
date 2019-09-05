@@ -18,6 +18,7 @@ public enum AnimFSMStateType
     ROLL,
     BLOCK,
     ATTACK_ROLL,
+    ATTACK_CROSS,
 }
 
 public abstract class AnimFSMState : FSMState

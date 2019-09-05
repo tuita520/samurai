@@ -34,7 +34,7 @@ public class ViewCtrlMain : ViewCtrlBase
         hpSlider.value = hpRate;
     }
 
-    public void ShowCombo(List<AttackType> attackTypeList)
+    public void ShowCombo(List<OrderAttackType> attackTypeList)
     {
         if (attackTypeList.Count == 0)
         {
@@ -49,12 +49,12 @@ public class ViewCtrlMain : ViewCtrlBase
         comboList[comboList.Count-1].gameObject.SetActive(true);
         for (int i = 0; i < attackTypeList.Count; ++i)
         {
-            if (attackTypeList[i] == AttackType.X)
+            if (attackTypeList[i] == OrderAttackType.X)
             {                
                 comboList[i + 1].sprite = uiSet.comboSprites[0];
                 comboList[i + 1].gameObject.SetActive(true);
             }
-            else if(attackTypeList[i] == AttackType.O)
+            else if(attackTypeList[i] == OrderAttackType.O)
             {
                 comboList[i + 1].sprite = uiSet.comboSprites[1];
                 comboList[i + 1].gameObject.SetActive(true);

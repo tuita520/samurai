@@ -695,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d536cf841266f47baac51edc4479cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   a: 0
 --- !u!114 &165597473
 MonoBehaviour:
@@ -762,6 +763,7 @@ MonoBehaviour:
     fearInjuryModificator: 0
     fearBlockModificator: 0
     fearAttackModificator: 0
+    weaponState: 0
     weaponSelected: 0
     weaponRange: 0
     combatRange: 0
@@ -2236,6 +2238,7 @@ MonoBehaviour:
     fearInjuryModificator: 5
     fearBlockModificator: 20
     fearAttackModificator: 20
+    weaponState: 0
     weaponSelected: 0
     weaponRange: 2.2
     combatRange: 5
@@ -2271,6 +2274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   _goals: 090000000a0000000b0000000c0000000700000008000000
   _actions: 0d00000008000000110000000e0000000f000000100000000b000000
 --- !u!114 &390079108
@@ -8087,6 +8091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   _goals: 000000000000000000000000000000000000000000000000
   _actions: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &965468644
@@ -8100,6 +8105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d536cf841266f47baac51edc4479cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   a: 0
 --- !u!114 &965468645
 MonoBehaviour:
@@ -8178,6 +8184,7 @@ MonoBehaviour:
     fearInjuryModificator: 0
     fearBlockModificator: 0
     fearAttackModificator: 0
+    weaponState: 0
     weaponSelected: 0
     weaponRange: 0
     combatRange: 0
@@ -8584,6 +8591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24d536cf841266f47baac51edc4479cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   a: 0
 --- !u!114 &988644024
 MonoBehaviour:
@@ -8664,6 +8672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   _goals: 0000000001000000020000000300000004000000050000000700000006000000080000000c000000
   _actions: 00000000030000000400000005000000060000000700000012000000090000000a0000000b0000000c000000110000000d00000008000000
 --- !u!114 &988644028
@@ -8732,6 +8741,7 @@ MonoBehaviour:
     fearInjuryModificator: 15
     fearBlockModificator: 0
     fearAttackModificator: 0
+    weaponState: 0
     weaponSelected: 0
     weaponRange: 2
     combatRange: 4
@@ -10454,7 +10464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!143 &1584909470
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10484,6 +10494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   _goals: 
   _actions: 
 --- !u!114 &1584909472
@@ -10552,6 +10563,7 @@ MonoBehaviour:
     fearInjuryModificator: 5
     fearBlockModificator: 0
     fearAttackModificator: 20
+    weaponState: 1
     weaponSelected: 0
     weaponRange: 2
     combatRange: 4
@@ -10760,7 +10772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1587374401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10772,8 +10784,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
   _goals: 0d0000000700000000000000010000000200000003000000040000000500000006000000080000000c000000
-  _actions: 00000000050000000600000002000000030000000700000008000000090000000b0000000c0000000d000000110000001200000013000000
+  _actions: 00000000050000000600000004000000030000000700000008000000090000000b0000000c0000000d00000011000000120000001300000014000000
 --- !u!114 &1587374402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10840,6 +10853,7 @@ MonoBehaviour:
     fearInjuryModificator: 4
     fearBlockModificator: 0
     fearAttackModificator: -10
+    weaponState: 0
     weaponSelected: 0
     weaponRange: 2.2
     combatRange: 4

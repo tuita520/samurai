@@ -46,12 +46,12 @@ public class SimpleDecision : Decision
             if (Agent.agentType == AgentType.DOUBLE_SWORDS_MAN || Agent.agentType == AgentType.SWORD_MAN) // 这里暂时偷个懒，另外扩展一个不同参数的goapaction才是更灵活的做法
             {
                 ev.motionType = MotionType.WALK;
-                ev.totalMoveDistance = Agent.BlackBoard.DistanceToTarget - (Agent.BlackBoard.combatRange * 0.8f);
+                ev.totalMoveDistance = Agent.BlackBoard.DistanceToDesiredTarget - (Agent.BlackBoard.combatRange * 0.8f);
             }
             else
             {
-                ev.totalMoveDistance = UnityEngine.Random.Range((Agent.BlackBoard.DistanceToTarget - (Agent.BlackBoard.combatRange * 0.5f)) * 0.5f,
-                    Agent.BlackBoard.DistanceToTarget - (Agent.BlackBoard.combatRange * 0.5f));
+                ev.totalMoveDistance = UnityEngine.Random.Range((Agent.BlackBoard.DistanceToDesiredTarget - (Agent.BlackBoard.combatRange * 0.5f)) * 0.5f,
+                    Agent.BlackBoard.DistanceToDesiredTarget - (Agent.BlackBoard.combatRange * 0.5f));
             }
             Agent.FSMComponent.SendEvent(ev);
         }
@@ -78,7 +78,7 @@ public class SimpleDecision : Decision
             ev.moveType = MoveType.LEFTWARD;
             ev.target = Agent.BlackBoard.desiredTarget;
             ev.totalMoveDistance = UnityEngine.Random.Range(2.0f, 4.0f);
-            ev.minDistanceToTarget = Agent.BlackBoard.DistanceToTarget * 0.7f;
+            ev.minDistanceToTarget = Agent.BlackBoard.DistanceToDesiredTarget * 0.7f;
             Agent.FSMComponent.SendEvent(ev);
         }
         if (Input.GetKey(KeyCode.Alpha8))
@@ -87,7 +87,7 @@ public class SimpleDecision : Decision
             ev.moveType = MoveType.RIGHTWARD;
             ev.target = Agent.BlackBoard.desiredTarget;
             ev.totalMoveDistance = UnityEngine.Random.Range(2.0f, 4.0f);
-            ev.minDistanceToTarget = Agent.BlackBoard.DistanceToTarget * 0.7f;
+            ev.minDistanceToTarget = Agent.BlackBoard.DistanceToDesiredTarget * 0.7f;
             Agent.FSMComponent.SendEvent(ev);
         }
         if (Input.GetKey(KeyCode.Alpha9))
@@ -101,9 +101,9 @@ public class SimpleDecision : Decision
         {
             AnimFSMEventAttackMelee ev = AnimFSMEventAttackMelee.pool.Get();
             ev.target = Agent.BlackBoard.desiredTarget;
-            ev.attackType = AttackType.X;
-            ev.animAttackData = Agent.GetComponent<AnimSet>().GetFirstAttackAnim(Agent.BlackBoard.weaponSelected, 
-                ev.attackType);
+            //ev.attackType = OrderAttackType.X;
+            //ev.animAttackData = Agent.GetComponent<AnimSet>().GetFirstAttackAnim(Agent.BlackBoard.weaponSelected, 
+              //  ev.attackType);
             Agent.FSMComponent.SendEvent(ev);
         }
         if (Input.GetKey(KeyCode.Minus))

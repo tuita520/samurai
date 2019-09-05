@@ -76,6 +76,9 @@ public enum GOAPActionType1
     HIDE_SWORD                     = 17,
     BLOCK                          = 18, 
     ATTACK_COUNTER                 = 19,
+    ATTACK_MELEE_SINGLE_SWORD      = 20,
+    ATTACK_CROSS                   = 21,
+    ATTACK_ROLL                    = 22,
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -113,12 +116,7 @@ public class WorldStatePropInfoEx
  2.决策是是否面对敌人背后，模糊算法？
  3.剑之道。类似功夫的闯关游戏，最后一关打自己。每关开始有一行特效tip：剑之道，贵乎奇。剑之道，攻其不备出其不意。剑之道，胜人先胜己
    三把刀，三箭客，武田信玄，服部半藏，小boss，鬼冢一郎，你自己。三箭客用动作融合实现边跑边射箭
- 4.comboMgr修改成支持player和npc，把有些npc里有技能动画但是没有使用的也放进去
- 5.npc的updatetarget不用每帧进行
- 6.npc的target变更时，不是中止goal，而是当成一个worldstate一个goal来处理，新增一个actionNewTarget，前置是lookat。
- 7.attackwhirlfsmstate里是否改成不使用desiredtarget，而是在whirlevent里新增一个target
- 8.blackboard里有关desiredtarget的属性，如disttotarget，考虑改成针对指定agent？
- 9.新增fsmstate和action瞬移（flash），goalRound（迂回，目的是到达敌人背面）
+ 4.新增fsmstate和action瞬移（flash），goalRound（迂回，目的是到达敌人背面）
 */
 public class GOAPDecision : Decision
 {
@@ -451,6 +449,32 @@ public class GOAPDecision : Decision
                         actions.Add(new GOAPActionAttackCounter(Agent, Agent.FSMComponent, preConditionBits, effectBits));
                     }
                     break;
+                case GOAPActionType1.ATTACK_MELEE_SINGLE_SWORD:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_WEAPON_RANGE, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackMeleeSingleSword(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ATTACK_CROSS:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_WEAPON_RANGE, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackCross(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                    }
+                    break;
                 default:
                     break;
             }
@@ -508,9 +532,9 @@ public class GOAPDecision : Decision
     {
         // 更新WorldState里某些实时属性值
         _goap.WorldState.Set((int)WorldStatePropType.ENOUGH_BERSERK, Agent.BlackBoard.Berserk > Agent.BlackBoard.maxBerserk * 0.75f);
-        _goap.WorldState.Set((int)WorldStatePropType.IN_WEAPON_RANGE, Agent.BlackBoard.InWeaponRange);
-        _goap.WorldState.Set((int)WorldStatePropType.IN_COMBAT_RANGE, Agent.BlackBoard.InCombatRange);
-        _goap.WorldState.Set((int)WorldStatePropType.LOOKING_AT_TARGET, Agent.BlackBoard.LookAtTarget);
+        _goap.WorldState.Set((int)WorldStatePropType.IN_WEAPON_RANGE, Agent.BlackBoard.DesiredTargetInWeaponRange);
+        _goap.WorldState.Set((int)WorldStatePropType.IN_COMBAT_RANGE, Agent.BlackBoard.DesiredTargetInCombatRange);
+        _goap.WorldState.Set((int)WorldStatePropType.LOOKING_AT_TARGET, Agent.BlackBoard.LookAtDesiredTarget);
         _goap.WorldState.Set((int)WorldStatePropType.WEAPON_IN_HAND, Agent.BlackBoard.WeaponInHand);        
         _goap.WorldState.Set((int)WorldStatePropType.IN_IDLE, Agent.BlackBoard.inIdle);
         _goap.WorldState.Set((int)WorldStatePropType.IN_BLOCK, Agent.BlackBoard.IsBlocking);

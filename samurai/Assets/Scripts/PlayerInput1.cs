@@ -23,7 +23,7 @@ public class PlayerInput1 : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.J))
         {
             OrderDataAttack order = PlayerOrderPool.attacks.Get();
-            order.attackType = AttackType.X;
+            order.attackType = OrderAttackType.X;
             if (_agent.PlayerOrder.Add(order) == false)
             {
                 PlayerOrderPool.attacks.Collect(order);
@@ -33,7 +33,7 @@ public class PlayerInput1 : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.K))
         {
             OrderDataAttack order = PlayerOrderPool.attacks.Get();
-            order.attackType = AttackType.O;
+            order.attackType = OrderAttackType.O;
             if (_agent.PlayerOrder.Add(order) == false)
             {
                 PlayerOrderPool.attacks.Collect(order);

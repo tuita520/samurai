@@ -200,8 +200,8 @@ public class HandleAttackResult
         bool fromBehind = Vector3.Dot(attacker.Forward, agent.Forward) > -0.1f;
         if (fromBehind)
         {
-            agent.BlackBoard.blockResult = BlockResult.FAIL;// block失败（扣血）
-            ReceiveDamage(agent, attacker, byWeapon, damage, data);
+            //agent.BlackBoard.blockResult = BlockResult.FAIL;
+            ReceiveDamage(agent, attacker, byWeapon, damage, data);// block失败（扣血）
             //agent.BlackBoard.health = Mathf.Max(1, agent.BlackBoard.health - damage);
             //agent.BlackBoard.damageType = DamageType.BACK;
             //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
@@ -213,7 +213,12 @@ public class HandleAttackResult
             if (Random.Range(0, 100) < agent.BlackBoard.breakBlockChance) 
             {
                 // block失败（但不扣血）                
-                agent.BlackBoard.blockResult = BlockResult.FAIL;
+                //agent.BlackBoard.blockResult = BlockResult.FAIL;
+                AnimFSMEventBreakBlock eventBreakBlock = AnimFSMEventBreakBlock.pool.Get();
+                eventBreakBlock.attacker = attacker;
+                eventBreakBlock.attackerWeapon = byWeapon;
+                eventBreakBlock.success = false;
+                agent.FSMComponent.SendEvent(eventBreakBlock);
                 //if (attacker.isPlayer)
                 //  Game.Instance.NumberOfBreakBlocks++;
                 //CombatEffectsManager.Instance.PlayBlockBreakEffect(Transform.position, -attacker.Forward);
@@ -221,7 +226,12 @@ public class HandleAttackResult
             else
             {
                 // block成功
-                agent.BlackBoard.blockResult = BlockResult.SUCCESS;                
+                //agent.BlackBoard.blockResult = BlockResult.SUCCESS;                
+                AnimFSMEventBreakBlock eventBreakBlock = AnimFSMEventBreakBlock.pool.Get();
+                eventBreakBlock.attacker = attacker;
+                eventBreakBlock.attackerWeapon = byWeapon;
+                eventBreakBlock.success = true;
+                agent.FSMComponent.SendEvent(eventBreakBlock);
                 //if (attacker.isPlayer)
                 //  Game.Instance.NumberOfBlockedHits++;
                 CombatEffectMgr.Instance.PlayBlockHitEffect(agent.ChestPosition, -attacker.Forward);

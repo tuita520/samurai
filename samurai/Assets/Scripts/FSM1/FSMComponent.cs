@@ -62,6 +62,12 @@ public class FSMComponent : MonoBehaviour
                 case AnimFSMStateType.BLOCK:
                     state = new AnimFSMStateBlock(_agent);
                     break;
+                case AnimFSMStateType.ATTACK_CROSS:
+                    state = new AnimFSMStateAttackCross(_agent);
+                    break;
+                case AnimFSMStateType.ATTACK_ROLL:
+                    state = new AnimFSMStateAttackRoll(_agent);
+                    break;
                 default:
                     break;
             }

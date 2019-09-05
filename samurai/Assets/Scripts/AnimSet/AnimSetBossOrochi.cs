@@ -23,14 +23,14 @@ public class AnimSetEnemyBossOrochi : AnimSet{
     }    public override string GetRollAnim(WeaponType weapon, WeaponState weaponState){return null;}    public override string GetBlockAnim(BlockState state, WeaponType weapon) { return ""; }    public override string GetShowWeaponAnim(WeaponType weapon) {return ""; }    public override string GetHideWeaponAnim(WeaponType weapon) {return ""; }
 
 
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapon, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapon, OrderAttackType attackType)
     {
-        if (attackType == AttackType.X)
+        if (attackType == OrderAttackType.X)
             return AnimAttackX;
-        else if (attackType == AttackType.O)
+        else if (attackType == OrderAttackType.O)
             return AnimAttackInjury;
-        else if (attackType == AttackType.BERSERK)
-            return AnimAttackBerserk;
+        //else if (attackType == OrderAttackType.BERSERK)
+          //  return AnimAttackBerserk;
 
         return null;
     }

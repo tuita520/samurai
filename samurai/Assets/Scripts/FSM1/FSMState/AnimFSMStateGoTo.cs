@@ -118,7 +118,7 @@ public class AnimFSMStateGoTo : AnimFSMState
 
         if (_eventGoTo.motionType == MotionType.SPRINT)
         {
-            _maxSpeed = Agent.BlackBoard.maxSprintSpeed; // todo：BlackBoard.maxSprintSpeed等只读数据挪到AnimDataSet里
+            _maxSpeed = Agent.BlackBoard.maxSprintSpeed;
         }
         else if (_eventGoTo.motionType == MotionType.RUN)
             _maxSpeed = Agent.BlackBoard.maxRunSpeed;
@@ -126,11 +126,6 @@ public class AnimFSMStateGoTo : AnimFSMState
             _maxSpeed = Agent.BlackBoard.maxWalkSpeed;
 
         _rotationProgress = 0;
-
-        if (Agent.IsPlayer == false)
-        {
-            //Owner.BlackBoard.Vigor -= 20;
-        }
     }
 
     private void PlayAnim(MotionType motion)

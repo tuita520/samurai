@@ -19,7 +19,8 @@ public class GOAPActionAttackWhirl1 : GOAPActionBase
     }
 
     public override void OnEnter()
-    {   
+    {
+        Agent.AnimSet.ResetComboProgress();
         SendEvent();
     }
 
@@ -37,6 +38,7 @@ public class GOAPActionAttackWhirl1 : GOAPActionBase
     {
         _eventAttackWhirl = AnimFSMEventAttackWhirl.pool.Get();        
         _eventAttackWhirl.data = Agent.AnimSet.ProcessCombo(ComboType.WHIRL);
+        _eventAttackWhirl.target = Agent.BlackBoard.desiredTarget;
         FSMComponent.SendEvent(_eventAttackWhirl);
     }
 

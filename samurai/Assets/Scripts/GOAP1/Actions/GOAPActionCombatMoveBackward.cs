@@ -42,7 +42,7 @@ public class GOAPActionCombatMoveBackward : GOAPActionBase
         {
             return true;
         }
-        return _eventCombatMove.IsFinished || Agent.BlackBoard.InCombatRange == false;
+        return _eventCombatMove.IsFinished || Agent.BlackBoard.DesiredTargetInCombatRange == false;
     }
 
     void SendEvent()

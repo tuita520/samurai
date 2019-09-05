@@ -42,7 +42,7 @@ public class GOAPActionGoToMeleeRange1 : GOAPActionBase
         {
             return true;
         }
-        return _eventGoTo.IsFinished || Agent.BlackBoard.InWeaponRange;
+        return _eventGoTo.IsFinished || Agent.BlackBoard.DesiredTargetInWeaponRange;
     }
 
     void SendEvent()

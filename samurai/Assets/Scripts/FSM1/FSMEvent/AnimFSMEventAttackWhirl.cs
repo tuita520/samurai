@@ -5,6 +5,7 @@ public class AnimFSMEventAttackWhirl : AnimFSMEvent
 {
     public static Pool<AnimFSMEventAttackWhirl> pool = new Pool<AnimFSMEventAttackWhirl>(10, Reset);
 
+    public Agent1 target;
     public AnimAttackData data;
     
     public AnimFSMEventAttackWhirl()
@@ -18,6 +19,7 @@ public class AnimFSMEventAttackWhirl : AnimFSMEvent
     {
         base.Reset();
         data = null;
+        target = null;
     }
 
     public override void Release()

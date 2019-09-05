@@ -57,7 +57,7 @@ public class AnimSetEnemyArcher : AnimSet{
         return "idle";    }    public override string GetShowWeaponAnim(WeaponType weapon)    {        return "idleBow";    }    public override string GetHideWeaponAnim(WeaponType weapon)    {        return "idle";    }
 
 
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, OrderAttackType attackType)
     {
         return AnimAttacksBow;
     }

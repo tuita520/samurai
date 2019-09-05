@@ -21,7 +21,7 @@ public class GOAPGoalAvoidRight : GOAPGoalBase
             return 0;
         }
 
-        if (Agent.BlackBoard.LookAtTarget && Agent.Decision.GetNearestAgent(Direction.Left,
+        if (Agent.BlackBoard.LookAtDesiredTarget && Agent.Decision.GetNearestAgent(Direction.Left,
             0.4f, Game1.Instance.AgentMgr.agents) != null)
         {
             return Agent.BlackBoard.GOAPMaxWeightAvoidRight;

@@ -48,14 +48,22 @@ public class AnimSetSwordman : AnimSet
         //        anims["spawn"].layer = 1;
         ComboAttacks.Add(new Combo()
         {
-            comboType = ComboType.MULTI_SWORDS,
+            comboType = ComboType.SINGLE_SWORD,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
-                    ("attackA", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},
-                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
+                    ("attackA", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},                
+            }
+        });
+
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.MULTI_SWORDS,
+            comboSteps = new ComboStep[]
+            {                
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackB", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},
-                new ComboStep(){attackType = AttackType.X, data = new AnimAttackData
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackBB", null, 0.7f, 0.30f, 0.72f, 10, 25, 2, CriticalHitType.NONE, false)},                
             }
         });
@@ -65,9 +73,9 @@ public class AnimSetSwordman : AnimSet
             comboType = ComboType.COUNTER,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.O, data = new AnimAttackData
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackCounter", null, 1.0f, 0.65f, 0.4f, 0.68f, 0.7f, 15, 25, 2, CriticalHitType.NONE, 
-                    0, false, false, false, false)}
+                    0, false, false, false, false, false, true)}
             }
         });
 
@@ -137,10 +145,10 @@ public class AnimSetSwordman : AnimSet
             return "blockEnd";    }    public override string GetShowWeaponAnim(WeaponType weapon)    {        return "showSword";    }    public override string GetHideWeaponAnim(WeaponType weapon)    {        return "hideSword";    }
 
 
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, OrderAttackType attackType)
     {
-        if (attackType == AttackType.COUNTER)
-            return AnimAttacksSwordCounter;
+        //if (attackType == OrderAttackType.COUNTER)
+          //  return AnimAttacksSwordCounter;
 
         return AnimAttacksSwordL;
     }

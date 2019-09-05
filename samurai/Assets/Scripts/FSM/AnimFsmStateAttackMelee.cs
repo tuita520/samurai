@@ -196,10 +196,10 @@ public class AnimFsmStateAttackMelee : AnimFsmState
                 //if (BlackBoard.isPlayer && AnimAttackData.FullCombo)
                   //  GuiManager.Instance.ShowComboMessage(AnimAttackData.ComboIndex);              
 
-                if (_attackAction.attackType == AttackType.FATALITY)
+                /*if (_attackAction.attackType == OrderAttackType.FATALITY)
                     Owner.DoDamageFatality(_attackAction.target, Owner.BlackBoard.weaponSelected, 
                         _attackAction.data);
-                else
+                else*/
                     Owner.DoMeleeDamage(_attackAction.target, Owner.BlackBoard.weaponSelected, 
                         _attackAction.data, _isCritical, _knockdown);
 
@@ -251,12 +251,12 @@ public class AnimFsmStateAttackMelee : AnimFsmState
                 CameraBehavior.Instance.ChangeFov(25, 0.5f);
                 CameraBehavior.Instance.Invoke("RestoreTimeScaleAndFov", 0.7f);
             }
-            else if (_attackAction.attackType == AttackType.FATALITY)
+            /*else if (_attackAction.attackType == OrderAttackType.FATALITY)
             {
                 CameraBehavior.Instance.ChangeTimeScale(0.25f, 0.7f);
                 CameraBehavior.Instance.ChangeFov(25, 0.65f);
                 CameraBehavior.Instance.Invoke("RestoreTimeScaleAndFov", 0.8f);
-            }
+            }*/
         }
     }
 

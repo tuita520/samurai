@@ -4,7 +4,7 @@ using Phenix.Unity.Utilities;
 
 public class AnimFSMStateBlock : AnimFSMState
 {
-    AnimFSMEventBlock _eventBlock;
+    AnimFSMEventBlock _eventBlock;    
 
     Quaternion _finalRotation;
     Quaternion _startRotation;
@@ -79,6 +79,27 @@ public class AnimFSMStateBlock : AnimFSMState
         _blockState = BlockState.START;
     }
 
+    public override bool OnEvent(FSMEvent ev)
+    {
+        if (ev is AnimFSMEventBreakBlock)
+        {
+            if ((ev as AnimFSMEventBreakBlock).success)
+            {
+                InitializeBlockSuccess();
+            }
+            else
+            {
+                InitializeBlockFailed();
+            }
+            ev.IsFinished = true;
+            AnimFSMEventBreakBlock.pool.Collect(ev as AnimFSMEventBreakBlock); // 这里可以直接回收
+            ev = null;
+            return true;
+        }
+
+        return false;
+    }
+
     public override void OnUpdate()
     {
         UpdateFinalRotation();
@@ -126,7 +147,7 @@ public class AnimFSMStateBlock : AnimFSMState
                 {
                     InitializeEnd();
                 }
-                else if (Agent.BlackBoard.blockResult == BlockResult.FAIL)
+                /*else if (Agent.BlackBoard.blockResult == BlockResult.FAIL)
                 {
                     InitializeBlockFailed();
                     Agent.BlackBoard.blockResult = BlockResult.NONE;
@@ -135,7 +156,7 @@ public class AnimFSMStateBlock : AnimFSMState
                 {
                     InitializeBlockSuccess();
                     Agent.BlackBoard.blockResult = BlockResult.NONE;
-                }
+                }*/
                 break;
             case BlockState.BLOCK_SUCCESS:                
                 if (_endOfStateTime <= Time.timeSinceLevelLoad)

@@ -64,8 +64,8 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
     {
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
 
-        _eventAttack.attackType = (Agent.PlayerOrder.GetCurOrder() as OrderDataAttack).attackType;
-        _eventAttack.hitDone = false;
+        //_eventAttack.attackType = (Agent.PlayerOrder.GetCurOrder() as OrderDataAttack).attackType;
+        _eventAttack.hitTimeStart = false;
         _eventAttack.attackPhaseDone = false;
 
         Agent.BlackBoard.desiredTarget = _eventAttack.target = Agent.Decision.SelectTarget(
@@ -84,11 +84,11 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
         if (_eventAttack.target != null && _eventAttack.target.BlackBoard.IsKnockedDown)
         {            
             _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.JUMP_KILL);
-            _eventAttack.attackType = AttackType.FATALITY;
+            //_eventAttack.attackType = OrderAttackType.FATALITY;
         }
         else
         {
-            _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(_eventAttack.attackType);
+            _eventAttack.animAttackData = Agent.AnimSet.ProcessOrderCombo((Agent.PlayerOrder.GetCurOrder() as OrderDataAttack).attackType/*_eventAttack.attackType*/);
         }
         /*ComboMgr comboMgr = Agent.transform.GetComponent<ComboMgr>();
         if (comboMgr != null)

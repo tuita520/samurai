@@ -17,14 +17,47 @@ public class AnimSetEnemyMiniBoss : AnimSet{
         anims["attackA"].layer = 0;
   //      anims["attackRoll"].layer = 0;
         anims["idleTount"].speed = 1.5f;
-      /*  anims["blockStart"].layer = 0;
-        anims["blockLoop"].layer = 0;
-        anims["blockEnd"].layer = 0;
-        anims["blockFailed"].layer = 0;
-        anims["blockHit"].layer = 0;*/
-      //  anims["blockStepLeft"].layer = 0;
-//        anims["blockStepRight"].layer = 0;
-	}	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        return "idleSword";	}
+
+        /*  anims["blockStart"].layer = 0;
+         anims["blockLoop"].layer = 0;
+         anims["blockEnd"].layer = 0;
+         anims["blockFailed"].layer = 0;
+         anims["blockHit"].layer = 0;*/
+        //  anims["blockStepLeft"].layer = 0;
+        //        anims["blockStepRight"].layer = 0;
+
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.SINGLE_SWORD,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
+                    ("attackA", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE,
+                    0, false, false, false, false)},                
+            }
+        });
+
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.CROSS,
+            comboSteps = new ComboStep[]
+            {                
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
+                    ("attackB", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE,
+                    0, false, false, false, false)},
+            }
+        });
+
+        ComboAttacks.Add(new Combo()
+        {
+            comboType = ComboType.ATTACK_ROLL,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
+                    ("", null, 0, 0.5f, 1.5f, 30, 20, 3, CriticalHitType.NONE, false)}
+            }
+        });
+    }	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        return "idleSword";	}
 
     public override string GetIdleActionAnim(WeaponType weapon, WeaponState weaponState)
     {
@@ -62,7 +95,7 @@ public class AnimSetEnemyMiniBoss : AnimSet{
             return "blockEnd";    }    public override string GetShowWeaponAnim(WeaponType weapon)    {        return "";    }    public override string GetHideWeaponAnim(WeaponType weapon)    {        return "";    }
 
 
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapom, OrderAttackType attackType)
     {
         return AnimAttacksSwordL;
     }

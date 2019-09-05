@@ -9,10 +9,10 @@ public class GOAPGoalReactToDamage1 : GOAPGoalBase
 
     }
     
-    public override bool IsAborted()
-    {
-        return false;
-    }
+    //public override bool IsAborted()
+    //{
+    //    return false;
+    //}
 
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {

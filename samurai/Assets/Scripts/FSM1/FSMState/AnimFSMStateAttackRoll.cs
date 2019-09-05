@@ -2,7 +2,7 @@
 using Phenix.Unity.Utilities;
 using Phenix.Unity.AI;
 
-public class AnimFSMStateAttackWhirl : AnimFSMState
+public class AnimFSMStateAttackRoll : AnimFSMState
 {
     AnimFSMEventAttackWhirl _eventWhirl;
     float _maxSpeed;
@@ -18,8 +18,8 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
     float _hitTimer;
     float _rotationProgress;
 
-    public AnimFSMStateAttackWhirl(Agent1 agent)
-        : base((int)AnimFSMStateType.ATTACK_WHIRL, agent)
+    public AnimFSMStateAttackRoll(Agent1 agent)
+        : base((int)AnimFSMStateType.ATTACK_ROLL, agent)
     {
 
     }

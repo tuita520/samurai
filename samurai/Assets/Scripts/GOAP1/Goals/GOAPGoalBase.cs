@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public abstract class GOAPGoalBase : Phenix.Unity.AI.GOAPGoal
 {
-    Agent1 _target = null;
+    //Agent1 _target = null;
     protected Agent1 Agent { get; private set; }    
 
     protected GOAPGoalBase(int goalType, Agent1 agent, List<WorldStateBitDataGoal> goalProps) 
@@ -14,21 +14,22 @@ public abstract class GOAPGoalBase : Phenix.Unity.AI.GOAPGoal
 
     public override void Reset()
     {
-        _target = null;
+        //_target = null;
     }
 
     public override void OnEnter(Phenix.Unity.AI.WorldState ws)
     {
-        _target = Agent.BlackBoard.desiredTarget;
+        //_target = Agent.BlackBoard.desiredTarget;
     }
 
     public override bool IsAborted()
     {
-        if (_target == null || _target.BlackBoard.IsAlive == false)
-        {            
-            return true;
-        }
+        return false;
+        //if (_target == null || _target.BlackBoard.IsAlive == false)
+        //{            
+        //    return true;
+        //}
         
-        return _target != Agent.BlackBoard.desiredTarget;
+        //return _target != Agent.BlackBoard.desiredTarget;
     }
 }

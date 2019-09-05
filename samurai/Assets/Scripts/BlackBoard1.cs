@@ -137,9 +137,8 @@ public class BlackBoard1
 
 
     [System.NonSerialized]
-    public MotionType motionType = MotionType.NONE;                     // 动作类型
-    [System.NonSerialized]
-    public WeaponState weaponState = WeaponState.NOT_IN_HANDS;            // 武器在手状态    
+    public MotionType motionType = MotionType.NONE;                     // 动作类型    
+    public WeaponState weaponState = WeaponState.NOT_IN_HANDS;          // 武器在手状态    
     public WeaponType weaponSelected = WeaponType.KATANA;               // 武器类型    
     public float weaponRange = 2;
     public float SqrWeaponRange { get { return weaponRange * weaponRange; } }
@@ -226,18 +225,18 @@ public class BlackBoard1
     public bool damageOnlyFromBack = false;
     public bool knockDownAllowed = false;
     public bool knockDownDamageDeadly = false;
-    [System.NonSerialized]
-    public BlockResult blockResult = BlockResult.NONE;
+    //[System.NonSerialized]
+    //public BlockResult blockResult = BlockResult.NONE;
     public float breakBlockChance = 20;
 
-    public bool IsBlocking { get { return motionType == MotionType.BLOCK || motionType == MotionType.BLOCKING_ATTACK; } }
+    public bool IsBlocking { get { return motionType == MotionType.BLOCK/* || motionType == MotionType.BLOCKING_ATTACK*/; } }
     public bool IsAlive { get { return health > 0 && Agent.gameObject.activeSelf; } }
     public bool IsKnockedDown { get { return motionType == MotionType.KNOCK_DOWN && knockDownDamageDeadly; } }
 
     public bool InAttackCD { get { return Time.timeSinceLevelLoad < nextAttackTimer; } }
 
     // 目标与我距离
-    public float DistanceToTarget
+    public float DistanceToDesiredTarget
     {
         get
         {
@@ -253,7 +252,7 @@ public class BlackBoard1
         }
     }
 
-    public float ForwardAngleToTarget
+    public float ForwardAngleToDesiredTarget
     {
         get
         {
@@ -272,13 +271,13 @@ public class BlackBoard1
     }
 
     // 目标是否在武器范围内
-    public bool InWeaponRange
+    public bool DesiredTargetInWeaponRange
     {
         get
         {
             if (desiredTarget != null)
             {
-                return DistanceToTarget < weaponRange;
+                return DistanceToDesiredTarget < weaponRange;
             }
             else
             {
@@ -288,13 +287,13 @@ public class BlackBoard1
     }
 
     // 目标是否在战斗范围内
-    public bool InCombatRange
+    public bool DesiredTargetInCombatRange
     {
         get
         {
             if (desiredTarget != null)
             {
-                return DistanceToTarget < combatRange;
+                return DistanceToDesiredTarget < combatRange;
             }
             else
             {
@@ -303,7 +302,7 @@ public class BlackBoard1
         }
     }
 
-    public bool LookAtTarget
+    public bool LookAtDesiredTarget
     {        
         get
         {
@@ -316,7 +315,7 @@ public class BlackBoard1
     }
 
     // target朝向相对self的角度
-    float AngleToTargetForward
+    float AngleToDesiredTargetForward
     {        
         get
         {
@@ -325,7 +324,7 @@ public class BlackBoard1
     }
 
     // 目标是否面向自己（和自己的朝向无关）
-    public bool AheadOfTarget
+    public bool AheadOfDesiredTarget
     {
         get
         {
@@ -334,11 +333,27 @@ public class BlackBoard1
     }
 
     // 目标是否背对自己（和自己的朝向无关）
-    public bool BehindTarget
+    public bool BehindDesiredTarget
     {
         get
         {
             return Phenix.Unity.Utilities.TransformTools.IsBehindTarget(Agent.Transform, desiredTarget.Transform);
+        }
+    }
+
+    public bool InAttackMotion
+    {
+        get
+        {
+            return motionType == MotionType.ATTACK;
+        }
+    }
+
+    public bool InRollMotion
+    {
+        get
+        {
+            return motionType == MotionType.ROLL;
         }
     }
 

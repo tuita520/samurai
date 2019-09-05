@@ -133,18 +133,18 @@ using System.Collections.Generic;
         attackDataList[23] = new AnimAttackData("attackOXOXO", _trails.transform.Find("trail_OXOOO").gameObject, 1.0f, 0.35f, 0.15f, 0.5f, 1.1f, 25, 180, 1.8f, CriticalHitType.HORIZONTAL, 0.9f, false, false, true, true);
 
         // 跳杀
-        attackDataList[24] = new AnimAttackData("attackKnockdown", null, 1.5f, 0.65f, 0.2f, 0.6f, 1.0f, 20, 0, 0, CriticalHitType.NONE, 0, false, false, false, true);
+        attackDataList[24] = new AnimAttackData("attackKnockdown", null, 1.5f, 0.65f, 0.2f, 0.6f, 1.0f, 20, 0, 0, CriticalHitType.NONE, 0, false, false, false, true, true);
 
         ComboAttacks.Add(new Combo()
         {
             comboType = ComboType.RAISE_WAVE,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[0]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[1]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[2]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[3]},                
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[4]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[0]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[1]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[2]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[3]},                
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[4]},
             }
         });
 
@@ -153,11 +153,11 @@ using System.Collections.Generic;
             comboType = ComboType.HALF_MOON,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[5]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[6]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[7]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[8]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[9]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[5]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[6]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[7]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[8]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[9]},
             }
         });
 
@@ -166,11 +166,11 @@ using System.Collections.Generic;
             comboType = ComboType.CLOUD_CUT,
             comboSteps = new ComboStep[]
             {
-                    new ComboStep(){attackType = AttackType.O, data = attackDataList[5]},
-                    new ComboStep(){attackType = AttackType.O, data = attackDataList[6]},
-                    new ComboStep(){attackType = AttackType.X, data = attackDataList[17]},
-                    new ComboStep(){attackType = AttackType.X, data = attackDataList[18]},
-                    new ComboStep(){attackType = AttackType.X, data = attackDataList[19]},
+                    new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[5]},
+                    new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[6]},
+                    new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[17]},
+                    new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[18]},
+                    new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[19]},
             }
         });
 
@@ -179,11 +179,11 @@ using System.Collections.Generic;
             comboType = ComboType.FLYING_DRAGON,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[0]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[10]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[11]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[12]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[13]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[0]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[10]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[11]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[12]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[13]},
             }
         });
 
@@ -192,11 +192,11 @@ using System.Collections.Generic;
             comboType = ComboType.WALKING_DEATH,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[0]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[1]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[14]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[15]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[16]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[0]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[1]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[14]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[15]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[16]},
             }
         });
 
@@ -205,11 +205,11 @@ using System.Collections.Generic;
             comboType = ComboType.CRASH_GENERAL,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[5]},
-                new ComboStep(){attackType = AttackType.X, data = attackDataList[20]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[21]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[22]},
-                new ComboStep(){attackType = AttackType.O, data = attackDataList[23]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[5]},
+                new ComboStep(){orderAttackType = OrderAttackType.X, data = attackDataList[20]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[21]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[22]},
+                new ComboStep(){orderAttackType = OrderAttackType.O, data = attackDataList[23]},
             }
         });
 
@@ -218,7 +218,7 @@ using System.Collections.Generic;
             comboType = ComboType.JUMP_KILL,
             comboSteps = new ComboStep[]
             {
-                new ComboStep(){attackType = AttackType.FATALITY, data = attackDataList[24]}
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = attackDataList[24]}
             }
         });
     }
@@ -253,9 +253,9 @@ using System.Collections.Generic;
     }
 
     // 该函数可以删除
-    public override AnimAttackData GetFirstAttackAnim(WeaponType weapon, AttackType attackType)
+    public override AnimAttackData GetFirstAttackAnim(WeaponType weapon, OrderAttackType attackType)
     {
-        if (attackType == AttackType.FATALITY)
-            return _attackKnockdown;
+        //if (attackType == OrderAttackType.FATALITY)
+          //  return _attackKnockdown;
         return null;
     }}
