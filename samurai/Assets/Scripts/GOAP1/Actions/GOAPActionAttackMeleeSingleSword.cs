@@ -50,7 +50,7 @@ public class GOAPActionAttackMeleeSingleSword : GOAPActionBase
         }
 
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.SINGLE_SWORD);
-        _eventAttack.hitTimeStart = false;
+        //_eventAttack.hitTimeStart = false;        
         _eventAttack.attackPhaseDone = false;
         FSMComponent.SendEvent(_eventAttack);        
     }

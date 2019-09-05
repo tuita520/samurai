@@ -79,6 +79,7 @@ public enum GOAPActionType1
     ATTACK_MELEE_SINGLE_SWORD      = 20,
     ATTACK_CROSS                   = 21,
     ATTACK_ROLL                    = 22,
+    GOTO_TARGET                    = 23, 
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -117,6 +118,8 @@ public class WorldStatePropInfoEx
  3.剑之道。类似功夫的闯关游戏，最后一关打自己。每关开始有一行特效tip：剑之道，贵乎奇。剑之道，攻其不备出其不意。剑之道，胜人先胜己
    三把刀，三箭客，武田信玄，服部半藏，小boss，鬼冢一郎，你自己。三箭客用动作融合实现边跑边射箭
  4.新增fsmstate和action瞬移（flash），goalRound（迂回，目的是到达敌人背面）
+ 5.goapdecision新增nextTarget，由selecttarget赋值，在goalbase.onexit（bool replaced为false）时给desiredtarget赋值。
+  对玩家来说直接赋值给desiredtarget。
 */
 public class GOAPDecision : Decision
 {
@@ -473,6 +476,18 @@ public class GOAPDecision : Decision
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
                         actions.Add(new GOAPActionAttackCross(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.GOTO_TARGET:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
+
+                        actions.Add(new GOAPActionGoToTarget(Agent, Agent.FSMComponent, preConditionBits, effectBits));
                     }
                     break;
                 default:

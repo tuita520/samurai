@@ -3,7 +3,7 @@ using Phenix.Unity.AI;
 
 public class GOAPActionAttackCross : GOAPActionBase
 {
-    AnimFSMEventAttackMelee _eventAttack;
+    AnimFSMEventAttackCross _eventCross;
 
     public GOAPActionAttackCross(Agent1 agent, FSMComponent fsm, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
@@ -15,7 +15,7 @@ public class GOAPActionAttackCross : GOAPActionBase
     public override void Reset()
     {
         base.Reset();
-        _eventAttack = null;
+        _eventCross = null;
     }
 
     public override void OnEnter()
@@ -26,37 +26,35 @@ public class GOAPActionAttackCross : GOAPActionBase
 
     public override void OnExit(Phenix.Unity.AI.WorldState ws)
     {
-        if (_eventAttack != null)
+        if (_eventCross != null)
         {
-            _eventAttack.Release();
-            _eventAttack = null;
+            _eventCross.Release();
+            _eventCross = null;
         }
         base.OnExit(ws);
     }
 
     void SendEvent()
     {
-        _eventAttack = AnimFSMEventAttackMelee.pool.Get();        
+        _eventCross = AnimFSMEventAttackCross.pool.Get();        
 
         if (Agent.BlackBoard.desiredTarget)
         {
             Agent.BlackBoard.desiredDirection = Agent.BlackBoard.desiredTarget.Position - Agent.Position;
             Agent.BlackBoard.desiredDirection.Normalize();
-            _eventAttack.attackDir = Agent.BlackBoard.desiredDirection;
+            _eventCross.attackDir = Agent.BlackBoard.desiredDirection;
         }
         else
         {
-            _eventAttack.attackDir = Agent.Forward;
+            _eventCross.attackDir = Agent.Forward;
         }
 
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.CROSS);
-        _eventAttack.hitTimeStart = false;
-        _eventAttack.attackPhaseDone = false;
-        FSMComponent.SendEvent(_eventAttack);        
+        _eventCross.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.CROSS);        
+        FSMComponent.SendEvent(_eventCross);        
     }
 
     public override bool IsFinished()
     {
-        return (_eventAttack != null && _eventAttack.IsFinished);        
+        return (_eventCross != null && _eventCross.IsFinished);        
     }
 }

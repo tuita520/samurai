@@ -1,5 +1,5 @@
 using UnityEngine;[System.Serializable]
-public class AnimSetEnemyArcher : AnimSet{
+public class AnimSetArcher : AnimSet{
     protected AnimAttackData AnimAttacksBow;
 	void Awake()	{        AnimAttacksBow = new AnimAttackData("bowFire", null, -1, 2.95f, 3.0f, 10, 20, 1, CriticalHitType.NONE, false);		Animation anims = GetComponent<Animation>();
         anims["idle"].layer = 0;

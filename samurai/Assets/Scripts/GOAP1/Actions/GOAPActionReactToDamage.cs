@@ -167,7 +167,7 @@ public class GOAPActionReactToDamage : GOAPActionBase
         _eventKnockDown.fromWeapon = Agent.BlackBoard.attackerWeapon;
         _eventKnockDown.attacker = Agent.BlackBoard.Attacker;
         _eventKnockDown.impuls = Agent.BlackBoard.impuls;
-        _eventKnockDown.lyingTime = Agent.BlackBoard.maxKnockdownTime * Random.Range(0.7f, 1);
+        _eventKnockDown.lyingTime = Agent.BlackBoard.knockDownLyingTime;
         FSMComponent.SendEvent(_eventKnockDown);
     }
 

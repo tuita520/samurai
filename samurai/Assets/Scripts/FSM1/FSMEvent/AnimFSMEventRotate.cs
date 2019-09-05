@@ -6,8 +6,7 @@ public class AnimFSMEventRotate : AnimFSMEvent
     public static Pool<AnimFSMEventRotate> pool = new Pool<AnimFSMEventRotate>(10, Reset);
 
     public Vector3 direction;
-    public Agent1 target;
-    public float rotationModifier;
+    public Agent1 target;    
 
     public AnimFSMEventRotate()
     {
@@ -20,8 +19,7 @@ public class AnimFSMEventRotate : AnimFSMEvent
     {
         base.Reset();
         target = null;
-        direction = Vector3.zero;
-        rotationModifier = 1;
+        direction = Vector3.zero;        
     }
     public override void Release()
     {

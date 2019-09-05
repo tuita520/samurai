@@ -58,7 +58,7 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
         }
         
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.MULTI_SWORDS);
-        _eventAttack.hitTimeStart = false;
+        //_eventAttack.hitTimeStart = false;
         _eventAttack.attackPhaseDone = false;
         FSMComponent.SendEvent(_eventAttack);
         --_remainAttackCount;

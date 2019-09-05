@@ -19,6 +19,7 @@ public enum AnimFSMStateType
     BLOCK,
     ATTACK_ROLL,
     ATTACK_CROSS,
+    GOTO_TARGET,    // 行进到武器范围之内
 }
 
 public abstract class AnimFSMState : FSMState

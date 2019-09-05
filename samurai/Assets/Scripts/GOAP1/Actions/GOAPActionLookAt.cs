@@ -41,8 +41,7 @@ public class GOAPActionLookAt : GOAPActionBase
     void SendEvent()
     {
         _eventRotate = AnimFSMEventRotate.pool.Get();
-        _eventRotate.target = Agent.BlackBoard.desiredTarget;
-        _eventRotate.rotationModifier = 0.5f;
+        _eventRotate.target = Agent.BlackBoard.desiredTarget;        
         FSMComponent.SendEvent(_eventRotate);
     }
 }

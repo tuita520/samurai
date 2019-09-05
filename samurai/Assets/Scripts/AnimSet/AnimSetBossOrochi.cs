@@ -1,5 +1,5 @@
 using UnityEngine;[System.Serializable]
-public class AnimSetEnemyBossOrochi : AnimSet{
+public class AnimSetBossOrochi : AnimSet{
     protected AnimAttackData AnimAttackX;
     protected AnimAttackData AnimAttackBerserk;
     protected AnimAttackData AnimAttackInjury;		void Awake()	{        AnimAttackX = new AnimAttackData("attackX", null, 0, 0.6f, 1.7f, 10, 60, 2, CriticalHitType.NONE, false);

@@ -763,7 +763,7 @@ MonoBehaviour:
     fearInjuryModificator: 0
     fearBlockModificator: 0
     fearAttackModificator: 0
-    weaponState: 0
+    weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 0
     combatRange: 0
@@ -774,7 +774,7 @@ MonoBehaviour:
     maxWalkSpeed: 0
     maxCombatMoveSpeed: 0
     maxWhirlMoveSpeed: 0
-    maxKnockdownTime: 0
+    maxKnockDownLyingTime: 4
     speedSmooth: 0
     rotationSmooth: 0
     rotationSmoothInMove: 0
@@ -788,6 +788,8 @@ MonoBehaviour:
     knockDownAllowed: 0
     knockDownDamageDeadly: 0
     breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
 --- !u!114 &165597475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2238,7 +2240,7 @@ MonoBehaviour:
     fearInjuryModificator: 5
     fearBlockModificator: 20
     fearAttackModificator: 20
-    weaponState: 0
+    weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2.2
     combatRange: 5
@@ -2249,7 +2251,7 @@ MonoBehaviour:
     maxWalkSpeed: 1.8
     maxCombatMoveSpeed: 1
     maxWhirlMoveSpeed: 0
-    maxKnockdownTime: 4
+    maxKnockDownLyingTime: 4
     speedSmooth: 8
     rotationSmooth: 20
     rotationSmoothInMove: 8
@@ -2263,6 +2265,8 @@ MonoBehaviour:
     knockDownAllowed: 0
     knockDownDamageDeadly: 0
     breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
 --- !u!114 &390079107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2892,7 +2896,7 @@ MonoBehaviour:
   _agentMgr:
     agents:
     - {fileID: 390079106}
-    - {fileID: 1587374403}
+    - {fileID: 1584909473}
 --- !u!1 &472263057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3079,11 +3083,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 508273012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48cdf4439640b0a4bbd0b54d27905dcd, type: 3}
+  m_Script: {fileID: 11500000, guid: 826b05a833e60b049984ab862185218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentType: 0
-  isPlayer: 0
+  FSMStates: 
+  defFSMState: 0
 --- !u!114 &508273014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3092,57 +3096,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 508273012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a6c6eb7e3e841d4db43407086f6390a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GOAP_BlockRelevancy: 0.7
-  GOAP_GoToRelevancy: 0.3
-  GOAP_StepOutRelevancy: 0.7
-  GOAP_StepInRelevancy: 0.7
-  GOAP_StepAroundRelevancy: 0.75
-  GOAP_AttackTargetRelevancy: 0.8
-  GOAP_INJURY: 0.9
-  GOAP_KNOCKDOWN: 0.95
-  GOAP_DEATH: 1
-  _vigor: 0
-  maxVigor: 0
-  vigorModificator: 0
-  vigorAttackCost: 50
-  _rage: 0
-  maxRage: 0
-  rageModificator: 10
-  RageInjuryModificator: 10
-  RageBlockModificator: 0
-  _fear: 0
-  maxFear: 0
-  fearModificator: 10
-  fearInjuryModificator: 5
-  fearBlockModificator: 0
-  fearAttackModificator: 20
-  weaponRange: 2
-  combatRange: 4
-  maxSprintSpeed: 8
-  maxRunSpeed: 4
-  maxWalkSpeed: 1.5
-  maxCombatMoveSpeed: 1
-  maxKnockdownTime: 4
-  speedSmooth: 2
-  rotationSmooth: 2
-  rotationSmoothInMove: 8
-  rollDistance: 4
-  moveSpeedModifier: 1
-  speed: 0
-  moveDir: {x: 0, y: 0, z: 0}
-  health: 100
-  maxHealth: 100
-  desiredTarget: {fileID: 0}
-  invulnerable: 0
-  criticalAllowed: 1
-  criticalHitModifier: 1
-  criticalChance: 18
-  damageOnlyFromBack: 0
-  knockDownDamageDeadly: 0
-  blockResult: 0
+  selectTargetCDForNPC: 1
+  _goals: 
+  _actions: 
 --- !u!114 &508273015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3151,9 +3110,78 @@ MonoBehaviour:
   m_GameObject: {fileID: 508273012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 721d6641d37d2514192ce68c86b9bbef, type: 3}
+  m_Script: {fileID: 11500000, guid: e8da1a1c5463dfe4298bb81fc43bcf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agentType: 0
+  group: 1
+  _blackBoard:
+    GOAPMaxWeightRetreat: 0.7
+    GOAPMaxWeightPress: 0.8
+    GOAPMaxWeightAvoidLeft: 0.85
+    GOAPMaxWeightAvoidRight: 0.85
+    GOAPMaxWeightAttackTarget: 0.9
+    GOAPMaxWeightReactToDamage: 1
+    GOAPMaxWeightAlert: 0.7
+    GOAPMaxWeightCalm: 0.9
+    GOAPMaxWeightShow: 0.3
+    GOAPMaxWeightOrderAttack: 0.9
+    GOAPMaxWeightOrderDodge: 0.9
+    GOAPMaxWeightOrderMove: 0.9
+    GOAPMaxWeightIdle: 0.1
+    GOAPMaxWeightBlock: 0.8
+    GOAP_INJURY: 0.9
+    GOAP_KNOCKDOWN: 0.95
+    GOAP_DEATH: 1
+    minBlock: 0
+    maxBlock: 100
+    blockModificator: 0
+    blockAttackModificator: 0
+    blockInjuryModificator: 0
+    minBerserk: 0
+    maxBerserk: 100
+    berserkModificator: 0
+    berserkBlockModificator: 0
+    berserkInjuryModificator: 0
+    berserkAttackModificator: 0
+    minRage: 0
+    maxRage: 0
+    rageModificator: 10
+    rageInjuryModificator: 10
+    rageBlockModificator: 0
+    minFear: 0
+    maxFear: 0
+    fearModificator: 10
+    fearInjuryModificator: 5
+    fearBlockModificator: 0
+    fearAttackModificator: 20
+    weaponStateOnAwake: 0
+    weaponSelected: 0
+    weaponRange: 2
+    combatRange: 4
+    safeRange: 100
+    attackCD: 2
+    maxSprintSpeed: 8
+    maxRunSpeed: 4
+    maxWalkSpeed: 1.5
+    maxCombatMoveSpeed: 1
+    maxWhirlMoveSpeed: 0
+    maxKnockDownLyingTime: 4
+    speedSmooth: 2
+    rotationSmooth: 20
+    rotationSmoothInMove: 8
+    rollDistance: 4
+    moveSpeedModifier: 1
+    maxHealth: 100
+    criticalAllowed: 1
+    criticalHitModifier: 1
+    criticalChance: 18
+    damageOnlyFromBack: 0
+    knockDownAllowed: 0
+    knockDownDamageDeadly: 0
+    breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
 --- !u!1 &532534401
 GameObject:
   m_ObjectHideFlags: 0
@@ -8184,7 +8212,7 @@ MonoBehaviour:
     fearInjuryModificator: 0
     fearBlockModificator: 0
     fearAttackModificator: 0
-    weaponState: 0
+    weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 0
     combatRange: 0
@@ -8195,7 +8223,7 @@ MonoBehaviour:
     maxWalkSpeed: 0
     maxCombatMoveSpeed: 0
     maxWhirlMoveSpeed: 0
-    maxKnockdownTime: 0
+    maxKnockDownLyingTime: 4
     speedSmooth: 0
     rotationSmooth: 0
     rotationSmoothInMove: 0
@@ -8209,6 +8237,8 @@ MonoBehaviour:
     knockDownAllowed: 0
     knockDownDamageDeadly: 0
     breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
 --- !u!114 &965468648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8741,7 +8771,7 @@ MonoBehaviour:
     fearInjuryModificator: 15
     fearBlockModificator: 0
     fearAttackModificator: 0
-    weaponState: 0
+    weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2
     combatRange: 4
@@ -8752,7 +8782,7 @@ MonoBehaviour:
     maxWalkSpeed: 1
     maxCombatMoveSpeed: 2
     maxWhirlMoveSpeed: 3
-    maxKnockdownTime: 1
+    maxKnockDownLyingTime: 4
     speedSmooth: 6
     rotationSmooth: 2
     rotationSmoothInMove: 8
@@ -8766,6 +8796,8 @@ MonoBehaviour:
     knockDownAllowed: 1
     knockDownDamageDeadly: 1
     breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
 --- !u!1 &988732549
 GameObject:
   m_ObjectHideFlags: 0
@@ -10458,13 +10490,14 @@ GameObject:
   - component: {fileID: 1584909473}
   - component: {fileID: 1584909472}
   - component: {fileID: 1584909471}
+  - component: {fileID: 1584909474}
   m_Layer: 8
   m_Name: EnemyMiniBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!143 &1584909470
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10495,8 +10528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
-  _goals: 
-  _actions: 
+  _goals: 030000000600000007000000080000000d0000000500000000000000
+  _actions: 000000000300000007000000140000000b0000000c0000000d00000016000000120000001500000017000000
 --- !u!114 &1584909472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10508,8 +10541,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826b05a833e60b049984ab862185218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FSMStates: 
-  defFSMState: 0
+  FSMStates: 01000000020000000300000009000000040000000e0000000a000000060000000d000000070000000f00000010000000
+  defFSMState: 1
 --- !u!114 &1584909473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10522,61 +10555,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentType: 6
-  group: 1
+  group: 0
   _blackBoard:
-    GOAPMaxWeightRetreat: 0.7
-    GOAPMaxWeightPress: 0.8
-    GOAPMaxWeightAvoidLeft: 0.85
-    GOAPMaxWeightAvoidRight: 0.85
+    GOAPMaxWeightRetreat: 0
+    GOAPMaxWeightPress: 0.75
+    GOAPMaxWeightAvoidLeft: 0
+    GOAPMaxWeightAvoidRight: 0
     GOAPMaxWeightAttackTarget: 0.9
     GOAPMaxWeightReactToDamage: 1
-    GOAPMaxWeightAlert: 0.7
-    GOAPMaxWeightCalm: 0.9
-    GOAPMaxWeightShow: 0.3
-    GOAPMaxWeightOrderAttack: 0.9
-    GOAPMaxWeightOrderDodge: 0.9
-    GOAPMaxWeightOrderMove: 0.9
+    GOAPMaxWeightAlert: 0.8
+    GOAPMaxWeightCalm: 0
+    GOAPMaxWeightShow: 0.95
+    GOAPMaxWeightOrderAttack: 0
+    GOAPMaxWeightOrderDodge: 0
+    GOAPMaxWeightOrderMove: 0
     GOAPMaxWeightIdle: 0.1
-    GOAPMaxWeightBlock: 0.8
+    GOAPMaxWeightBlock: 0.7
     GOAP_INJURY: 0.9
     GOAP_KNOCKDOWN: 0.95
     GOAP_DEATH: 1
     minBlock: 0
-    maxBlock: 100
+    maxBlock: 0
     blockModificator: 0
     blockAttackModificator: 0
     blockInjuryModificator: 0
     minBerserk: 0
     maxBerserk: 100
-    berserkModificator: 0
+    berserkModificator: 2
     berserkBlockModificator: 0
-    berserkInjuryModificator: 0
+    berserkInjuryModificator: 30
     berserkAttackModificator: 0
-    minRage: 0
-    maxRage: 0
+    minRage: 30
+    maxRage: 100
     rageModificator: 10
     rageInjuryModificator: 10
     rageBlockModificator: 0
     minFear: 0
     maxFear: 0
-    fearModificator: 10
-    fearInjuryModificator: 5
+    fearModificator: 0
+    fearInjuryModificator: 0
     fearBlockModificator: 0
-    fearAttackModificator: 20
-    weaponState: 1
+    fearAttackModificator: 0
+    weaponStateOnAwake: 1
     weaponSelected: 0
-    weaponRange: 2
-    combatRange: 4
+    weaponRange: 2.5
+    combatRange: 100
     safeRange: 100
     attackCD: 2
-    maxSprintSpeed: 8
-    maxRunSpeed: 4
+    maxSprintSpeed: 2
+    maxRunSpeed: 1.5
     maxWalkSpeed: 1.5
-    maxCombatMoveSpeed: 1
+    maxCombatMoveSpeed: 2
     maxWhirlMoveSpeed: 0
-    maxKnockdownTime: 4
-    speedSmooth: 2
-    rotationSmooth: 20
+    maxKnockDownLyingTime: 4
+    speedSmooth: 6
+    rotationSmooth: 1
     rotationSmoothInMove: 8
     rollDistance: 4
     moveSpeedModifier: 1
@@ -10586,8 +10619,21 @@ MonoBehaviour:
     criticalChance: 18
     damageOnlyFromBack: 0
     knockDownAllowed: 0
-    knockDownDamageDeadly: 0
+    knockDownDamageDeadly: 1
     breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
+--- !u!114 &1584909474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1584909469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5921b0aba28487e42a5f2b8ebfeee6af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1584909475
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10712,7 +10758,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1584909469}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -5.48, y: 0, z: 0}
+  m_LocalPosition: {x: -2.02, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 925206941}
@@ -10772,7 +10818,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1587374401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10853,7 +10899,7 @@ MonoBehaviour:
     fearInjuryModificator: 4
     fearBlockModificator: 0
     fearAttackModificator: -10
-    weaponState: 0
+    weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2.2
     combatRange: 4
@@ -10864,7 +10910,7 @@ MonoBehaviour:
     maxWalkSpeed: 1.7
     maxCombatMoveSpeed: 1.2
     maxWhirlMoveSpeed: 0
-    maxKnockdownTime: 2
+    maxKnockDownLyingTime: 4
     speedSmooth: 8
     rotationSmooth: 2
     rotationSmoothInMove: 8
@@ -10878,6 +10924,8 @@ MonoBehaviour:
     knockDownAllowed: 1
     knockDownDamageDeadly: 1
     breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
 --- !u!114 &1587374404
 MonoBehaviour:
   m_ObjectHideFlags: 0

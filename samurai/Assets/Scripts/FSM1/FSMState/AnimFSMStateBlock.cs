@@ -186,7 +186,7 @@ public class AnimFSMStateBlock : AnimFSMState
 
     private void InitializeHold()
     {
-        string animName = Agent.AnimSet.GetBlockAnim(global::BlockState.HOLD, Agent.BlackBoard.weaponSelected);
+        string animName = Agent.AnimSet.GetBlockAnim(BlockState.HOLD, Agent.BlackBoard.weaponSelected);
         Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);        
         _endOfStateTime = _blockHoldEndTime;
 
@@ -198,8 +198,7 @@ public class AnimFSMStateBlock : AnimFSMState
     {
         string animName = Agent.AnimSet.GetBlockAnim(global::BlockState.BLOCK_SUCCESS, Agent.BlackBoard.weaponSelected);
         Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
-        Debug.Log("success: " + animName);
-
+        
         _startRotation = Agent.Transform.rotation;
         _startPosition = Agent.Transform.position;
 
@@ -238,8 +237,7 @@ public class AnimFSMStateBlock : AnimFSMState
     private void InitializeBlockFailed()
     {        
         string animName = Agent.AnimSet.GetBlockAnim(BlockState.BLOCK_FAIL, Agent.BlackBoard.weaponSelected);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
-        Debug.Log("fail: " + animName);
+        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);        
 
         _startRotation = Agent.Transform.rotation;
         _startPosition = Agent.Transform.position;
@@ -300,9 +298,34 @@ public class AnimFSMStateBlock : AnimFSMState
 
         if (angle > 0)
         {
-            _rotationTime = angle / 100.0f;
+            _rotationTime = angle / (360.0f * Agent.BlackBoard.rotationSmooth);
             _rotationOK = false;
-            _curRotationTime = 0;
+            _curRotationTime = 0;            
         }
+
+        PlayRotateAnim(angle, dir);
+    }
+
+    void PlayRotateAnim(float angleToTarget, Vector3 targetDir)
+    {
+        if (Agent.BlackBoard.motionType != MotionType.BLOCK)
+        {
+            return;
+        }
+        string animName;
+        if (angleToTarget > 0)
+        {
+            if (Vector3.Dot(targetDir, Agent.Transform.right) > 0)
+                animName = Agent.AnimSet.GetRotateAnim(Agent.BlackBoard.motionType, RotationType.RIGHT);
+            else
+                animName = Agent.AnimSet.GetRotateAnim(Agent.BlackBoard.motionType, RotationType.LEFT);
+            Tools.PlayAnimation(Agent.AnimEngine, animName, 0.01f, QueueMode.CompleteOthers);
+        }        
+        else
+        {
+            animName = Agent.AnimSet.GetBlockAnim(BlockState.HOLD, Agent.BlackBoard.weaponSelected);
+            Tools.PlayAnimation(Agent.AnimEngine, animName, 0.01f);
+        }
+        
     }
 }

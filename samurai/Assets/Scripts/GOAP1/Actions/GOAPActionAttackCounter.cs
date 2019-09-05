@@ -41,7 +41,7 @@ public class GOAPActionAttackCounter : GOAPActionBase
         _eventAttack.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
         //_eventAttack.attackType = OrderAttackType.COUNTER;
         _eventAttack.attackDir = Agent.BlackBoard.desiredDirection;
-        _eventAttack.hitTimeStart = false;
+        //_eventAttack.hitTimeStart = false;
         _eventAttack.attackPhaseDone = false;
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.COUNTER);
         FSMComponent.SendEvent(_eventAttack);

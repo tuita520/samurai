@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
 [System.Serializable]public class AnimSetPlayer : AnimSet{    
     GameObject      _trails;
     AnimAttackData  _attackKnockdown;

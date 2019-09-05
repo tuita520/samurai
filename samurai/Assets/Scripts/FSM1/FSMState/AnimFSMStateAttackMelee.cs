@@ -13,8 +13,6 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
     AnimFSMEventAttackMelee _eventAttackMelee;
 
-    float _timeToFinishWeapon = 0;  // 拔刀计时
-
     Quaternion _finalRotation;
     Quaternion _startRotation;
     Vector3 _startPosition;
@@ -34,6 +32,7 @@ public class AnimFSMStateAttackMelee : AnimFSMState
     bool _knockdown = false;
     bool _backHit = false;
     AttackStatus _attackStatus;
+    bool _hitTimeStart;
 
     public AnimFSMStateAttackMelee(Agent1 agent)
         : base((int)AnimFSMStateType.ATTACK_MELEE, agent)
@@ -112,6 +111,8 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
         _isCritical = IsCritical();
         _knockdown = IsKnockDown();
+
+        _hitTimeStart = false;
     }
 
     public override void OnUpdate()
@@ -182,13 +183,13 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                     finalPos - Agent.Transform.position, false) == false)
                 {
                     _currentMoveTime = _moveTime;
-                }
-                // Debug.Log(Time.timeSinceLevelLoad + " moving");
+                }                
             }
 
-            if (_eventAttackMelee.hitTimeStart == false && _hitTime <= Time.timeSinceLevelLoad)
+            if (/*_eventAttackMelee.hitTimeStart*/_hitTimeStart == false && _hitTime <= Time.timeSinceLevelLoad)
             {
-                _eventAttackMelee.hitTimeStart = true;
+                //_eventAttackMelee.hitTimeStart = true;
+                _hitTimeStart = true;
                 HandleAttackResult.DoMeleeDamage(Agent, _eventAttackMelee.target, Agent.BlackBoard.attackerWeapon,
                     _eventAttackMelee.animAttackData, _isCritical, _knockdown, 
                     _eventAttackMelee.animAttackData.isFatal);

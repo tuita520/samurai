@@ -9,8 +9,7 @@ public class AnimFSMStateRotate : AnimFSMState
     Quaternion _finalRotation;
     Quaternion _startRotation;
     float _currentRotationTime;
-    float _rotationTime;
-    float _endOfStateTime;
+    float _rotationTime;    
     string _animName;
 
     public AnimFSMStateRotate(Agent1 agent)
@@ -51,9 +50,10 @@ public class AnimFSMStateRotate : AnimFSMState
         else
             _animName = Agent.AnimSet.GetRotateAnim(Agent.BlackBoard.motionType, RotationType.LEFT);
 
-        Tools.PlayAnimation(Agent.AnimEngine, _animName, 0.01f, QueueMode.CompleteOthers);        
+        Tools.PlayAnimation(Agent.AnimEngine, _animName, 0.01f, QueueMode.CompleteOthers);
+        
         _finalRotation.SetLookRotation(finalDir);
-        _rotationTime = Vector3.Angle(Agent.Transform.forward, finalDir) / (360.0f * Agent.BlackBoard.rotationSmooth);
+        _rotationTime = Vector3.Angle(Agent.Transform.forward, finalDir) / (360 * Agent.BlackBoard.rotationSmooth);
 
         if (_rotationTime == 0)
         {
@@ -62,9 +62,9 @@ public class AnimFSMStateRotate : AnimFSMState
         }
 
         float animLen = Agent.AnimEngine[_animName].length;
-        int multi = Mathf.CeilToInt(_rotationTime / animLen);
-        _endOfStateTime = animLen * multi + Time.timeSinceLevelLoad;
-        //_endOfStateTime = _rotationTime + Time.timeSinceLevelLoad;
+        int multi = Mathf.CeilToInt(_rotationTime / animLen);       
+
+        _rotationTime = animLen * multi + Time.timeSinceLevelLoad;
     }
 
     public override bool OnEvent(FSMEvent ev)
@@ -81,16 +81,16 @@ public class AnimFSMStateRotate : AnimFSMState
 
     public override void OnUpdate()
     {
-        _currentRotationTime += Time.deltaTime * _eventRotate.rotationModifier;
+        _currentRotationTime += Time.deltaTime * (360 * Agent.BlackBoard.rotationSmooth);
         if (_currentRotationTime >= _rotationTime)
         {
             _currentRotationTime = _rotationTime;
         }
 
         float progress = _currentRotationTime / _rotationTime;
-        Quaternion q = Quaternion.Lerp(_startRotation, _finalRotation, Mathfx.Hermite(0, 1, progress));        
+        Quaternion q = Quaternion.Lerp(_startRotation, _finalRotation, Mathfx.Hermite(0, 1, progress));
         Agent.Transform.rotation = q;
-        if (_endOfStateTime <= Time.timeSinceLevelLoad)
+        if (_rotationTime <= Time.timeSinceLevelLoad)
         {
             IsFinished = true;
             _eventRotate.IsFinished = true;

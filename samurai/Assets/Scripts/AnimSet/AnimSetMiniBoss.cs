@@ -1,5 +1,5 @@
 using UnityEngine;[System.Serializable]
-public class AnimSetEnemyMiniBoss : AnimSet{
+public class AnimSetMiniBoss : AnimSet{
     protected AnimAttackData AnimAttacksSwordL;
     protected AnimAttackData AnimAttacksSwordS;
     protected AnimAttackData AnimRollAttack;	void Awake()	{        AnimAttacksSwordL = new AnimAttackData("attackA", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE, 0, false, false, false, false);
@@ -43,7 +43,7 @@ public class AnimSetEnemyMiniBoss : AnimSet{
             comboSteps = new ComboStep[]
             {                
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
-                    ("attackB", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE,
+                    ("attackB", null, 1f, 0.25f, 0.1f, 0.45f, 0.45f, 10, 20, 1f, CriticalHitType.NONE,
                     0, false, false, false, false)},
             }
         });
@@ -80,7 +80,7 @@ public class AnimSetEnemyMiniBoss : AnimSet{
         if (rotationType == RotationType.LEFT)
             return "rotateLeft";
 
-        return "rotateRight";
+        return "rotateLeft";//"rotateRight资源动作很奇怪";
     }
     public override string GetRollAnim(WeaponType weapon, WeaponState weaponState){return null;}    public override string GetBlockAnim(BlockState state, WeaponType weapon)    {
         if (state == BlockState.START)

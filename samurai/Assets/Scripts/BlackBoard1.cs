@@ -137,9 +137,11 @@ public class BlackBoard1
 
 
     [System.NonSerialized]
-    public MotionType motionType = MotionType.NONE;                     // 动作类型    
-    public WeaponState weaponState = WeaponState.NOT_IN_HANDS;          // 武器在手状态    
-    public WeaponType weaponSelected = WeaponType.KATANA;               // 武器类型    
+    public MotionType motionType = MotionType.NONE;                       // 动作类型    
+    [System.NonSerialized]
+    public WeaponState weaponState;                                       // 武器在手状态  
+    public WeaponState weaponStateOnAwake = WeaponState.NOT_IN_HANDS;
+    public WeaponType weaponSelected = WeaponType.KATANA;                 // 武器类型    
     public float weaponRange = 2;
     public float SqrWeaponRange { get { return weaponRange * weaponRange; } }
     public float combatRange = 4;
@@ -155,7 +157,7 @@ public class BlackBoard1
     public float maxWalkSpeed = 1.5f;
     public float maxCombatMoveSpeed = 1;
     public float maxWhirlMoveSpeed = 0;
-    public float maxKnockdownTime = 4;
+    public float maxKnockDownLyingTime = 4;
 
     public float speedSmooth = 2.0f;
     public float rotationSmooth = 20.0f;
@@ -228,6 +230,9 @@ public class BlackBoard1
     //[System.NonSerialized]
     //public BlockResult blockResult = BlockResult.NONE;
     public float breakBlockChance = 20;
+
+    public float knockDownLyingTime = 3;
+    public float blockHoldTime = 5;
 
     public bool IsBlocking { get { return motionType == MotionType.BLOCK/* || motionType == MotionType.BLOCKING_ATTACK*/; } }
     public bool IsAlive { get { return health > 0 && Agent.gameObject.activeSelf; } }
@@ -369,7 +374,7 @@ public class BlackBoard1
     public void Reset()
     {
         motionType = MotionType.NONE;
-        weaponState = WeaponState.NOT_IN_HANDS;
+        weaponState = weaponStateOnAwake;
         
         speed = 0;
         moveDir = Vector3.zero;

@@ -34,7 +34,7 @@ public class SimpleDecision : Decision
         {
             AnimFSMEventRotate ev = AnimFSMEventRotate.pool.Get();
             ev.target = Agent.BlackBoard.desiredTarget;
-            ev.rotationModifier = 0.8f;
+            //ev.rotationModifier = 0.8f;
             Agent.FSMComponent.SendEvent(ev);
         }
         if (Input.GetKey(KeyCode.Alpha5))

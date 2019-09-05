@@ -42,7 +42,7 @@ public class GOAPActionBlock1 : GOAPActionBase
     {
         _eventBlock = AnimFSMEventBlock.pool.Get();
         _eventBlock.attacker = Agent.BlackBoard.desiredTarget;
-        _eventBlock.holdTime = 3;
+        _eventBlock.holdTime = Agent.BlackBoard.blockHoldTime;
         FSMComponent.SendEvent(_eventBlock);
     }
 }
