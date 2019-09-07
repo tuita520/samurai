@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GOAPPlanAStar : Phenix.Unity.AI.GOAPPlan
 {
+    AStarGOAP _astar = new AStarGOAP();
+    
     public override void BuildPlan(Phenix.Unity.AI.GOAPGoal goal, 
         List<Phenix.Unity.AI.GOAPAction> actions)
     {
@@ -10,6 +13,39 @@ public class GOAPPlanAStar : Phenix.Unity.AI.GOAPPlan
             return;
         }
 
+        _astar.goal = goal;
+        _astar.actions = actions;
+
+        GOAPAStarNode start = GOAPAStarNode.pool.Get();
+        start.nodeWS = CurWorldState.Clone();
+        start.goalType = goal.GOAPGoalType;
+        start.adaptedAction = null;
+
+        GOAPAStarNode finish = GOAPAStarNode.pool.Get();
+        finish.nodeWS = CurWorldState.Clone();
+        goal.ApplyEffect(finish.nodeWS);
+        finish.goalType = goal.GOAPGoalType;
+        finish.adaptedAction = null;
+
+        List<GOAPAStarNode> nodePath;
+        AStarGOAP.ResultCode retCode = _astar.FindPath(start, finish, out nodePath, 100);
+        if (retCode == AStarGOAP.ResultCode.SUCCESS)
+        {
+            foreach (var node in nodePath)
+            {
+                if (node.adaptedAction == null) // 起点
+                {
+                    continue;
+                }
+                steps.Enqueue(node.adaptedAction);
+            }
+        }
+        else
+        {
+            Debug.Log(retCode);
+        }
+
+        /*
         Dictionary<int, Phenix.Unity.AI.GOAPAction> actionsMap = new Dictionary<int, Phenix.Unity.AI.GOAPAction>();
         foreach (var item in actions)
         {
@@ -166,6 +202,6 @@ public class GOAPPlanAStar : Phenix.Unity.AI.GOAPPlan
                 break;
             default:
                 break;
-        }        
+        }        */
     }
 }

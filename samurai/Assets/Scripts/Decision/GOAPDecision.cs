@@ -50,7 +50,7 @@ public enum GOAPGoalType1
     /*GOTO,
     DODGE,  
     BOSS_ATTACK,    */
-    MAX,
+    COUNT,
 }
 
 public enum GOAPActionType1
@@ -95,7 +95,7 @@ public enum GOAPActionType1
     //INJURY,
     //DEATH,
     //KNOCK_DOWN,
-    MAX,
+    COUNT,
 }
 
 [System.Serializable]
@@ -120,6 +120,7 @@ public class WorldStatePropInfoEx
  4.新增fsmstate和action瞬移（flash），goalRound（迂回，目的是到达敌人背面）
  5.goapdecision新增nextTarget，由selecttarget赋值，在goalbase.onexit（bool replaced为false）时给desiredtarget赋值。
   对玩家来说直接赋值给desiredtarget。
+ 6.plan.build考虑支持协程
 */
 public class GOAPDecision : Decision
 {
@@ -334,7 +335,8 @@ public class GOAPDecision : Decision
                     break;
                 case GOAPActionType1.ORDER_ATTACK_MELEE:
                     {
-                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();                       
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ORDER_ATTACK, false, false));
@@ -345,6 +347,7 @@ public class GOAPDecision : Decision
                 case GOAPActionType1.ORDER_ROLL:
                     {
                         List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ORDER_ROLL, false, false));
@@ -494,7 +497,7 @@ public class GOAPDecision : Decision
                     break;
             }
         }
-        _goap = new GOAP(new Phenix.Unity.AI.WorldState((int)GOAPActionType1.MAX + 1), 
+        _goap = new GOAP(new Phenix.Unity.AI.WorldState((int)GOAPActionType1.COUNT + 1), 
             goals, actions, new GOAPPlanAStar());
     }
 
