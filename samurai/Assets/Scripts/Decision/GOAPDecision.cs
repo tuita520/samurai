@@ -79,7 +79,8 @@ public enum GOAPActionType1
     ATTACK_MELEE_SINGLE_SWORD      = 20,
     ATTACK_CROSS                   = 21,
     ATTACK_ROLL                    = 22,
-    GOTO_TARGET                    = 23, 
+    GOTO_TARGET                    = 23,
+    FLASH                          = 24,
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -117,7 +118,7 @@ public class WorldStatePropInfoEx
  2.决策是是否面对敌人背后，模糊算法？
  3.剑之道。类似功夫的闯关游戏，最后一关打自己。每关开始有一行特效tip：剑之道，贵乎奇。剑之道，攻其不备出其不意。剑之道，胜人先胜己
    三把刀，三箭客，武田信玄，服部半藏，小boss，鬼冢一郎，你自己。三箭客用动作融合实现边跑边射箭
- 4.新增fsmstate和action瞬移（flash），goalRound（迂回，目的是到达敌人背面）
+ 4.goalRound（迂回，目的是到达敌人背面）,flash选择目的位置时在道场中央放置隐形物体，flash时目标位置距离中央距离不能超过半径
  5.goapdecision新增nextTarget，由selecttarget赋值，在goalbase.onexit（bool replaced为false）时给desiredtarget赋值。
   对玩家来说直接赋值给desiredtarget。
  6.plan.build考虑支持协程
@@ -290,9 +291,10 @@ public class GOAPDecision : Decision
                         List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
-                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_COMBAT_RANGE, true, false));
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
 
                         actions.Add(new GOAPActionGoToMeleeRange1(Agent, Agent.FSMComponent, preConditionBits, effectBits));
                     }
@@ -491,6 +493,20 @@ public class GOAPDecision : Decision
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
 
                         actions.Add(new GOAPActionGoToTarget(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.FLASH:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
+                        //preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.ENOUGH_BERSERK, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
+
+                        actions.Add(new GOAPActionFlash(Agent, Agent.FSMComponent, preConditionBits, effectBits));
                     }
                     break;
                 default:

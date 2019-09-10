@@ -71,6 +71,9 @@ public class FSMComponent : MonoBehaviour
                 case AnimFSMStateType.GOTO_TARGET:
                     state = new AnimFSMStateGoToTarget(_agent);
                     break;
+                case AnimFSMStateType.FLASH:
+                    state = new AnimFSMStateFlash(_agent);
+                    break;
                 default:
                     break;
             }
