@@ -36,7 +36,7 @@ public class GOAPActionShowSword : GOAPActionBase
 
     public override bool IsFinished()
     {
-        return _eventSword.IsFinished;
+        return _eventSword != null && _eventSword.IsFinished;
     }
 
     void SendEvent()

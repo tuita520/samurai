@@ -256,16 +256,16 @@ public class AnimFSMStateAttackCross : AnimFSMState
         }
     }
 
-    void HandleHit()
-    {
-        AttackMeleeHitData hitData = new AttackMeleeHitData();
-        hitData.agent = Agent;
-        hitData.target = _eventAttackCross.target;
-        hitData.attackData = _eventAttackCross.animAttackData;
-        hitData.isCritical = _isCritical;
-        hitData.isKnockDown = _knockdown;
-        onAttackHit.Invoke(hitData);
-    }
+    //void HandleHit()
+    //{
+    //    AttackMeleeHitData hitData = new AttackMeleeHitData();
+    //    hitData.agent = Agent;
+    //    hitData.target = _eventAttackCross.target;
+    //    hitData.attackData = _eventAttackCross.animAttackData;
+    //    hitData.isCritical = _isCritical;
+    //    hitData.isKnockDown = _knockdown;
+    //    onAttackHit.Invoke(hitData);
+    //}
 
     void HandleMontageShot()
     {

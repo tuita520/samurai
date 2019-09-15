@@ -27,11 +27,11 @@ public abstract class AnimFSMState : FSMState
 {
     protected Agent1 Agent { get; private set; }
 
-    protected UnityAction<AttackMeleeHitData> onAttackHit = new UnityAction<AttackMeleeHitData>(HandleAttackResult.AttackMeleeHitHandler);
-    protected UnityAction<AttackWhirlHitData> onAttackWhirlHit = new UnityAction<AttackWhirlHitData>(HandleAttackResult.AttackWhirlHitHandler);
+    //protected UnityAction<AttackMeleeHitData> onAttackHit = new UnityAction<AttackMeleeHitData>(HandleAttackResult.AttackMeleeHitHandler);
+    //protected UnityAction<AttackWhirlHitData> onAttackWhirlHit = new UnityAction<AttackWhirlHitData>(HandleAttackResult.AttackWhirlHitHandler);
     protected UnityAction<MontageShotData> onMontageShot = new UnityAction<MontageShotData>(HandleMontageShot.MontageShotHandler);
-    protected UnityAction<SoundData> onSound = new UnityAction<SoundData>(HandleSound.SoundHandler);
-    protected UnityAction<EffectData> onEffect = new UnityAction<EffectData>(HandleEffect.EffectHandler);
+    //protected UnityAction<SoundData> onSound = new UnityAction<SoundData>(HandleSound.SoundHandler);
+    //protected UnityAction<EffectData> onEffect = new UnityAction<EffectData>(HandleEffect.EffectHandler);
     
     public AnimFSMState(int stateType, Agent1 agent) : base(stateType)
     {

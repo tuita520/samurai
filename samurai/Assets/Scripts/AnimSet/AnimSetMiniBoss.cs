@@ -4,7 +4,7 @@ public class AnimSetMiniBoss : AnimSet{
     protected AnimAttackData AnimAttacksSwordS;
     protected AnimAttackData AnimRollAttack;	void Awake()	{        AnimAttacksSwordL = new AnimAttackData("attackA", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE, 0, false, false, false, false);
         AnimAttacksSwordS = new AnimAttackData("attackB", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE, 0, false, false, false, false);
-        AnimRollAttack = new AnimAttackData("", null, 0, 0.5f, 1.5f, 30, 20, 3, CriticalHitType.NONE, false);		Animation anims = GetComponent<Animation>();
+        AnimRollAttack = new AnimAttackData("", null, 0, 0.5f, 1.5f, 30, 20, 1.5f, CriticalHitType.NONE, false);		Animation anims = GetComponent<Animation>();
         anims["idleSword"].layer = 0;        anims["walkSword"].layer = 0;        
         /*anims["death01"].layer = 2;
         anims["death02"].layer = 2;
@@ -54,7 +54,7 @@ public class AnimSetMiniBoss : AnimSet{
             comboSteps = new ComboStep[]
             {
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
-                    ("", null, 0, 0.5f, 1.5f, 30, 20, 3, CriticalHitType.NONE, false)}
+                    ("", null, 0, 0.5f, 1.5f, 30, 20, 1.5f, CriticalHitType.NONE, false)}
             }
         });
     }	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        return "idleSword";	}

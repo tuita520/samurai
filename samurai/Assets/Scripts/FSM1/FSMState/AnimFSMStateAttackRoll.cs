@@ -4,19 +4,28 @@ using Phenix.Unity.AI;
 
 public class AnimFSMStateAttackRoll : AnimFSMState
 {
-    AnimFSMEventAttackWhirl _eventWhirl;
-    float _maxSpeed;
-    float _timeToEndState;    
+    enum AttackRollState
+    {
+        PREPARE,
+        ROLL,
+        STAND_UP,
+    }
+    
+    AnimFSMEventAttackRoll _eventAttackRoll;
+
+    Quaternion _finalRotation;
+    Quaternion _startRotation;
+
+    float _curRotationTime;
+    float _rotationTime;
+    float _endOfStateTime;
+    float _hitTimer;
 
     //CombatEffectsManager.CacheData Effect;
-    float _timeToStartEffect;
-    float _timeToEndEffect;
 
-    Quaternion _finalRotation = new Quaternion();
-    Quaternion _startRotation = new Quaternion();
+    bool _rotationOk = false;
+    AttackRollState _state;
 
-    float _hitTimer;
-    float _rotationProgress;
 
     public AnimFSMStateAttackRoll(Agent1 agent)
         : base((int)AnimFSMStateType.ATTACK_ROLL, agent)
@@ -36,101 +45,119 @@ public class AnimFSMStateAttackRoll : AnimFSMState
         Agent.BlackBoard.invulnerable = false;
         Agent.BlackBoard.speed = 0;
         //if (Effect != null)
-        //  CombatEffectsManager.Instance.ReturnWhirlEffect(Effect);
-        //Effect = null;                
+        //    CombatEffectsManager.Instance.ReturnRolllEffect(Effect);
+
+        //Effect = null;
     }
 
     protected override void Initialize(FSMEvent ev)
     {
-        _eventWhirl = ev as AnimFSMEventAttackWhirl;
-        
-        Tools.PlayAnimation(Agent.AnimEngine, _eventWhirl.data.animName, 0.2f);
-        //UpdateFinalRotation();
-        Agent.BlackBoard.motionType = MotionType.ATTACK;// MotionType.WALK;
-        _rotationProgress = 0;
-        _timeToEndState = Agent.AnimEngine[_eventWhirl.data.animName].length * 0.9f + Time.timeSinceLevelLoad;
-        _hitTimer = Time.timeSinceLevelLoad + 0.75f;
+        _eventAttackRoll = ev as AnimFSMEventAttackRoll;
 
-        // Owner.PlayLoopSound(Owner.BerserkSound, 1, AnimEngine[Action.Data.AnimName].length - 1, 0.5f, 0.9f);
-
-        _timeToStartEffect = Time.timeSinceLevelLoad + 1;
-        _timeToEndEffect = Time.timeSinceLevelLoad + Agent.AnimEngine[_eventWhirl.data.animName].length - 1;        
+        _state = AttackRollState.PREPARE;
+        Tools.PlayAnimation(Agent.AnimEngine, "attackRollStart", 0.4f);
+        base.Initialize(_eventAttackRoll);
+        Agent.BlackBoard.motionType = MotionType.NONE;
+        _endOfStateTime = Agent.AnimEngine["attackRollStart"].length * 0.95f + Time.timeSinceLevelLoad;
+        _hitTimer = 0;
+        UpdateFinalRotation();
+        //Agent.SoundPlay(Agent.RollSounds[0]);
     }
 
     public override void OnUpdate()
     {
-        UpdateFinalRotation();
-
-        _rotationProgress += Time.deltaTime * Agent.BlackBoard.rotationSmoothInMove;
-        _rotationProgress = Mathf.Min(_rotationProgress, 1);
-        Agent.Transform.rotation = Quaternion.Slerp(_startRotation, _finalRotation, _rotationProgress);        
-        if (Agent.AnimEngine[_eventWhirl.data.animName].time > 
-                Agent.AnimEngine[_eventWhirl.data.animName].length * 0.1f /*为了防止动画开始时候的滑步*/)
+        switch (_state)
         {
-            float preSpeed = Agent.BlackBoard.speed;
-            float curSmooth = Agent.BlackBoard.speedSmooth * Time.deltaTime;
-            Agent.BlackBoard.speed = Mathfx.Hermite(Agent.BlackBoard.speed, 
-                Agent.BlackBoard.maxWhirlMoveSpeed, curSmooth);
-            Agent.BlackBoard.moveDir = Agent.Forward;
+            case AttackRollState.PREPARE:
+                {
+                    UpdateFinalRotation();
+                    if (_rotationOk == false)
+                    {
+                        _curRotationTime += Time.deltaTime;
+                        if (_curRotationTime >= _rotationTime)
+                        {
+                            _curRotationTime = _rotationTime;
+                            _rotationOk = true;
+                        }
 
-            float dist = Agent.BlackBoard.speed * Time.deltaTime;
-            bool _moveOk = TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController, 
-                Agent.BlackBoard.moveDir * dist, true);
-            if (_moveOk == false)
-            {
-                Agent.BlackBoard.speed = preSpeed;
-            }
-        }     
+                        float progress = _curRotationTime / _rotationTime;
+                        Quaternion q = Quaternion.Lerp(_startRotation, _finalRotation, progress);
+                        Agent.Transform.rotation = q;
+                    }
 
-        if (_hitTimer < Time.timeSinceLevelLoad) // 伤害结算计时
-        {
-            HandleAttackResult.DoMeleeDamage(Agent, _eventWhirl.target/*Agent.BlackBoard.desiredTarget*/, Agent.BlackBoard.weaponSelected,
-                _eventWhirl.data, false, false, false);
-            _hitTimer = Time.timeSinceLevelLoad + 0.75f;
+                    if (_endOfStateTime < Time.timeSinceLevelLoad)
+                        InitializeRoll();
+                }
+                break;
+            case AttackRollState.ROLL: 
+                {                    
+                    if (TransformTools.MoveOnGround(Agent.Transform, Agent.CharacterController, 
+                        Agent.Transform.forward * Agent.BlackBoard.attackRollSpeed * Time.deltaTime, false) == false)
+                    {
+                        HandleAttackResult.DoRollDamage(Agent, _eventAttackRoll.animAttackData, Agent.BlackBoard.attackRollWeaponRange);                        
+                        InitializeStandUp();
+                    }
+                    else if (_hitTimer < Time.timeSinceLevelLoad)
+                    {
+                        HandleAttackResult.DoRollDamage(Agent, _eventAttackRoll.animAttackData, Agent.BlackBoard.attackRollWeaponRange);
+                        _hitTimer = Time.timeSinceLevelLoad + Agent.BlackBoard.attackRollHitTime;//0.2f;
+                    }
+                }
+                break;
+            case AttackRollState.STAND_UP:
+                {
+                    if (_endOfStateTime < Time.timeSinceLevelLoad)
+                    {
+                        IsFinished = true;
+                        _eventAttackRoll.IsFinished = true;
+                    }
+                }
+                break;
         }
+    }
 
-        /*if (Effect == null && Time.timeSinceLevelLoad > TimeToStartEffect && Time.timeSinceLevelLoad < TimeToEndEffect)
-        {
-            Effect = CombatEffectsManager.Instance.PlayWhirlEffect(Transform);
-        }
-        else if (Effect != null && Time.timeSinceLevelLoad > TimeToEndEffect)
-        {
-            CombatEffectsManager.Instance.ReturnWhirlEffect(Effect);
-            Effect = null;
-        }*/
+    void InitializeRoll()
+    {
+        _state = AttackRollState.ROLL;
+        Tools.PlayAnimation(Agent.AnimEngine, "attackRollLoop", 0.1f);
+        Agent.BlackBoard.motionType = MotionType.ROLL;
+        //Effect = CombatEffectsManager.Instance.PlayRollEffect(Transform);
+    }
 
-        if (_timeToEndState < Time.timeSinceLevelLoad)
-        {
-            IsFinished = true;
-            _eventWhirl.IsFinished = true;
-        }
+    void InitializeStandUp()
+    {
+        _state = AttackRollState.STAND_UP;
+        Tools.PlayAnimation(Agent.AnimEngine, "attackRollEnd", 0.1f);
+        Agent.BlackBoard.motionType = MotionType.ROLL;
+        _endOfStateTime = Agent.AnimEngine["attackRollEnd"].length * 0.95f + Time.timeSinceLevelLoad;
+        //CombatEffectsManager.Instance.ReturnRolllEffect(Effect);
+        //Effect = null;
+        //Agent.SoundPlay(Agent.RollSounds[2]);
     }
 
     void UpdateFinalRotation()
     {
-        Vector3 dir;
-        if (_eventWhirl.target/*Agent.BlackBoard.desiredTarget*/ != null)
+        if (_eventAttackRoll.target == null)
+            return;
+
+        Vector3 dir = _eventAttackRoll.target.Position - Agent.Position;
+        dir.Normalize();
+
+        _startRotation = Agent.Transform.rotation;
+        _finalRotation.SetLookRotation(dir);
+
+        float angle = Vector3.Angle(Agent.Transform.forward, dir);
+
+        if (angle > 0)
         {
-            dir = _eventWhirl.target/*Agent.BlackBoard.desiredTarget*/.Position - Agent.Position;
+            _rotationTime = angle / 100.0f;
+            _rotationOk = false;
+            _curRotationTime = 0;
         }
         else
         {
-            dir = Agent.Forward;
+            _rotationOk = true;
+            _rotationTime = 0;
         }
-        dir.Normalize();
-
-        _finalRotation.SetLookRotation(dir);
-        _startRotation = Agent.Transform.rotation;
-
-        if (_startRotation != _finalRotation)
-            _rotationProgress = 0;
-    }
-
-    void HandleAttackWhirlHit()
-    {
-        AttackWhirlHitData hitData = new AttackWhirlHitData();
-        hitData.agent = Agent;        
-        hitData.attackData = _eventWhirl.data;        
-        onAttackWhirlHit.Invoke(hitData);
     }
 }

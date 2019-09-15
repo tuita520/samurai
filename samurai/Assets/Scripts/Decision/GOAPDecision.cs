@@ -122,6 +122,7 @@ public class WorldStatePropInfoEx
  5.goapdecision新增nextTarget，由selecttarget赋值，在goalbase.onexit（bool replaced为false）时给desiredtarget赋值。
   对玩家来说直接赋值给desiredtarget。
  6.plan.build考虑支持协程
+ 7.attackGoal计算权值时，如果BlackBoard.InAttackMotion, 则返回maxWeight，保证攻击动作不被damage以外动作打断
 */
 public class GOAPDecision : Decision
 {
@@ -507,6 +508,19 @@ public class GOAPDecision : Decision
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
 
                         actions.Add(new GOAPActionFlash(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ATTACK_ROLL:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        //preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.ENOUGH_BERSERK, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackRoll(Agent, Agent.FSMComponent, preConditionBits, effectBits));
                     }
                     break;
                 default:

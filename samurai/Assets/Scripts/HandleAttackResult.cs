@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Phenix.Unity.Utilities;
 
 public class AttackMeleeHitData
 {
@@ -306,6 +307,52 @@ public class HandleAttackResult
         agent.gameObject.SetActive(false); // 临时这么写着
     }
 
+    public static void DoRollDamage(Agent1 agent, AnimAttackData data, float range)
+    {
+        if (agent == null || data == null)
+        {
+            return;
+        }
+        if (agent.BlackBoard.motionType != MotionType.ROLL)
+        {
+            return;
+        }        
+                
+        Vector3 attackerDir = agent.Forward;
+        Vector3 dirToTarget = Vector3.zero;
+
+        for (int i = 0; i < Game1.Instance.AgentMgr.agents.Count; i++)
+        {
+            Agent1 target = Game1.Instance.AgentMgr.agents[i];
+            if (target == null || target == agent ||
+                target.BlackBoard.IsAlive == false || target.BlackBoard.IsKnockedDown)
+            {
+                continue;
+            }
+
+            if (target.BlackBoard.invulnerable ||
+                (target.BlackBoard.damageOnlyFromBack && TransformTools.IsBehindTarget(agent.Transform, target.Transform) == false))
+            {
+                // 攻击无效
+                ReceiveHitCompletelyBlocked(target, agent);
+                HandleSound.PlaySoundBlocked();
+                continue;
+            }
+
+            dirToTarget = target.Position - agent.Position;
+
+            if (dirToTarget.sqrMagnitude < range * range)
+            {
+                //if (data.useImpuls)
+                //{
+                //    ReceiveImpuls(target, agent, dirToTarget.normalized * data.hitMomentum);
+                //}                
+                ReceiveDamage(target, agent, WeaponType.BODY, data.hitDamage, data);
+                HandleSound.PlaySoundHit();
+            }
+        }   
+    }
+    
     /*
      public void ReceiveRangeDamage(Agent attacker, float damage, Vector3 impuls)
     {
@@ -377,41 +424,41 @@ public class HandleAttackResult
     }
          */
 
-    public static void AttackMeleeHitHandler(AttackMeleeHitData hitData)
-    {// 考虑群伤EnemiesRecvDamage
-        //if (BlackBoard.isPlayer && AnimAttackData.FullCombo)
-        //  GuiManager.Instance.ShowComboMessage(AnimAttackData.ComboIndex);              
+    //public static void AttackMeleeHitHandler(AttackMeleeHitData hitData)
+    //{// 考虑群伤EnemiesRecvDamage
+    //if (BlackBoard.isPlayer && AnimAttackData.FullCombo)
+    //  GuiManager.Instance.ShowComboMessage(AnimAttackData.ComboIndex);              
 
-        /*      if (_eventAttackMelee.attackType == AttackType.Fatality)
-                  Agent.DoDamageFatality(_eventAttackMelee.target, Agent.BlackBoard.weaponSelected,
-                      _eventAttackMelee.data);
-              else
-                  Agent.DoMeleeDamage(_eventAttackMelee.target, Agent.BlackBoard.weaponSelected,
-                      _eventAttackMelee.data, _isCritical, _knockdown);   */
+    /*      if (_eventAttackMelee.attackType == AttackType.Fatality)
+              Agent.DoDamageFatality(_eventAttackMelee.target, Agent.BlackBoard.weaponSelected,
+                  _eventAttackMelee.data);
+          else
+              Agent.DoMeleeDamage(_eventAttackMelee.target, Agent.BlackBoard.weaponSelected,
+                  _eventAttackMelee.data, _isCritical, _knockdown);   */
 
-        //if (_attackAction.data.lastAttackInCombo || _attackAction.data.comboStep == 3)
-        //  CameraBehaviour.Instance.ComboShake(_attackAction.data.comboStep - 3);
+    //if (_attackAction.data.lastAttackInCombo || _attackAction.data.comboStep == 3)
+    //  CameraBehaviour.Instance.ComboShake(_attackAction.data.comboStep - 3);
 
-        /*if (AnimAttackData.LastAttackInCombo)
-            Owner.StartCoroutine(ShowTrail(AnimAttackData, 1, 0.3f, Critical, MoveTime - Time.timeSinceLevelLoad));
-        else
-            Owner.StartCoroutine(ShowTrail(AnimAttackData, 2, 0.1f, Critical, MoveTime - Time.timeSinceLevelLoad));*/
-    }
+    /*if (AnimAttackData.LastAttackInCombo)
+        Owner.StartCoroutine(ShowTrail(AnimAttackData, 1, 0.3f, Critical, MoveTime - Time.timeSinceLevelLoad));
+    else
+        Owner.StartCoroutine(ShowTrail(AnimAttackData, 2, 0.1f, Critical, MoveTime - Time.timeSinceLevelLoad));*/
+    //}
 
-    public static void AttackWhirlHitHandler(AttackWhirlHitData hitData)
+    //public static void AttackWhirlHitHandler(AttackWhirlHitData hitData)
+    //{
+    // 考虑群伤EnemiesRecvDamage
+    /*
+    if (hitData.target != null && hitData.target.BlackBoard.IsAlive && 
+        hitData.target.BlackBoard.motionType != MotionType.ROLL &&
+           hitData.target.BlackBoard.invulnerable == false)
     {
-        // 考虑群伤EnemiesRecvDamage
-        /*
-        if (hitData.target != null && hitData.target.BlackBoard.IsAlive && 
-            hitData.target.BlackBoard.motionType != MotionType.ROLL &&
-               hitData.target.BlackBoard.invulnerable == false)
+        if ((hitData.target.Position - hitData.agent.Position).sqrMagnitude <
+            hitData.agent.BlackBoard.weaponRange * hitData.agent.BlackBoard.weaponRange)
         {
-            if ((hitData.target.Position - hitData.agent.Position).sqrMagnitude <
-                hitData.agent.BlackBoard.weaponRange * hitData.agent.BlackBoard.weaponRange)
-            {
-                hitData.target.ReceiveDamage(hitData.agent, WeaponType.Body, hitData.attackData.hitDamage, hitData.attackData);
-                //Owner.SoundPlayHit();
-            }
-        }*/
-    }
+            hitData.target.ReceiveDamage(hitData.agent, WeaponType.Body, hitData.attackData.hitDamage, hitData.attackData);
+            //Owner.SoundPlayHit();
+        }
+    }*/
+    //}
 }

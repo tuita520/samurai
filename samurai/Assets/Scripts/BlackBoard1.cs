@@ -148,6 +148,8 @@ public class BlackBoard1
     public float SqrCombatRange { get { return combatRange * combatRange; } }
     public float safeRange = 100;
 
+    public float attackRollWeaponRange = 2f;
+
     public float attackCD = 2;
     [System.NonSerialized]
     public float nextAttackTimer = 0;
@@ -164,6 +166,7 @@ public class BlackBoard1
     public float rotationSmoothInMove = 8.0f;
     public float rollDistance = 4.0f;
     public float moveSpeedModifier = 1;
+    public float attackRollSpeed = 15;
 
     [System.NonSerialized]
     public bool inIdle = false;    
@@ -233,6 +236,9 @@ public class BlackBoard1
 
     public float knockDownLyingTime = 3;
     public float blockHoldTime = 5;
+
+    public float attackRollHitTime = 0.2f;
+    public float attackWhirlHitTime = 0.5f;
 
     public bool IsBlocking { get { return motionType == MotionType.BLOCK/* || motionType == MotionType.BLOCKING_ATTACK*/; } }
     public bool IsAlive { get { return health > 0 && Agent.gameObject.activeSelf; } }

@@ -86,7 +86,7 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
         {
             HandleAttackResult.DoMeleeDamage(Agent, _eventWhirl.target/*Agent.BlackBoard.desiredTarget*/, Agent.BlackBoard.weaponSelected,
                 _eventWhirl.data, false, false, false);
-            _hitTimer = Time.timeSinceLevelLoad + 0.75f;
+            _hitTimer = Time.timeSinceLevelLoad + Agent.BlackBoard.attackWhirlHitTime;//0.75f;
         }
 
         /*if (Effect == null && Time.timeSinceLevelLoad > TimeToStartEffect && Time.timeSinceLevelLoad < TimeToEndEffect)
@@ -126,11 +126,11 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
             _rotationProgress = 0;
     }
 
-    void HandleAttackWhirlHit()
-    {
-        AttackWhirlHitData hitData = new AttackWhirlHitData();
-        hitData.agent = Agent;        
-        hitData.attackData = _eventWhirl.data;        
-        onAttackWhirlHit.Invoke(hitData);
-    }
+    //void HandleAttackWhirlHit()
+    //{
+    //    AttackWhirlHitData hitData = new AttackWhirlHitData();
+    //    hitData.agent = Agent;        
+    //    hitData.attackData = _eventWhirl.data;        
+    //    onAttackWhirlHit.Invoke(hitData);
+    //}
 }

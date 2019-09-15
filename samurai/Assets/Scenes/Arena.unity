@@ -780,6 +780,7 @@ MonoBehaviour:
     rotationSmoothInMove: 0
     rollDistance: 0
     moveSpeedModifier: 0
+    attackRollSpeed: 15
     maxHealth: 0
     criticalAllowed: 0
     criticalHitModifier: 0
@@ -790,6 +791,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!114 &165597475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2257,6 +2260,7 @@ MonoBehaviour:
     rotationSmoothInMove: 8
     rollDistance: 4
     moveSpeedModifier: 1
+    attackRollSpeed: 15
     maxHealth: 100
     criticalAllowed: 0
     criticalHitModifier: 1
@@ -2267,6 +2271,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!114 &390079107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3172,6 +3178,7 @@ MonoBehaviour:
     rotationSmoothInMove: 8
     rollDistance: 4
     moveSpeedModifier: 1
+    attackRollSpeed: 15
     maxHealth: 100
     criticalAllowed: 1
     criticalHitModifier: 1
@@ -3182,6 +3189,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!1 &532534401
 GameObject:
   m_ObjectHideFlags: 0
@@ -8229,6 +8238,7 @@ MonoBehaviour:
     rotationSmoothInMove: 0
     rollDistance: 0
     moveSpeedModifier: 0
+    attackRollSpeed: 15
     maxHealth: 0
     criticalAllowed: 0
     criticalHitModifier: 0
@@ -8239,6 +8249,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!114 &965468648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8788,6 +8800,7 @@ MonoBehaviour:
     rotationSmoothInMove: 8
     rollDistance: 4
     moveSpeedModifier: 1
+    attackRollSpeed: 15
     maxHealth: 100
     criticalAllowed: 1
     criticalHitModifier: 0.8
@@ -8798,6 +8811,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!1 &988732549
 GameObject:
   m_ObjectHideFlags: 0
@@ -10529,7 +10544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
   _goals: 030000000600000007000000080000000d0000000500000000000000
-  _actions: 000000000300000007000000140000000b0000000c0000000d0000001600000012000000150000001700000018000000
+  _actions: 000000000300000007000000180000000b0000000c0000000d00000016000000120000001500000017000000
 --- !u!114 &1584909472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10613,6 +10628,7 @@ MonoBehaviour:
     rotationSmoothInMove: 8
     rollDistance: 4
     moveSpeedModifier: 1
+    attackRollSpeed: 15
     maxHealth: 100
     criticalAllowed: 1
     criticalHitModifier: 1
@@ -10623,6 +10639,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!114 &1584909474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10916,6 +10934,7 @@ MonoBehaviour:
     rotationSmoothInMove: 8
     rollDistance: 4
     moveSpeedModifier: 1
+    attackRollSpeed: 15
     maxHealth: 100
     criticalAllowed: 1
     criticalHitModifier: 0.9
@@ -10926,6 +10945,8 @@ MonoBehaviour:
     breakBlockChance: 20
     knockDownLyingTime: 3
     blockHoldTime: 5
+    attackRollHitTime: 0.2
+    attackWhirlHitTime: 0.5
 --- !u!114 &1587374404
 MonoBehaviour:
   m_ObjectHideFlags: 0
