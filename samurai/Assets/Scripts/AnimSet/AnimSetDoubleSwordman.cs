@@ -63,7 +63,7 @@ public class AnimSetDoubleSwordman : AnimSet
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
-                    ("attackAA", null, 1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},                
+                    ("attackAA", null, 1+1, 0.25f, 0.50f, 7, 20, 1, CriticalHitType.NONE, false)},                
             }
         });
 

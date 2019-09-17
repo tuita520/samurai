@@ -74,6 +74,9 @@ public class FSMComponent : MonoBehaviour
                 case AnimFSMStateType.FLASH:
                     state = new AnimFSMStateFlash(_agent);
                     break;
+                case AnimFSMStateType.INJURY_BOSS:
+                    state = new AnimFSMStateInjuryBoss(_agent);
+                    break;
                 default:
                     break;
             }

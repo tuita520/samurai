@@ -108,8 +108,7 @@ public class AnimFSMStateDeath : AnimFSMState
         if (_rotationOk && _positionOK)
         {
             _eventDeath.IsFinished = true;
-            _eventDeath.Release();
-            Debug.Log("yeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeees");
+            _eventDeath.Release();            
             HandleDeadBody.DoHandleDeadBody(Agent);
         }
     }

@@ -41,6 +41,26 @@ public abstract class AnimSet : MonoBehaviour
         return 0;
     }
 
+    public AnimAttackData ProcessSingle(ComboType comboType)
+    {
+        for (int i = 0; i < _comboAttacks.Count; ++i)
+        {
+            Combo combo = _comboAttacks[i];
+            if (combo.comboType != comboType)
+            {
+                continue;
+            }
+            int len = combo.comboSteps.Length;
+            if (len == 0)
+            {
+                return null;
+            }
+            // 返回随机一记单招
+            return combo.comboSteps[Random.Range(0, len)].data;
+        }
+        return null;
+    }
+
     public AnimAttackData ProcessCombo(ComboType comboType)
     {
         for (int i = 0; i < _comboAttacks.Count; ++i)

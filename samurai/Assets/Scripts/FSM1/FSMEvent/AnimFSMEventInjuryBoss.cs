@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Collection;
 
-public class AnimFSMEventInjury : AnimFSMEvent
+public class AnimFSMEventInjuryBoss : AnimFSMEvent
 {
     public Agent1 attacker;
     public WeaponType fromWeapon;
     public DamageType damageType;
     public Vector3 impuls;
 
-    public static Pool<AnimFSMEventInjury> pool = new Pool<AnimFSMEventInjury>(10, Reset);
+    public static Pool<AnimFSMEventInjuryBoss> pool = new Pool<AnimFSMEventInjuryBoss>(10, Reset);
 
     
     
-    public AnimFSMEventInjury()
+    public AnimFSMEventInjuryBoss()
     {
-        EventCode = (int)AnimFSMEventCode.INJURY;
-        FSMStateTypeToTransfer = (int)AnimFSMStateType.INJURY;
+        EventCode = (int)AnimFSMEventCode.INJURY_BOSS;
+        FSMStateTypeToTransfer = (int)AnimFSMStateType.INJURY_BOSS;
         Reset();
     }
 

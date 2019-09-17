@@ -4,7 +4,7 @@ public class GOAPAStarNode
 {
     public static Pool<GOAPAStarNode> pool = new Pool<GOAPAStarNode>();
 
-    int[,] precedenceMap = new int[/*ActionType*/,/*GoalType*/]
+    public static int[,] precedenceMap = new int[/*ActionType*/,/*GoalType*/]
     {
         /*     action↓ \ goal→       ALERT, AVOID_LEFT, AVOID_RIGHT, PRESS, RETREAT, ATTACK_TARGET, SHOW, REACT_TO_DAMAGE, IDLE, ORDER_MOVE, ORDER_ATTACK, ORDER_DODGE, CALM, BLOCK   */
         /*GOTO_MELEE_RANGE*/         {   100,    100,          100,      100,    100,     10,          100,     100,         100,        100,          100,         100,   100,   100    },
@@ -27,11 +27,13 @@ public class GOAPAStarNode
         /*HIDE_SWORD*/               {   100,    100,          100,      100,    100,     100,         100,     100,         100,        100,          100,         100,   0,     100    },
         /*BLOCK*/                    {   100,    100,          100,      100,    100,     100,         100,     100,         100,        100,          100,         100,   100,   0      },
         /*ATTACK_COUNTER*/           {   100,    100,          100,      100,    100,     0,           100,     100,         100,        100,          100,         100,   100,   100    },
-        /*ATTACK_MELEE_SINGLE_SWORD*/{   100,    100,          100,      100,    100,     2,           100,     100,         100,        100,          100,         100,   100,   100    },
+        /*ATTACK_BERSERK*/           {   100,    100,          100,      100,    100,     0,           100,     100,         100,        100,          100,         100,   100,   100    },
         /*ATTACK_CROSS*/             {   100,    100,          100,      100,    100,     1,           100,     100,         100,        100,          100,         100,   100,   100    },
         /*ATTACK_ROLL*/              {   100,    100,          100,      100,    100,     0,           100,     100,         100,        100,          100,         100,   100,   100    },
         /*GOTO_TARGET*/              {   100,    100,          100,      100,    100,     10,          100,     100,         100,        100,          100,         100,   100,   100    },
         /*FLASH*/                    {   100,    100,          100,      100,    100,     9,           100,     100,         100,        100,          100,         100,   100,   100    },
+        /*REACT_TO_DAMAGE_BOSS*/     {   100,    100,          100,      100,    100,     100,         100,     0,           100,        100,          100,         100,   100,   100    },
+        /*ATTACK_MELEE_SINGLE_SWORD*/{   100,    100,          100,      100,    100,     1,           100,     100,         100,        100,          100,         100,   100,   100    },
     };        
 
     public Phenix.Unity.AI.WorldState nodeWS;

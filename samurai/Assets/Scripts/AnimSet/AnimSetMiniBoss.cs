@@ -26,7 +26,7 @@ public class AnimSetMiniBoss : AnimSet{
         //  anims["blockStepLeft"].layer = 0;
         //        anims["blockStepRight"].layer = 0;
 
-        ComboAttacks.Add(new Combo()
+        /*ComboAttacks.Add(new Combo()
         {
             comboType = ComboType.SINGLE_SWORD,
             comboSteps = new ComboStep[]
@@ -35,7 +35,7 @@ public class AnimSetMiniBoss : AnimSet{
                     ("attackA", null, 0.7f, 0.6f, 0.4f, 0.85f, 0.9f, 10, 20, 2.5f, CriticalHitType.NONE,
                     0, false, false, false, false)},                
             }
-        });
+        });*/
 
         ComboAttacks.Add(new Combo()
         {

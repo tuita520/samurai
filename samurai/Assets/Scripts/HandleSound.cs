@@ -27,6 +27,10 @@ public class HandleSound
 
     }
 
+    public static void PlaySoundBerserk()
+    {
+
+    }
 
     public static void SoundHandler(SoundData soundData)
     {

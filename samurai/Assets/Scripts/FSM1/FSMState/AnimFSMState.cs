@@ -21,6 +21,7 @@ public enum AnimFSMStateType
     ATTACK_CROSS,
     GOTO_TARGET,    // 行进到武器范围之内
     FLASH,          // 瞬移到指定位置
+    INJURY_BOSS,         
 }
 
 public abstract class AnimFSMState : FSMState

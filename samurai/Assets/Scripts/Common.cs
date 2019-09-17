@@ -249,6 +249,7 @@ public enum BlockResult
 public enum ComboType
 {
     NONE = 0,
+    /*---------------主角招式-------------------*/
     RAISE_WAVE,         // XXXXO 浪翻（快速）
     HALF_MOON,          // OOOXX 半月（破防）
     CLOUD_CUT,          // OOXXX 云切（致命）
@@ -256,11 +257,16 @@ public enum ComboType
     CRASH_GENERAL,      // OXOOO 破将（重击、群伤）
     FLYING_DRAGON,      // XOOXX 飞龙
 
-    SINGLE_SWORD,       // 一刀流
+    /*---------------普通招式-------------------*/
+    SINGLE_SWORD,       // 一刀流（单击）
     MULTI_SWORDS,       // N刀流（N连击）
-    JUMP_KILL,          // 跳杀（samurai）
+    JUMP_KILL,          // 跳杀（主角、samurai）
+    CROSS,              // 左右交叉（miniboss）
+    REVENGE,            // 复仇（boss）
+
+    /*---------------暴击招式-------------------*/
     WHIRL,              // 旋风斩（double sword man）
     COUNTER,            // 反击（swordman）
     ATTACK_ROLL,        // 冲滚（miniboss）
-    CROSS,              // 左右交叉（miniboss）
+    ATTACK_BERSERK,     // 暴击（boss）
 }

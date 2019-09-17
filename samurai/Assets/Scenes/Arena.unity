@@ -350,7 +350,7 @@ Transform:
   - {fileID: 671579379}
   - {fileID: 744994398}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &99396082
 MonoBehaviour:
@@ -768,6 +768,7 @@ MonoBehaviour:
     weaponRange: 0
     combatRange: 0
     safeRange: 0
+    attackRollWeaponRange: 2
     attackCD: 2
     maxSprintSpeed: 0
     maxRunSpeed: 0
@@ -982,7 +983,7 @@ Transform:
   - {fileID: 136943051}
   - {fileID: 156686455}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &167468012
 GameObject:
@@ -1192,7 +1193,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4526574345094494, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 26744305716544516, guid: cb90a01bcc6a41c4980a48385fed01e2,
         type: 2}
@@ -2109,7 +2110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4526574345094494, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 26744305716544516, guid: cb90a01bcc6a41c4980a48385fed01e2,
         type: 2}
@@ -2248,6 +2249,7 @@ MonoBehaviour:
     weaponRange: 2.2
     combatRange: 5
     safeRange: 100
+    attackRollWeaponRange: 2
     attackCD: 2
     maxSprintSpeed: 8
     maxRunSpeed: 3.5
@@ -2672,7 +2674,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &470875182
 AudioSource:
@@ -2902,7 +2904,7 @@ MonoBehaviour:
   _agentMgr:
     agents:
     - {fileID: 390079106}
-    - {fileID: 1584909473}
+    - {fileID: 988644029}
 --- !u!1 &472263057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,7 +3059,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4544430847144956, guid: d835ea5792a39c34a88fa0acf7937185, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1331734955316572, guid: d835ea5792a39c34a88fa0acf7937185, type: 2}
       propertyPath: m_IsActive
@@ -3092,8 +3094,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826b05a833e60b049984ab862185218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FSMStates: 
-  defFSMState: 0
+  FSMStates: 0100000002000000030000000400000007000000090000000a00000012000000
+  defFSMState: 1
 --- !u!114 &508273014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3106,8 +3108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
-  _goals: 
-  _actions: 
+  _goals: 030000000700000005000000060000000000000008000000
+  _actions: 0000000003000000140000000c0000000d00000019000000070000001a000000
 --- !u!114 &508273015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3119,78 +3121,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8da1a1c5463dfe4298bb81fc43bcf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentType: 0
-  group: 1
+  agentType: 7
+  group: 0
   _blackBoard:
-    GOAPMaxWeightRetreat: 0.7
-    GOAPMaxWeightPress: 0.8
-    GOAPMaxWeightAvoidLeft: 0.85
-    GOAPMaxWeightAvoidRight: 0.85
+    GOAPMaxWeightRetreat: 0
+    GOAPMaxWeightPress: 0.75
+    GOAPMaxWeightAvoidLeft: 0
+    GOAPMaxWeightAvoidRight: 0
     GOAPMaxWeightAttackTarget: 0.9
     GOAPMaxWeightReactToDamage: 1
     GOAPMaxWeightAlert: 0.7
-    GOAPMaxWeightCalm: 0.9
+    GOAPMaxWeightCalm: 0
     GOAPMaxWeightShow: 0.3
-    GOAPMaxWeightOrderAttack: 0.9
-    GOAPMaxWeightOrderDodge: 0.9
-    GOAPMaxWeightOrderMove: 0.9
+    GOAPMaxWeightOrderAttack: 0
+    GOAPMaxWeightOrderDodge: 0
+    GOAPMaxWeightOrderMove: 0
     GOAPMaxWeightIdle: 0.1
-    GOAPMaxWeightBlock: 0.8
-    GOAP_INJURY: 0.9
-    GOAP_KNOCKDOWN: 0.95
-    GOAP_DEATH: 1
+    GOAPMaxWeightBlock: 0
+    GOAP_INJURY: 0
+    GOAP_KNOCKDOWN: 0
+    GOAP_DEATH: 0
     minBlock: 0
-    maxBlock: 100
+    maxBlock: 0
     blockModificator: 0
     blockAttackModificator: 0
     blockInjuryModificator: 0
     minBerserk: 0
     maxBerserk: 100
-    berserkModificator: 0
-    berserkBlockModificator: 0
+    berserkModificator: 5
+    berserkBlockModificator: 10
     berserkInjuryModificator: 0
     berserkAttackModificator: 0
     minRage: 0
-    maxRage: 0
+    maxRage: 100
     rageModificator: 10
-    rageInjuryModificator: 10
-    rageBlockModificator: 0
+    rageInjuryModificator: 0
+    rageBlockModificator: 20
     minFear: 0
     maxFear: 0
-    fearModificator: 10
-    fearInjuryModificator: 5
+    fearModificator: 0
+    fearInjuryModificator: 0
     fearBlockModificator: 0
-    fearAttackModificator: 20
-    weaponStateOnAwake: 0
+    fearAttackModificator: 0
+    weaponStateOnAwake: 1
     weaponSelected: 0
-    weaponRange: 2
-    combatRange: 4
+    weaponRange: 3
+    combatRange: 6
     safeRange: 100
+    attackRollWeaponRange: 0
     attackCD: 2
-    maxSprintSpeed: 8
-    maxRunSpeed: 4
-    maxWalkSpeed: 1.5
-    maxCombatMoveSpeed: 1
+    maxSprintSpeed: 3
+    maxRunSpeed: 3
+    maxWalkSpeed: 3
+    maxCombatMoveSpeed: 3
     maxWhirlMoveSpeed: 0
-    maxKnockDownLyingTime: 4
-    speedSmooth: 2
-    rotationSmooth: 20
-    rotationSmoothInMove: 8
-    rollDistance: 4
+    maxKnockDownLyingTime: 0
+    speedSmooth: 5
+    rotationSmooth: 0.7
+    rotationSmoothInMove: 1
+    rollDistance: 0
     moveSpeedModifier: 1
-    attackRollSpeed: 15
+    attackRollSpeed: 0
     maxHealth: 100
-    criticalAllowed: 1
-    criticalHitModifier: 1
-    criticalChance: 18
-    damageOnlyFromBack: 0
+    criticalAllowed: 0
+    criticalHitModifier: 0
+    criticalChance: 0
+    damageOnlyFromBack: 1
     knockDownAllowed: 0
     knockDownDamageDeadly: 0
-    breakBlockChance: 20
-    knockDownLyingTime: 3
-    blockHoldTime: 5
-    attackRollHitTime: 0.2
-    attackWhirlHitTime: 0.5
+    breakBlockChance: 0
+    knockDownLyingTime: 0
+    blockHoldTime: 0
+    attackRollHitTime: 0
+    attackWhirlHitTime: 0
+--- !u!114 &508273016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 508273012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53da21fd83c3d2d449ac890ececfebf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &532534401
 GameObject:
   m_ObjectHideFlags: 0
@@ -8226,6 +8240,7 @@ MonoBehaviour:
     weaponRange: 0
     combatRange: 0
     safeRange: 0
+    attackRollWeaponRange: 2
     attackCD: 2
     maxSprintSpeed: 0
     maxRunSpeed: 0
@@ -8440,7 +8455,7 @@ Transform:
   - {fileID: 837468643}
   - {fileID: 1900068230}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &969872038
 GameObject:
@@ -8522,7 +8537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!143 &988644018
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8788,6 +8803,7 @@ MonoBehaviour:
     weaponRange: 2
     combatRange: 4
     safeRange: 100
+    attackRollWeaponRange: 2
     attackCD: 5
     maxSprintSpeed: 8
     maxRunSpeed: 6
@@ -9675,7 +9691,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1189347235
 MonoBehaviour:
@@ -10512,7 +10528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!143 &1584909470
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10616,6 +10632,7 @@ MonoBehaviour:
     weaponRange: 2.5
     combatRange: 100
     safeRange: 100
+    attackRollWeaponRange: 2
     attackCD: 2
     maxSprintSpeed: 2
     maxRunSpeed: 1.5
@@ -10850,7 +10867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
   _goals: 0d0000000700000000000000010000000200000003000000040000000500000006000000080000000c000000
-  _actions: 00000000050000000600000004000000030000000700000008000000090000000b0000000c0000000d00000011000000120000001300000014000000
+  _actions: 00000000050000000600000004000000030000000700000008000000090000000b0000000c0000000d000000110000001200000013000000
 --- !u!114 &1587374402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10922,6 +10939,7 @@ MonoBehaviour:
     weaponRange: 2.2
     combatRange: 4
     safeRange: 100
+    attackRollWeaponRange: 2
     attackCD: 2.5
     maxSprintSpeed: 8
     maxRunSpeed: 5

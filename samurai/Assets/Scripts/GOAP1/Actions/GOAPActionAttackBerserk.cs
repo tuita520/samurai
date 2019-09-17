@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Phenix.Unity.AI;
 
-public class GOAPActionAttackMeleeSingleSword : GOAPActionBase
+public class GOAPActionAttackBerserk : GOAPActionBase
 {
     AnimFSMEventAttackMelee _eventAttack;
 
-    public GOAPActionAttackMeleeSingleSword(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionAttackBerserk(Agent1 agent, FSMComponent fsm, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.ATTACK_MELEE_SINGLE_SWORD, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)GOAPActionType1.ATTACK_BERSERK, agent, fsm, WSPrecondition, WSEffect)
     {        
 
     }
@@ -48,7 +48,7 @@ public class GOAPActionAttackMeleeSingleSword : GOAPActionBase
             _eventAttack.attackDir = Agent.Forward;
         }
 
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessSingle(ComboType.SINGLE_SWORD);
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.ATTACK_BERSERK);
         //_eventAttack.hitTimeStart = false;        
         _eventAttack.attackPhaseDone = false;
         FSMComponent.SendEvent(_eventAttack);        

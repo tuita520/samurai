@@ -23,6 +23,7 @@ public enum AnimFSMEventCode
     ATTACK_CROSS,
     GOTO_TARGET,
     FLASH,
+    INJURY_BOSS,
     COUNT,
 }
 

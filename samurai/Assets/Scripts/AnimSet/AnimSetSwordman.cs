@@ -46,7 +46,7 @@ public class AnimSetSwordman : AnimSet
         anims["showSword"].layer = 0;        anims["hideSword"].layer = 1;
 
         //        anims["spawn"].layer = 1;
-        ComboAttacks.Add(new Combo()
+        /*ComboAttacks.Add(new Combo()
         {
             comboType = ComboType.SINGLE_SWORD,
             comboSteps = new ComboStep[]
@@ -54,7 +54,7 @@ public class AnimSetSwordman : AnimSet
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackA", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},                
             }
-        });
+        });*/
 
         ComboAttacks.Add(new Combo()
         {
@@ -64,7 +64,7 @@ public class AnimSetSwordman : AnimSet
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
                     ("attackB", null, 0.7f, 0.30f, 0.68f, 7, 20, 1, CriticalHitType.NONE, false)},
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
-                    ("attackBB", null, 0.7f, 0.30f, 0.72f, 10, 25, 2, CriticalHitType.NONE, false)},                
+                    ("attackBB", null, 0.7f+1f, 0.30f, 0.72f, 10, 25, 2, CriticalHitType.NONE, false)},                
             }
         });
 

@@ -20,6 +20,10 @@ public class AStarGOAP : AStar<GOAPAStarNode>
         neighbors.Clear();
         foreach (var action in actions)
         {
+            if (node.adaptedAction == action)
+            {
+                continue;
+            }
             if (action.CheckWorldStatePrecondition(node.nodeWS))
             {
                 GOAPAStarNode newNode = GOAPAStarNode.pool.Get();
