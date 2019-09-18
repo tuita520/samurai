@@ -60,7 +60,7 @@ public class AnimFSMStateMove : AnimFSMState
         Agent.Transform.rotation = q;
 
         if (Quaternion.Angle(q, _finalRotation) > 40.0f)
-            return;
+           return;
 
         float maxSpeed = Mathf.Max(Agent.BlackBoard.maxWalkSpeed, Agent.BlackBoard.maxRunSpeed * 
             Agent.BlackBoard.moveSpeedModifier);

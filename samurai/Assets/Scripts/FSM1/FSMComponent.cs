@@ -77,6 +77,9 @@ public class FSMComponent : MonoBehaviour
                 case AnimFSMStateType.INJURY_BOSS:
                     state = new AnimFSMStateInjuryBoss(_agent);
                     break;
+                case AnimFSMStateType.MOVE_ROTATE:
+                    state = new AnimFSMStateMoveRotate(_agent);
+                    break;
                 default:
                     break;
             }

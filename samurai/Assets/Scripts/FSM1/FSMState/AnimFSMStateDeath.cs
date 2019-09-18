@@ -42,19 +42,26 @@ public class AnimFSMStateDeath : AnimFSMState
 
         if (_eventDeath.attacker != null)
         {
-            _finalPosition = _startPosition + _eventDeath.attacker.Forward;
+            //_finalPosition = _startPosition + _eventDeath.attacker.Forward;
+            _finalPosition = _startPosition + _eventDeath.impuls;
 
             _startRotation = Agent.Transform.rotation;
-            _finalRotation.SetLookRotation(-_eventDeath.attacker.Forward);
+            //_finalRotation.SetLookRotation(-_eventDeath.attacker.Forward);
+            if (_eventDeath.damageType == DamageType.BACK)
+            {
+                _finalRotation.SetLookRotation(_eventDeath.attacker.Forward);
+            }
+            else if (_eventDeath.damageType == DamageType.FRONT)
+            {
+                _finalRotation.SetLookRotation(-_eventDeath.attacker.Forward);
+            }
 
             _positionOK = false;
             _rotationOk = false;
-
             _rotationProgress = 0;
         }
         else
-        {
-            _startPosition = Agent.Transform.position;
+        {            
             _finalPosition = _startPosition + _eventDeath.impuls;
 
             _positionOK = false;

@@ -72,7 +72,7 @@ public enum AgentType
     BOSS_OROCHI,
 	NPC_MAX,
     PLAYER,
-    AI_PLAYER,
+    SAMURAI,
 }
 
 public enum GameState

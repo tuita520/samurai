@@ -83,6 +83,7 @@ public enum GOAPActionType1
     FLASH                          = 24,
     REACT_TO_DAMAGE_BOSS           = 25,
     ATTACK_MELEE_SINGLE_SWORD      = 26,
+    LOOK_AT_TARGET_MOVE            = 27,
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -125,8 +126,9 @@ public class WorldStatePropInfoEx
   对玩家来说直接赋值给desiredtarget。
  6.plan.build考虑支持协程
  7.attackGoal计算权值时，如果BlackBoard.InAttackMotion, 则返回maxWeight，保证攻击动作不被damage以外动作打断
- 8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？旋转时还是比较奇怪，旋转速率太快
+ 8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？
  9.死亡时移动和转向的处理，目前不移动，转向有点奇怪。以及测试正面死亡和背面死亡动画 
+ 10.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。
 */
 public class GOAPDecision : Decision
 {
@@ -273,7 +275,8 @@ public class GOAPDecision : Decision
                     break;
                 case GOAPActionType1.LOOK_AT_TARGET:
                     {
-                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();                        
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.LOOKING_AT_TARGET, true, false));
@@ -554,6 +557,17 @@ public class GOAPDecision : Decision
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
                         actions.Add(new GOAPActionAttackMeleeSingleSword(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.LOOK_AT_TARGET_MOVE:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.LOOKING_AT_TARGET, true, false));
+
+                        actions.Add(new GOAPActionLookAtMove(Agent, Agent.FSMComponent, preConditionBits, effectBits));
                     }
                     break;
                 default:

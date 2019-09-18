@@ -229,7 +229,7 @@ using UnityEngine;
         return "walkSword";	}
     public override string GetRotateAnim( MotionType motionType, RotationType rotationType )
     {
-        return null;
+        return null;        
     }    public override string GetRollAnim( WeaponType weapon, WeaponState weaponState )    {        return "evadeSword";    }    public override string GetShowWeaponAnim( WeaponType weapon )    {        return  "showSwordRun";    }    public override string GetHideWeaponAnim( WeaponType weapon )    {
         return "hidSwordRun";    }
     public override string GetInjuryAnim( WeaponType weapon, DamageType type )

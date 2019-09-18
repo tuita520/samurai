@@ -24,6 +24,7 @@ public enum AnimFSMEventCode
     GOTO_TARGET,
     FLASH,
     INJURY_BOSS,
+    MOVE_ROTATE,
     COUNT,
 }
 

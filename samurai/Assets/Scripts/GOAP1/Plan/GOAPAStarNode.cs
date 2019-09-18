@@ -34,6 +34,7 @@ public class GOAPAStarNode
         /*FLASH*/                    {   100,    100,          100,      100,    100,     9,           100,     100,         100,        100,          100,         100,   100,   100    },
         /*REACT_TO_DAMAGE_BOSS*/     {   100,    100,          100,      100,    100,     100,         100,     0,           100,        100,          100,         100,   100,   100    },
         /*ATTACK_MELEE_SINGLE_SWORD*/{   100,    100,          100,      100,    100,     1,           100,     100,         100,        100,          100,         100,   100,   100    },
+        /*LOOK_AT_TARGET_MOVE*/      {   0,      10,           10,       10,     10,      20,          100,     100,         100,        100,          100,         100,   100,   10     },
     };        
 
     public Phenix.Unity.AI.WorldState nodeWS;
