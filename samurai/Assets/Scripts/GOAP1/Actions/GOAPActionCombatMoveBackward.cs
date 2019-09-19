@@ -7,9 +7,9 @@ public class GOAPActionCombatMoveBackward : GOAPActionBase
     AnimFSMEventCombatMove _eventCombatMove;
     Vector3 _finalPos;
 
-    public GOAPActionCombatMoveBackward(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionCombatMoveBackward(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.COMBAT_MOVE_BACKWARD, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -53,6 +53,6 @@ public class GOAPActionCombatMoveBackward : GOAPActionBase
         _eventCombatMove.target = Agent.BlackBoard.desiredTarget;
         _eventCombatMove.totalMoveDistance = Random.Range(2f, 5f);
         _eventCombatMove.minDistanceToTarget = 0;
-        FSMComponent.SendEvent(_eventCombatMove);
+        Agent.FSMComponent.SendEvent(_eventCombatMove);
     }
 }

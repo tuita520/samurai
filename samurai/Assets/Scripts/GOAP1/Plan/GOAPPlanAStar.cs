@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Phenix.Unity.Extend;
 
 public class GOAPPlanAStar : Phenix.Unity.AI.GOAPPlan
 {
@@ -15,7 +16,8 @@ public class GOAPPlanAStar : Phenix.Unity.AI.GOAPPlan
 
         _astar.goal = goal;
         _astar.actions = actions;
-
+        _astar.actions.Shuffle();
+        
         GOAPAStarNode start = GOAPAStarNode.pool.Get();
         start.nodeWS = CurWorldState.Clone();
         start.goalType = goal.GOAPGoalType;

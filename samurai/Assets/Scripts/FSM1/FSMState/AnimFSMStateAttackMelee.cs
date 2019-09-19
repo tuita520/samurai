@@ -89,7 +89,9 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
             _finalRotation.SetLookRotation(dir);
 
-            if (distance < Agent.BlackBoard.weaponRange)
+            if (distance < Agent.BlackBoard.weaponRange 
+                    || Agent.BlackBoard.allowedFlashToWeaponRange == false
+                    || distance > Agent.BlackBoard.combatRange * 1.2f)
                 _finalPosition = _startPosition;
             else
                 _finalPosition = _eventAttackMelee.target.transform.position - dir * Agent.BlackBoard.weaponRange;
@@ -210,7 +212,7 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
     bool IsCritical()
     {
-        if (/*Agent.IsPlayer && */_eventAttackMelee.animAttackData.hitCriticalType != CriticalHitType.NONE && _eventAttackMelee.target &&
+        if (_eventAttackMelee.animAttackData.hitCriticalType != CriticalHitType.NONE && _eventAttackMelee.target &&
             _eventAttackMelee.target.BlackBoard.criticalAllowed && _eventAttackMelee.target.BlackBoard.IsBlocking == false &&
             _eventAttackMelee.target.BlackBoard.invulnerable == false)
         {

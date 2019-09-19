@@ -6,9 +6,9 @@ public class GOAPActionFlash : GOAPActionBase
 {
     AnimFSMEventFlash _eventFlash;
     
-    public GOAPActionFlash(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionFlash(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.FLASH, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -50,7 +50,7 @@ public class GOAPActionFlash : GOAPActionBase
         _eventFlash.motionType = MotionType.SPRINT;
         _eventFlash.finalPosition = GetAttackStart(Agent.BlackBoard.desiredTarget);
         _eventFlash.target = Agent.BlackBoard.desiredTarget;
-        FSMComponent.SendEvent(_eventFlash);
+        Agent.FSMComponent.SendEvent(_eventFlash);
     }
 
     Vector3 GetAttackStart(Agent1 target)

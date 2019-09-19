@@ -55,7 +55,7 @@ public class AnimSetDoubleSwordman : AnimSet
         anims["showSword"].layer = 0;        anims["hideSword"].layer = 1;
 
         //        anims["spawn"].layer = 1;
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.MULTI_SWORDS,
             comboSteps = new ComboStep[]
@@ -67,7 +67,7 @@ public class AnimSetDoubleSwordman : AnimSet
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.WHIRL,
             comboSteps = new ComboStep[]

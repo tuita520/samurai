@@ -5,9 +5,9 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
 {
     AnimFSMEventAttackMelee _eventAttack;    
 
-    public GOAPActionOrderAttackMelee(Agent1 agent, FSMComponent fsm,
+    public GOAPActionOrderAttackMelee(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.ORDER_ATTACK_MELEE, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -109,6 +109,6 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
                 Agent.BlackBoard.weaponSelected, _eventAttack.attackType);
         }        */
 
-        FSMComponent.SendEvent(_eventAttack);
+        Agent.FSMComponent.SendEvent(_eventAttack);
     }
 }

@@ -5,9 +5,9 @@ public class GOAPActionAttackCross : GOAPActionBase
 {
     AnimFSMEventAttackCross _eventCross;
 
-    public GOAPActionAttackCross(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionAttackCross(GOAPActionType1 actionType, Agent1 agent, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.ATTACK_CROSS, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {        
 
     }
@@ -43,14 +43,15 @@ public class GOAPActionAttackCross : GOAPActionBase
             Agent.BlackBoard.desiredDirection = Agent.BlackBoard.desiredTarget.Position - Agent.Position;
             Agent.BlackBoard.desiredDirection.Normalize();
             _eventCross.attackDir = Agent.BlackBoard.desiredDirection;
+            _eventCross.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
         }
         else
         {
             _eventCross.attackDir = Agent.Forward;
         }
 
-        _eventCross.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.CROSS);        
-        FSMComponent.SendEvent(_eventCross);        
+        _eventCross.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.CROSS);
+        Agent.FSMComponent.SendEvent(_eventCross);        
     }
 
     public override bool IsFinished()

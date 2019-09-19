@@ -6,9 +6,9 @@ public class GOAPActionOrderMove : GOAPActionBase
 {
     AnimFSMEventMove _eventMove;    
 
-    public GOAPActionOrderMove(Agent1 agent, FSMComponent fsm,
+    public GOAPActionOrderMove(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.ORDER_MOVE, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -68,6 +68,6 @@ public class GOAPActionOrderMove : GOAPActionBase
     {
         _eventMove = AnimFSMEventMove.pool.Get();
         _eventMove.moveDir = dir;
-        FSMComponent.SendEvent(_eventMove);
+        Agent.FSMComponent.SendEvent(_eventMove);
     }
 }

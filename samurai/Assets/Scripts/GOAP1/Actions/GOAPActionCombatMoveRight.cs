@@ -7,9 +7,9 @@ public class GOAPActionCombatMoveRight : GOAPActionBase
     AnimFSMEventCombatMove _eventCombatMove;
     Vector3 _finalPos;
 
-    public GOAPActionCombatMoveRight(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionCombatMoveRight(GOAPActionType1 actionType, Agent1 agent, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.COMBAT_MOVE_RIGHT, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -53,6 +53,6 @@ public class GOAPActionCombatMoveRight : GOAPActionBase
         _eventCombatMove.target = Agent.BlackBoard.desiredTarget;
         _eventCombatMove.totalMoveDistance = Random.Range(2f, 4f);
         _eventCombatMove.minDistanceToTarget = Agent.BlackBoard.DistanceToDesiredTarget * 0.7f;
-        FSMComponent.SendEvent(_eventCombatMove);
+        Agent.FSMComponent.SendEvent(_eventCombatMove);
     }
 }

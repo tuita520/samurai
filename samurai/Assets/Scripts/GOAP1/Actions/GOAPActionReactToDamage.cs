@@ -13,9 +13,9 @@ public class GOAPActionReactToDamage : GOAPActionBase
     DamageResultType _damageResultType = DamageResultType.NONE;
 
 
-    public GOAPActionReactToDamage(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionReactToDamage(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.REACT_TO_DAMAGE, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -157,8 +157,8 @@ public class GOAPActionReactToDamage : GOAPActionBase
         _eventInjury.damageType = Agent.BlackBoard.damageType;
         _eventInjury.fromWeapon = Agent.BlackBoard.attackerWeapon;
         _eventInjury.attacker = Agent.BlackBoard.Attacker;
-        _eventInjury.impuls = Agent.BlackBoard.impuls;        
-        FSMComponent.SendEvent(_eventInjury);
+        _eventInjury.impuls = Agent.BlackBoard.impuls;
+        Agent.FSMComponent.SendEvent(_eventInjury);
     }
 
     void SendKnockDownEvent()
@@ -168,7 +168,7 @@ public class GOAPActionReactToDamage : GOAPActionBase
         _eventKnockDown.attacker = Agent.BlackBoard.Attacker;
         _eventKnockDown.impuls = Agent.BlackBoard.impuls;
         _eventKnockDown.lyingTime = Agent.BlackBoard.knockDownLyingTime;
-        FSMComponent.SendEvent(_eventKnockDown);
+        Agent.FSMComponent.SendEvent(_eventKnockDown);
     }
 
     void SendDeathEvent()
@@ -178,6 +178,6 @@ public class GOAPActionReactToDamage : GOAPActionBase
         _eventDeath.fromWeapon = Agent.BlackBoard.attackerWeapon;
         _eventDeath.attacker = Agent.BlackBoard.Attacker;
         _eventDeath.impuls = Agent.BlackBoard.impuls;
-        FSMComponent.SendEvent(_eventDeath);
+        Agent.FSMComponent.SendEvent(_eventDeath);
     }
 }

@@ -766,6 +766,7 @@ MonoBehaviour:
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 0
+    allowedFlashToWeaponRange: 0
     combatRange: 0
     safeRange: 0
     attackRollWeaponRange: 2
@@ -2247,6 +2248,7 @@ MonoBehaviour:
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2.2
+    allowedFlashToWeaponRange: 1
     combatRange: 5
     safeRange: 100
     attackRollWeaponRange: 2
@@ -2893,7 +2895,7 @@ MonoBehaviour:
   _agentMgr:
     agents:
     - {fileID: 390079106}
-    - {fileID: 1584909473}
+    - {fileID: 936242645}
 --- !u!1 &472263057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3155,6 +3157,7 @@ MonoBehaviour:
     weaponStateOnAwake: 1
     weaponSelected: 0
     weaponRange: 3
+    allowedFlashToWeaponRange: 0
     combatRange: 6
     safeRange: 100
     attackRollWeaponRange: 0
@@ -8061,8 +8064,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
-  _goals: 0800000000000000
-  _actions: 0d000000080000001b000000
+  _goals: 080000000500000000000000070000000c000000
+  _actions: 0d000000080000001b0000001f000000210000001e000000110000000b0000001c0000001d000000
 --- !u!114 &936242645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8119,6 +8122,7 @@ MonoBehaviour:
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2.2
+    allowedFlashToWeaponRange: 1
     combatRange: 5
     safeRange: 100
     attackRollWeaponRange: 2
@@ -8170,7 +8174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826b05a833e60b049984ab862185218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FSMStates: 01000000040000000b0000000c000000060000000700000013000000
+  FSMStates: 0100000004000000020000000c000000060000000700000013000000
   defFSMState: 1
 --- !u!1 &944041025
 GameObject:
@@ -8377,6 +8381,7 @@ MonoBehaviour:
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 0
+    allowedFlashToWeaponRange: 0
     combatRange: 0
     safeRange: 0
     attackRollWeaponRange: 2
@@ -8940,6 +8945,7 @@ MonoBehaviour:
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2
+    allowedFlashToWeaponRange: 0
     combatRange: 4
     safeRange: 100
     attackRollWeaponRange: 2
@@ -10667,7 +10673,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!143 &1584909470
 CharacterController:
   m_ObjectHideFlags: 0
@@ -10769,6 +10775,7 @@ MonoBehaviour:
     weaponStateOnAwake: 1
     weaponSelected: 0
     weaponRange: 2.5
+    allowedFlashToWeaponRange: 0
     combatRange: 100
     safeRange: 100
     attackRollWeaponRange: 2
@@ -11076,6 +11083,7 @@ MonoBehaviour:
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2.2
+    allowedFlashToWeaponRange: 0
     combatRange: 4
     safeRange: 100
     attackRollWeaponRange: 2
@@ -11467,7 +11475,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1799671481141602, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1799671481141602, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_Name

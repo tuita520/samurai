@@ -5,9 +5,9 @@ public class GOAPActionBlock1 : GOAPActionBase
 {
     AnimFSMEventBlock _eventBlock;
 
-    public GOAPActionBlock1(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionBlock1(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.BLOCK, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -43,6 +43,6 @@ public class GOAPActionBlock1 : GOAPActionBase
         _eventBlock = AnimFSMEventBlock.pool.Get();
         _eventBlock.attacker = Agent.BlackBoard.desiredTarget;
         _eventBlock.holdTime = Agent.BlackBoard.blockHoldTime;
-        FSMComponent.SendEvent(_eventBlock);
+        Agent.FSMComponent.SendEvent(_eventBlock);
     }
 }

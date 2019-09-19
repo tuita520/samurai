@@ -4,11 +4,14 @@ using Phenix.Unity.AI;
 public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
 {
     AnimFSMEventAttackMelee _eventAttack;
-    int _remainAttackCount;    
+    int _remainAttackCount;
+    ComboType _comboType;
 
-    public GOAPActionAttackMeleeMultiSwords(Agent1 agent, FSMComponent fsm, 
+    protected AnimFSMEventAttackMelee EventAttack { get { return _eventAttack; } }
+
+    public GOAPActionAttackMeleeMultiSwords(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.ATTACK_MELEE_MULTI_SWORDS, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {        
 
     }
@@ -22,7 +25,8 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
 
     public override void OnEnter()
     {
-        int attackCount = Agent.AnimSet.GetComboAttackCount(ComboType.MULTI_SWORDS);
+        _comboType = GetComboType();
+        int attackCount = Agent.AnimSet.GetComboAttackCount(_comboType);
         if (attackCount == 0)
         {
             return;
@@ -51,16 +55,16 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
             Agent.BlackBoard.desiredDirection = Agent.BlackBoard.desiredTarget.Position - Agent.Position;
             Agent.BlackBoard.desiredDirection.Normalize();
             _eventAttack.attackDir = Agent.BlackBoard.desiredDirection;
+            _eventAttack.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
         }
         else
         {
             _eventAttack.attackDir = Agent.Forward;
         }
-        
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.MULTI_SWORDS);
-        //_eventAttack.hitTimeStart = false;
+
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(_comboType);        
         _eventAttack.attackPhaseDone = false;
-        FSMComponent.SendEvent(_eventAttack);
+        Agent.FSMComponent.SendEvent(_eventAttack);
         --_remainAttackCount;
     }
 
@@ -81,5 +85,10 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
     public override bool IsFinished()
     {
         return (_eventAttack != null && _eventAttack.IsFinished && _remainAttackCount == 0);        
+    }
+
+    protected virtual ComboType GetComboType()
+    {
+        return ComboType.MULTI_SWORDS;
     }
 }

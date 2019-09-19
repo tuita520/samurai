@@ -5,9 +5,9 @@ public class GOAPActionLookAtMove : GOAPActionBase
 {
     AnimFSMEventMoveRotate _eventRotate;
 
-    public GOAPActionLookAtMove(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionLookAtMove(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.LOOK_AT_TARGET_MOVE, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -42,6 +42,6 @@ public class GOAPActionLookAtMove : GOAPActionBase
     {
         _eventRotate = AnimFSMEventMoveRotate.pool.Get();
         _eventRotate.target = Agent.BlackBoard.desiredTarget;
-        FSMComponent.SendEvent(_eventRotate);
+        Agent.FSMComponent.SendEvent(_eventRotate);
     }
 }

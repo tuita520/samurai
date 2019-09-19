@@ -6,9 +6,9 @@ public class GOAPActionIdle : GOAPActionBase
 {
     AnimFSMEventIdle _eventIdle;
 
-    public GOAPActionIdle(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionIdle(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.IDLE, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -43,6 +43,6 @@ public class GOAPActionIdle : GOAPActionBase
     void SendIdleEvent()
     {
         _eventIdle = AnimFSMEventIdle.pool.Get();
-        FSMComponent.SendEvent(_eventIdle);
+        Agent.FSMComponent.SendEvent(_eventIdle);
     }
 }

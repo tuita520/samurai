@@ -20,7 +20,11 @@ public abstract class AnimSet : MonoBehaviour
     int _curAttackIdx = 0;
     
     protected List<OrderAttackType> ComboProgress { get { return _comboProgress; } }
-    protected List<Combo> ComboAttacks { get { return _comboAttacks; } }
+    
+    protected void AddComboAttack(Combo combo)
+    {
+        _comboAttacks.Add(combo);
+    }    
 
     public void ResetComboProgress()
     {
@@ -39,6 +43,16 @@ public abstract class AnimSet : MonoBehaviour
             }
         }
         return 0;
+    }
+
+    public ComboType RandomCombo()
+    {
+        if (_comboAttacks.Count == 0)
+        {
+            return ComboType.NONE;
+        }
+        int idx = Random.Range(0, _comboAttacks.Count);
+        return _comboAttacks[idx].comboType;
     }
 
     public AnimAttackData ProcessSingle(ComboType comboType)

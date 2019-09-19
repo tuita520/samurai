@@ -4,25 +4,25 @@ using Phenix.Unity.AI;
 public enum AnimFSMStateType
 {
     NONE = 0,
-    IDLE,
-    GOTO,
-    COMBAT_MOVE,
-    ATTACK_MELEE,
-    ATTACK_WHIRL,
-    INJURY,
-    DEATH,
-    KNOCK_DOWN,
-    ROTATE,    
-    PLAY_ANIM,
-    MOVE,
-    ROLL,
-    BLOCK,
-    ATTACK_ROLL,
-    ATTACK_CROSS,
-    GOTO_TARGET,    // 行进到武器范围之内
-    FLASH,          // 瞬移到指定位置    
-    INJURY_BOSS,
-    MOVE_ROTATE,
+    IDLE            = 1,     // 待机
+    GOTO            = 2,     // 朝目的地跑动
+    COMBAT_MOVE     = 3,     // 战斗中行走
+    ATTACK_MELEE    = 4,
+    ATTACK_WHIRL    = 5,
+    INJURY          = 6,
+    DEATH           = 7,
+    KNOCK_DOWN      = 8,     // 被击倒
+    ROTATE          = 9,     // 站定旋转
+    PLAY_ANIM       = 10,    // 播放动画（挑衅、暴怒等）
+    MOVE            = 11,    // 朝指定方向持续移动
+    ROLL            = 12,
+    BLOCK           = 13,    // 格挡
+    ATTACK_ROLL     = 14,
+    ATTACK_CROSS    = 15,
+    GOTO_TARGET     = 16,    // 行进到武器范围之内（作废！！！！）
+    FLASH           = 17,    // 瞬移到指定位置    
+    INJURY_BOSS     = 18,
+    MOVE_ROTATE     = 19,    // 边移动边旋转
 }
 
 public abstract class AnimFSMState : FSMState
@@ -38,64 +38,5 @@ public abstract class AnimFSMState : FSMState
     public AnimFSMState(int stateType, Agent1 agent) : base(stateType)
     {
         Agent = agent;
-    }
-
-    /*protected void CrossFade(string anim, float fadeInTime)
-    {
-        if (Agent.AnimEngine.IsPlaying(anim))
-        {
-            // 如果自身正在被播放
-            Agent.AnimEngine.CrossFadeQueued(anim, fadeInTime, QueueMode.PlayNow);
-        }
-        else
-        {
-            Agent.AnimEngine.CrossFade(anim, fadeInTime);
-        }
-    }*/
-
-    // 当侧面发生碰撞（可选）或离地时返回false
-    //protected bool MoveOnGround(Vector3 velocity, bool allowSideCollision /*= true*/ )
-    /*{
-        Vector3 old = Agent.Transform.position;
-
-        // -----为了保证始终和地面接触begin------
-        Agent.Transform.position += Vector3.up * Time.deltaTime;
-        velocity.y -= 9 * Time.deltaTime;
-        // -----为了保证始终和地面接触end------
-
-        CollisionFlags flags = Agent.CharacterController.Move(velocity); // CharacterController.Move无视重力
-
-        if (allowSideCollision == false && (flags & CollisionFlags.Sides) != 0) // （flags & CollisionFlags.Sides) != 0 侧面碰撞
-        {
-            Agent.Transform.position = old;
-            return false;
-        }
-
-        if ((flags & CollisionFlags.Below) == 0) // (flags & CollisionFlags.Below) == 0 没有和地面碰撞
-        {
-            Agent.Transform.position = old;
-            return false;
-        }
-
-        return true;
-    }*/
-
-    /*protected bool MoveEx(Vector3 velocity)
-    {
-        Vector3 old = Agent.Transform.position;
-        Agent.Transform.position += Vector3.up * Time.deltaTime;
-        velocity.y -= 9 * Time.deltaTime;
-        CollisionFlags flags = Agent.CharacterController.Move(velocity);
-        if (flags == CollisionFlags.None)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Agent.Transform.position, -Vector3.up, out hit, 3) == false)
-            {
-                Agent.Transform.position = old;
-                return false;
-            }
-        }
-
-        return true;
-    }*/
+    }    
 }

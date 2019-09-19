@@ -5,9 +5,9 @@ public class GOAPActionShowSword : GOAPActionBase
 {
     AnimFSMEventShowHideSword _eventSword;
 
-    public GOAPActionShowSword(Agent1 agent, FSMComponent fsm,
+    public GOAPActionShowSword(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.SHOW_SWORD, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -43,6 +43,6 @@ public class GOAPActionShowSword : GOAPActionBase
     {
         _eventSword = AnimFSMEventShowHideSword.pool.Get();
         _eventSword.show = true;
-        FSMComponent.SendEvent(_eventSword);
+        Agent.FSMComponent.SendEvent(_eventSword);
     }
 }

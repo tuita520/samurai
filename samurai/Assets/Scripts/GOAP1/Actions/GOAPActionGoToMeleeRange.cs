@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using Phenix.Unity.AI;
 
+/// <summary>
+/// 朝目标移动直到武器距离
+/// </summary>
 public class GOAPActionGoToMeleeRange1 : GOAPActionBase
 {
     AnimFSMEventGoTo _eventGoTo;
-    Vector3 _finalPos;
+    
+    protected float range;
 
-    public GOAPActionGoToMeleeRange1(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionGoToMeleeRange1(GOAPActionType1 actionType, Agent1 agent, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.GOTO_MELEE_RANGE, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
-        
+        range = Agent.BlackBoard.weaponRange;
     }
 
     public override void Reset()
     {
         base.Reset();
-        _eventGoTo = null;
-        _finalPos = Vector3.zero;
+        _eventGoTo = null;        
     }
 
     public override void OnEnter()
@@ -42,25 +45,19 @@ public class GOAPActionGoToMeleeRange1 : GOAPActionBase
         {
             return true;
         }
-        return _eventGoTo.IsFinished || Agent.BlackBoard.DesiredTargetInWeaponRange;
+        return _eventGoTo.IsFinished || Agent.BlackBoard.DesiredTargetInRange(range);
     }
 
-    void SendEvent()
+    protected void SendEvent()
     {
-        _finalPos = GetBestAttackStart(Agent.BlackBoard.desiredTarget);
-        if (_finalPos == Vector3.zero)
-        {
-            return;
-        }
-
         _eventGoTo = AnimFSMEventGoTo.pool.Get();
         _eventGoTo.moveType = MoveType.FORWARD;
         _eventGoTo.motionType = MotionType.SPRINT;
-        _eventGoTo.finalPosition = _finalPos;
-        FSMComponent.SendEvent(_eventGoTo);
+        _eventGoTo.finalPosition = GetDestination(Agent.BlackBoard.desiredTarget);
+        Agent.FSMComponent.SendEvent(_eventGoTo);
     }
 
-    Vector3 GetBestAttackStart(Agent1 target)
+    Vector3 GetDestination(Agent1 target)
     {
         if (target == null)
         {
@@ -69,6 +66,6 @@ public class GOAPActionGoToMeleeRange1 : GOAPActionBase
         Vector3 dirToTarget = target.Position - Agent.Position;
         dirToTarget.Normalize();
 
-        return target.Position - dirToTarget * Agent.BlackBoard.weaponRange/* * Random.Range(0.5f, 1)*/;
+        return target.Position - dirToTarget * range;
     }
 }

@@ -5,9 +5,9 @@ public class GOAPActionAttackWhirl1 : GOAPActionBase
 {
     private AnimFSMEventAttackWhirl _eventAttackWhirl;
 
-    public GOAPActionAttackWhirl1(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionAttackWhirl1(GOAPActionType1 actionType, Agent1 agent, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.ATTACK_WHIRL, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -38,8 +38,8 @@ public class GOAPActionAttackWhirl1 : GOAPActionBase
     {
         _eventAttackWhirl = AnimFSMEventAttackWhirl.pool.Get();        
         _eventAttackWhirl.data = Agent.AnimSet.ProcessCombo(ComboType.WHIRL);
-        _eventAttackWhirl.target = Agent.BlackBoard.desiredTarget;
-        FSMComponent.SendEvent(_eventAttackWhirl);
+        _eventAttackWhirl.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
+        Agent.FSMComponent.SendEvent(_eventAttackWhirl);
     }
 
     public override bool IsFinished()

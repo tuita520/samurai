@@ -143,6 +143,7 @@ public class BlackBoard1
     public WeaponState weaponStateOnAwake = WeaponState.NOT_IN_HANDS;
     public WeaponType weaponSelected = WeaponType.KATANA;                 // 武器类型    
     public float weaponRange = 2;
+    public bool allowedFlashToWeaponRange = false;
     public float SqrWeaponRange { get { return weaponRange * weaponRange; } }
     public float combatRange = 4;
     public float SqrCombatRange { get { return combatRange * combatRange; } }
@@ -243,6 +244,13 @@ public class BlackBoard1
     public bool IsBlocking { get { return motionType == MotionType.BLOCK/* || motionType == MotionType.BLOCKING_ATTACK*/; } }
     public bool IsAlive { get { return health > 0 && Agent.gameObject.activeSelf; } }
     public bool IsKnockedDown { get { return motionType == MotionType.KNOCK_DOWN && knockDownDamageDeadly; } }
+    public bool DesiredTargetIsKnockedDown
+    {
+        get
+        {
+            return HasAttackTarget && desiredTarget.BlackBoard.IsKnockedDown;
+        }
+    }
 
     public bool InAttackCD { get { return Time.timeSinceLevelLoad < nextAttackTimer; } }
 
@@ -281,19 +289,24 @@ public class BlackBoard1
         get { return weaponState == WeaponState.IN_HAND; }
     }
 
+    public bool DesiredTargetInRange(float range)
+    {
+        if (desiredTarget != null)
+        {
+            return DistanceToDesiredTarget < range;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     // 目标是否在武器范围内
     public bool DesiredTargetInWeaponRange
     {
         get
-        {
-            if (desiredTarget != null)
-            {
-                return DistanceToDesiredTarget < weaponRange;
-            }
-            else
-            {
-                return false;
-            }
+        {            
+            return DesiredTargetInRange(weaponRange);
         }
     }
 
@@ -302,14 +315,7 @@ public class BlackBoard1
     {
         get
         {
-            if (desiredTarget != null)
-            {
-                return DistanceToDesiredTarget < combatRange;
-            }
-            else
-            {
-                return false;
-            }            
+            return DesiredTargetInRange(combatRange);
         }
     }
 
@@ -339,7 +345,8 @@ public class BlackBoard1
     {
         get
         {
-            return Phenix.Unity.Utilities.TransformTools.IsAheadOfTarget(Agent.Transform, desiredTarget.Transform);            
+            return HasAttackTarget &&
+                Phenix.Unity.Utilities.TransformTools.IsAheadOfTarget(Agent.Transform, desiredTarget.Transform);            
         }
     }
 
@@ -348,7 +355,8 @@ public class BlackBoard1
     {
         get
         {
-            return Phenix.Unity.Utilities.TransformTools.IsBehindTarget(Agent.Transform, desiredTarget.Transform);
+            return HasAttackTarget && 
+                Phenix.Unity.Utilities.TransformTools.IsBehindTarget(Agent.Transform, desiredTarget.Transform);
         }
     }
 

@@ -26,7 +26,7 @@ public class AnimSetMiniBoss : AnimSet{
         //  anims["blockStepLeft"].layer = 0;
         //        anims["blockStepRight"].layer = 0;
 
-        /*ComboAttacks.Add(new Combo()
+        /*AddComboAttack(new Combo()
         {
             comboType = ComboType.SINGLE_SWORD,
             comboSteps = new ComboStep[]
@@ -37,7 +37,7 @@ public class AnimSetMiniBoss : AnimSet{
             }
         });*/
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.CROSS,
             comboSteps = new ComboStep[]
@@ -48,7 +48,7 @@ public class AnimSetMiniBoss : AnimSet{
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.ATTACK_ROLL,
             comboSteps = new ComboStep[]

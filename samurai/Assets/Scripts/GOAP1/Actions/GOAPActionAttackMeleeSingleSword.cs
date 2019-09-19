@@ -5,9 +5,9 @@ public class GOAPActionAttackMeleeSingleSword : GOAPActionBase
 {
     AnimFSMEventAttackMelee _eventAttack;
 
-    public GOAPActionAttackMeleeSingleSword(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionAttackMeleeSingleSword(GOAPActionType1 actionType, Agent1 agent, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.ATTACK_MELEE_SINGLE_SWORD, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {        
 
     }
@@ -42,16 +42,16 @@ public class GOAPActionAttackMeleeSingleSword : GOAPActionBase
             Agent.BlackBoard.desiredDirection = Agent.BlackBoard.desiredTarget.Position - Agent.Position;
             Agent.BlackBoard.desiredDirection.Normalize();
             _eventAttack.attackDir = Agent.BlackBoard.desiredDirection;
+            _eventAttack.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
         }
         else
         {
             _eventAttack.attackDir = Agent.Forward;
         }
 
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessSingle(ComboType.SINGLE_SWORD);
-        //_eventAttack.hitTimeStart = false;        
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessSingle(ComboType.SINGLE_SWORD);        
         _eventAttack.attackPhaseDone = false;
-        FSMComponent.SendEvent(_eventAttack);        
+        Agent.FSMComponent.SendEvent(_eventAttack);        
     }
 
     public override bool IsFinished()

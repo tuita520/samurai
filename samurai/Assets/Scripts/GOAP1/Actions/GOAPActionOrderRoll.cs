@@ -5,10 +5,11 @@ using Phenix.Unity.AI;
 public class GOAPActionOrderRoll : GOAPActionBase
 {
     AnimFSMEventRoll _eventRoll;
+    Vector3 _rollDir = Vector3.zero;
 
-    public GOAPActionOrderRoll(Agent1 agent, FSMComponent fsm,
+    public GOAPActionOrderRoll(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.ORDER_ROLL, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -21,7 +22,8 @@ public class GOAPActionOrderRoll : GOAPActionBase
     }
 
     public override void OnEnter()
-    {        
+    {
+        _rollDir = GetRollDir();
         SendEvent();
     }
 
@@ -42,8 +44,22 @@ public class GOAPActionOrderRoll : GOAPActionBase
 
     void SendEvent()
     {
+        if (_rollDir == Vector3.zero)
+        {
+            return;
+        }
         _eventRoll = AnimFSMEventRoll.pool.Get();
-        _eventRoll.direction = Agent.BlackBoard.desiredDirection;
-        FSMComponent.SendEvent(_eventRoll);
+        _eventRoll.direction = _rollDir;
+        Agent.FSMComponent.SendEvent(_eventRoll);
+    }
+
+    protected virtual Vector3 GetRollDir()
+    {
+        return Agent.BlackBoard.desiredDirection;
+    }
+
+    public override bool IsAborted()
+    {
+        return _rollDir == Vector3.zero;
     }
 }

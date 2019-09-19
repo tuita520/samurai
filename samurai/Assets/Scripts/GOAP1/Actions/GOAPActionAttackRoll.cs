@@ -5,9 +5,9 @@ public class GOAPActionAttackRoll : GOAPActionBase
 {
     AnimFSMEventAttackRoll _eventAttackRoll;
 
-    public GOAPActionAttackRoll(Agent1 agent, FSMComponent fsm,
+    public GOAPActionAttackRoll(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.ATTACK_ROLL, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
         
     }
@@ -42,8 +42,8 @@ public class GOAPActionAttackRoll : GOAPActionBase
     void SendEvent()
     {
         _eventAttackRoll = AnimFSMEventAttackRoll.pool.Get();
-        _eventAttackRoll.target = Agent.BlackBoard.desiredTarget;
+        _eventAttackRoll.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
         _eventAttackRoll.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.ATTACK_ROLL);
-        FSMComponent.SendEvent(_eventAttackRoll);
+        Agent.FSMComponent.SendEvent(_eventAttackRoll);
     }
 }

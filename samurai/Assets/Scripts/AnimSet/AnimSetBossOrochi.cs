@@ -4,7 +4,7 @@ public class AnimSetBossOrochi : AnimSet{
     protected AnimAttackData AnimAttackBerserk;
     protected AnimAttackData AnimAttackInjury;		void Awake()	{        AnimAttackX = new AnimAttackData("attackX", null, 0, 0.6f, 1.7f, 10, 60, 2, CriticalHitType.NONE, false);
         AnimAttackBerserk = new AnimAttackData("attackO", null, 0, 0.9f, 3.5f, 30, 30, 3.5f, CriticalHitType.NONE, false);
-        AnimAttackInjury = new AnimAttackData("attackInjury", null, 0, 0.5f, 1.5f, 30, 180, 4, CriticalHitType.NONE, false);        ComboAttacks.Add(new Combo()
+        AnimAttackInjury = new AnimAttackData("attackInjury", null, 0, 0.5f, 1.5f, 30, 180, 4, CriticalHitType.NONE, false);        AddComboAttack(new Combo()
         {
             comboType = ComboType.SINGLE_SWORD,
             comboSteps = new ComboStep[]
@@ -16,7 +16,7 @@ public class AnimSetBossOrochi : AnimSet{
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.REVENGE,
             comboSteps = new ComboStep[]
@@ -26,7 +26,7 @@ public class AnimSetBossOrochi : AnimSet{
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.ATTACK_BERSERK,
             comboSteps = new ComboStep[]

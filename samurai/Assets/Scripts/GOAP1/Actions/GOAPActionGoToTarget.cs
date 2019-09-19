@@ -2,64 +2,47 @@
 using System.Collections.Generic;
 using Phenix.Unity.AI;
 
-public class GOAPActionGoToTarget : GOAPActionBase
+/// <summary>
+/// 在持续时间内，朝目标移动直到武器距离
+/// </summary>
+public class GOAPActionGoToTarget : GOAPActionGoToMeleeRange1
 {
-    AnimFSMEventGoToTarget _eventGoToTarget;
     float _giveUpTimer = 0;
-    const float trackTime = 5;
+    protected float giveUpTime = 5;
 
-    public GOAPActionGoToTarget(Agent1 agent, FSMComponent fsm, 
+    float _aimTimer = 0;
+    protected float aimInterval = 0.5f;
+    
+
+    public GOAPActionGoToTarget(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.GOTO_TARGET, agent, fsm, WSPrecondition, WSEffect)
+        : base(actionType, agent, WSPrecondition, WSEffect)
     {
-        
+        range = Agent.BlackBoard.weaponRange;
     }
 
     public override void Reset()
     {
         base.Reset();
-        _eventGoToTarget = null;        
+        _giveUpTimer = 0;
+        _aimTimer = 0;
     }
 
     public override void OnEnter()
     {
-        _giveUpTimer = Time.timeSinceLevelLoad + trackTime;
-        SendEvent();
+        base.OnEnter();
+        _giveUpTimer = Time.timeSinceLevelLoad + giveUpTime;        
     }
 
-    public override void OnExit(Phenix.Unity.AI.WorldState ws)
+    public override void OnUpdate()
     {
-        if (_eventGoToTarget != null)
+        base.OnUpdate();
+        if (Time.timeSinceLevelLoad > _aimTimer)
         {
-            _eventGoToTarget.Release();
-            _eventGoToTarget = null;
+            _aimTimer = Time.timeSinceLevelLoad + aimInterval;
+            SendEvent();
         }
-        base.OnExit(ws);
     }
-
-    public override bool IsFinished()
-    {
-        if (_eventGoToTarget == null)
-        {
-            return true;
-        }
-        return _eventGoToTarget.IsFinished || Agent.BlackBoard.DesiredTargetInWeaponRange;
-    }
-
-    void SendEvent()
-    {        
-        if (Agent.BlackBoard.HasAttackTarget == false)
-        {
-            return;
-        }
-
-        _eventGoToTarget = AnimFSMEventGoToTarget.pool.Get();
-        _eventGoToTarget.moveType = MoveType.FORWARD;
-        _eventGoToTarget.motionType = MotionType.SPRINT;
-        _eventGoToTarget.target = Agent.BlackBoard.desiredTarget;
-        FSMComponent.SendEvent(_eventGoToTarget);
-    }
-
     public override bool IsAborted()
     {
         return Time.timeSinceLevelLoad > _giveUpTimer;

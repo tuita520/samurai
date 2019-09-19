@@ -16,7 +16,6 @@ public class GOAPGoalBlock1 : GOAPGoalBase
     }
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {
-        return 0.985f;
         if (Agent.BlackBoard.HasAttackTarget == false)
         {
             return 0;

@@ -5,9 +5,9 @@ public class GOAPActionAttackCounter : GOAPActionBase
 {
     private AnimFSMEventAttackMelee _eventAttack;
 
-    public GOAPActionAttackCounter(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionAttackCounter(GOAPActionType1 actionType, Agent1 agent, 
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
-        : base((int)GOAPActionType1.ATTACK_COUNTER, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -44,7 +44,7 @@ public class GOAPActionAttackCounter : GOAPActionBase
         //_eventAttack.hitTimeStart = false;
         _eventAttack.attackPhaseDone = false;
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.COUNTER);
-        FSMComponent.SendEvent(_eventAttack);
+        Agent.FSMComponent.SendEvent(_eventAttack);
     }
 
     public override bool IsFinished()

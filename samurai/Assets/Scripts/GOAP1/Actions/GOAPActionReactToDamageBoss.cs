@@ -15,9 +15,9 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
     int _injuryPhrase = 0;
     int maxInjuryPhrase = 3;
 
-    public GOAPActionReactToDamageBoss(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionReactToDamageBoss(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.REACT_TO_DAMAGE_BOSS, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -150,7 +150,7 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
         _eventInjury.fromWeapon = Agent.BlackBoard.attackerWeapon;
         _eventInjury.attacker = Agent.BlackBoard.Attacker;
         _eventInjury.impuls = Agent.BlackBoard.impuls;
-        FSMComponent.SendEvent(_eventInjury);        
+        Agent.FSMComponent.SendEvent(_eventInjury);        
     }
 
     void SendDeathEvent()
@@ -160,7 +160,7 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
         _eventDeath.fromWeapon = Agent.BlackBoard.attackerWeapon;
         _eventDeath.attacker = Agent.BlackBoard.Attacker;
         _eventDeath.impuls = Agent.BlackBoard.impuls;
-        FSMComponent.SendEvent(_eventDeath);
+        Agent.FSMComponent.SendEvent(_eventDeath);
     }
 
     void SendRevengeAttackEvent()
@@ -170,6 +170,6 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.REVENGE);
         _eventAttack.attackDir = Agent.Forward;
-        FSMComponent.SendEvent(_eventAttack);
+        Agent.FSMComponent.SendEvent(_eventAttack);
     }
 }

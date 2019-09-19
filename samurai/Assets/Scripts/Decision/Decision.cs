@@ -94,6 +94,11 @@ public abstract class Decision : MonoBehaviour
         return target.Position - dirToTarget * Agent.BlackBoard.weaponRange;
     }
 
+    public bool AgentInTheWay(Vector3 destination)
+    {
+        return GetNearestAgent(Agent.Position, destination, 0.4f, Game1.Instance.AgentMgr.agents) != null;
+    }
+
     public Agent1 GetNearestAgent(Vector3 lineStart, Vector3 lineEnd, float radius, 
         List<Agent1> agents, bool ignoreSameGroup = false, AgentType agentType = AgentType.NONE)
     {

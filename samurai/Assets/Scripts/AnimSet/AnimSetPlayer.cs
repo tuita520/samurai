@@ -132,7 +132,7 @@ using UnityEngine;
         // ÌøÉ±
         attackDataList[24] = new AnimAttackData("attackKnockdown", null, 1.5f, 0.65f, 0.2f, 0.6f, 1.0f, 20, 0, 0, CriticalHitType.NONE, 0, false, false, false, true, true);
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.RAISE_WAVE,
             comboSteps = new ComboStep[]
@@ -145,7 +145,7 @@ using UnityEngine;
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.HALF_MOON,
             comboSteps = new ComboStep[]
@@ -158,7 +158,7 @@ using UnityEngine;
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.CLOUD_CUT,
             comboSteps = new ComboStep[]
@@ -171,7 +171,7 @@ using UnityEngine;
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.FLYING_DRAGON,
             comboSteps = new ComboStep[]
@@ -184,7 +184,7 @@ using UnityEngine;
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.WALKING_DEATH,
             comboSteps = new ComboStep[]
@@ -197,7 +197,7 @@ using UnityEngine;
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.CRASH_GENERAL,
             comboSteps = new ComboStep[]
@@ -210,7 +210,7 @@ using UnityEngine;
             }
         });
 
-        ComboAttacks.Add(new Combo()
+        AddComboAttack(new Combo()
         {
             comboType = ComboType.JUMP_KILL,
             comboSteps = new ComboStep[]

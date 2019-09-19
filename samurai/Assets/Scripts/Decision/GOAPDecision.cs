@@ -21,6 +21,9 @@ public enum WorldStatePropType
     IN_IDLE                 = 13,
     FINISH_BLOCK            = 14,
     IN_BLOCK                = 15,
+    TARGET_IN_KNOCK_DOWN    = 16,
+    AHEAD_OF_TARGET         = 17,
+    BEHIND_TARGET           = 18,
     /*AT_TARGET_POS,
     IN_DODGE,
     ALERTED,    
@@ -84,6 +87,12 @@ public enum GOAPActionType1
     REACT_TO_DAMAGE_BOSS           = 25,
     ATTACK_MELEE_SINGLE_SWORD      = 26,
     LOOK_AT_TARGET_MOVE            = 27,
+    CHASE                          = 28,
+    ATTACK_SAMURAI                 = 29,
+    ATTACK_JUMP                    = 30,
+    ROLL_FOR_BACK_STRIKE           = 31,
+    ROLL_FOR_DODGE                 = 32,
+    ATTACK_SAMURAI_BACK            = 33,
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -127,8 +136,11 @@ public class WorldStatePropInfoEx
  6.plan.build考虑支持协程
  7.attackGoal计算权值时，如果BlackBoard.InAttackMotion, 则返回maxWeight，保证攻击动作不被damage以外动作打断
  8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？
- 9.死亡时移动和转向的处理，目前不移动，转向有点奇怪。以及测试正面死亡和背面死亡动画 
+ 9.AttackGoal的onenter：如果当前目标只能从背后攻击，动态为各个attackAction添加behindTarget的前置条件，onexit时删除
  10.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。
+ 11.AnimFSMStateGoToTarget已作废，可以删除
+ 12.代码中原来由mathfx调用的函数统一改成调用phenix库里的
+ 13.武士追逐、roll、攻击过程还是有bug？如何随机attacksamurai和attacksamuraiback
 */
 public class GOAPDecision : Decision
 {
@@ -270,7 +282,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.WEAPON_IN_HAND, true, false));
 
-                        actions.Add(new GOAPActionShowSword(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionShowSword(GOAPActionType1.SHOW_SWORD, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.LOOK_AT_TARGET:
@@ -281,7 +293,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.LOOKING_AT_TARGET, true, false));
 
-                        actions.Add(new GOAPActionLookAt(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionLookAt(GOAPActionType1.LOOK_AT_TARGET, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.IDLE:
@@ -291,7 +303,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_IDLE, true, false));
 
-                        actions.Add(new GOAPActionIdle(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionIdle(GOAPActionType1.IDLE, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.GOTO_MELEE_RANGE:
@@ -304,7 +316,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
 
-                        actions.Add(new GOAPActionGoToMeleeRange1(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionGoToMeleeRange1(GOAPActionType1.GOTO_MELEE_RANGE, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_MELEE_MULTI_SWORDS:
@@ -317,7 +329,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
-                        actions.Add(new GOAPActionAttackMeleeMultiSwords(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackMeleeMultiSwords(GOAPActionType1.ATTACK_MELEE_MULTI_SWORDS, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_WHIRL:
@@ -331,7 +343,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
-                        actions.Add(new GOAPActionAttackWhirl1(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackWhirl1(GOAPActionType1.ATTACK_WHIRL, Agent, preConditionBits, effectBits));
                     }
                     break;                
                 case GOAPActionType1.ORDER_MOVE:
@@ -341,7 +353,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ORDER_MOVE, false, false));
 
-                        actions.Add(new GOAPActionOrderMove(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionOrderMove(GOAPActionType1.ORDER_MOVE, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ORDER_ATTACK_MELEE:
@@ -352,7 +364,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ORDER_ATTACK, false, false));
 
-                        actions.Add(new GOAPActionOrderAttackMelee(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionOrderAttackMelee(GOAPActionType1.ORDER_ATTACK_MELEE, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ORDER_ROLL:
@@ -363,7 +375,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ORDER_ROLL, false, false));
 
-                        actions.Add(new GOAPActionOrderRoll(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionOrderRoll(GOAPActionType1.ORDER_ROLL, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.HIDE_SWORD:
@@ -374,7 +386,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.WEAPON_IN_HAND, false, false));
 
-                        actions.Add(new GOAPActionHideSword(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionHideSword(GOAPActionType1.HIDE_SWORD, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.COMBAT_MOVE_BACKWARD:
@@ -386,7 +398,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_COMBAT_RANGE, false, false));
 
-                        actions.Add(new GOAPActionCombatMoveBackward(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionCombatMoveBackward(GOAPActionType1.COMBAT_MOVE_BACKWARD, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.COMBAT_MOVE_FORWARD:
@@ -398,7 +410,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_COMBAT_RANGE, true, false));
 
-                        actions.Add(new GOAPActionCombatMoveForward(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionCombatMoveForward(GOAPActionType1.COMBAT_MOVE_FORWARD, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.COMBAT_MOVE_LEFT:
@@ -410,7 +422,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.MOVE_TO_LEFT, true, false));
 
-                        actions.Add(new GOAPActionCombatMoveLeft(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionCombatMoveLeft(GOAPActionType1.COMBAT_MOVE_LEFT, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.COMBAT_MOVE_RIGHT:
@@ -422,7 +434,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.MOVE_TO_RIGHT, true, false));
 
-                        actions.Add(new GOAPActionCombatMoveRight(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionCombatMoveRight(GOAPActionType1.COMBAT_MOVE_RIGHT, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.PLAY_ANIM:
@@ -433,7 +445,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.WILL_PLAY_ANIM, false, true));
 
-                        actions.Add(new GOAPActionPlayAnim(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionPlayAnim(GOAPActionType1.PLAY_ANIM, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.REACT_TO_DAMAGE:
@@ -443,7 +455,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.REACT_TO_DAMAGE, false, false));
 
-                        actions.Add(new GOAPActionReactToDamage(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionReactToDamage(GOAPActionType1.REACT_TO_DAMAGE, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.BLOCK:
@@ -455,7 +467,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.FINISH_BLOCK, true, false));
 
-                        actions.Add(new GOAPActionBlock1(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionBlock1(GOAPActionType1.BLOCK, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_COUNTER:
@@ -467,7 +479,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, false, false));
 
-                        actions.Add(new GOAPActionAttackCounter(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackCounter(GOAPActionType1.ATTACK_COUNTER, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_BERSERK:
@@ -481,7 +493,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
-                        actions.Add(new GOAPActionAttackBerserk(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackBerserk(GOAPActionType1.ATTACK_BERSERK, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_CROSS:
@@ -494,7 +506,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
-                        actions.Add(new GOAPActionAttackCross(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackCross(GOAPActionType1.ATTACK_CROSS, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.GOTO_TARGET:
@@ -506,7 +518,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
 
-                        actions.Add(new GOAPActionGoToTarget(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionGoToTarget(GOAPActionType1.GOTO_TARGET, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.FLASH:
@@ -520,7 +532,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
 
-                        actions.Add(new GOAPActionFlash(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionFlash(GOAPActionType1.FLASH, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_ROLL:
@@ -533,7 +545,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
-                        actions.Add(new GOAPActionAttackRoll(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackRoll(GOAPActionType1.ATTACK_ROLL, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.REACT_TO_DAMAGE_BOSS:
@@ -543,7 +555,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.REACT_TO_DAMAGE, false, false));
 
-                        actions.Add(new GOAPActionReactToDamageBoss(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionReactToDamageBoss(GOAPActionType1.REACT_TO_DAMAGE_BOSS, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.ATTACK_MELEE_SINGLE_SWORD:
@@ -556,7 +568,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
 
-                        actions.Add(new GOAPActionAttackMeleeSingleSword(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionAttackMeleeSingleSword(GOAPActionType1.ATTACK_MELEE_SINGLE_SWORD, Agent, preConditionBits, effectBits));
                     }
                     break;
                 case GOAPActionType1.LOOK_AT_TARGET_MOVE:
@@ -567,7 +579,85 @@ public class GOAPDecision : Decision
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.LOOKING_AT_TARGET, true, false));
 
-                        actions.Add(new GOAPActionLookAtMove(Agent, Agent.FSMComponent, preConditionBits, effectBits));
+                        actions.Add(new GOAPActionLookAtMove(GOAPActionType1.LOOK_AT_TARGET_MOVE, Agent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.CHASE:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_COMBAT_RANGE, true, false));
+
+                        actions.Add(new GOAPActionChase(GOAPActionType1.CHASE, Agent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ATTACK_SAMURAI:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackSamurai(GOAPActionType1.ATTACK_SAMURAI, Agent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ATTACK_JUMP:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));                        
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.TARGET_IN_KNOCK_DOWN, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackJump(GOAPActionType1.ATTACK_JUMP, Agent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ROLL_FOR_BACK_STRIKE:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.AHEAD_OF_TARGET, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.BEHIND_TARGET, true, false));
+
+                        actions.Add(new GOAPActionRollForBackStrike(GOAPActionType1.ROLL_FOR_BACK_STRIKE, Agent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ROLL_FOR_DODGE:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.AHEAD_OF_TARGET, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_COMBAT_RANGE, false, false));
+
+                        actions.Add(new GOAPActionRollForDodge(GOAPActionType1.ROLL_FOR_DODGE, Agent, preConditionBits, effectBits));
+                    }
+                    break;
+                case GOAPActionType1.ATTACK_SAMURAI_BACK:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.BEHIND_TARGET, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackSamuraiBack(GOAPActionType1.ATTACK_SAMURAI_BACK, Agent, preConditionBits, effectBits));
                     }
                     break;
                 default:
@@ -633,6 +723,9 @@ public class GOAPDecision : Decision
         _goap.WorldState.Set((int)WorldStatePropType.WEAPON_IN_HAND, Agent.BlackBoard.WeaponInHand);        
         _goap.WorldState.Set((int)WorldStatePropType.IN_IDLE, Agent.BlackBoard.inIdle);
         _goap.WorldState.Set((int)WorldStatePropType.IN_BLOCK, Agent.BlackBoard.IsBlocking);
+        _goap.WorldState.Set((int)WorldStatePropType.TARGET_IN_KNOCK_DOWN, Agent.BlackBoard.DesiredTargetIsKnockedDown);
+        _goap.WorldState.Set((int)WorldStatePropType.AHEAD_OF_TARGET, Agent.BlackBoard.AheadOfDesiredTarget);
+        _goap.WorldState.Set((int)WorldStatePropType.BEHIND_TARGET, Agent.BlackBoard.BehindDesiredTarget);
     }
 
     public override void OnDead()

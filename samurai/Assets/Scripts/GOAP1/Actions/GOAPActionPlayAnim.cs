@@ -6,9 +6,9 @@ public class GOAPActionPlayAnim : GOAPActionBase
 {
     AnimFSMEventPlayAnim _eventPlayAnim;
 
-    public GOAPActionPlayAnim(Agent1 agent, FSMComponent fsm, 
+    public GOAPActionPlayAnim(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
-        : base((int)GOAPActionType1.PLAY_ANIM, agent, fsm, WSPrecondition, WSEffect)
+        : base((int)actionType, agent, WSPrecondition, WSEffect)
     {
 
     }
@@ -45,6 +45,6 @@ public class GOAPActionPlayAnim : GOAPActionBase
         _eventPlayAnim.animName = Agent.AnimSet.GetIdleActionAnim(Agent.BlackBoard.weaponSelected, 
             Agent.BlackBoard.weaponState);
         _eventPlayAnim.lookAtTarget = true;
-        FSMComponent.SendEvent(_eventPlayAnim);
+        Agent.FSMComponent.SendEvent(_eventPlayAnim);
     }
 }
