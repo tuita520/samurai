@@ -21,7 +21,7 @@ public enum AnimFSMEventCode
     BREAK_BLOCK,
     ATTACK_ROLL,
     ATTACK_CROSS,
-    GOTO_TARGET,
+    GOTO_TARGET,    // 已作废！！！
     FLASH,
     INJURY_BOSS,
     MOVE_ROTATE,

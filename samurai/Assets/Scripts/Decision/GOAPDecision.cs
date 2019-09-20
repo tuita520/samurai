@@ -91,8 +91,7 @@ public enum GOAPActionType1
     ATTACK_SAMURAI                 = 29,
     ATTACK_JUMP                    = 30,
     ROLL_FOR_BACK_STRIKE           = 31,
-    ROLL_FOR_DODGE                 = 32,
-    ATTACK_SAMURAI_BACK            = 33,
+    ROLL_FOR_DODGE                 = 32,    
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -134,13 +133,10 @@ public class WorldStatePropInfoEx
  5.goapdecision新增nextTarget，由selecttarget赋值，在goalbase.onexit（bool replaced为false）时给desiredtarget赋值。
   对玩家来说直接赋值给desiredtarget。
  6.plan.build考虑支持协程
- 7.attackGoal计算权值时，如果BlackBoard.InAttackMotion, 则返回maxWeight，保证攻击动作不被damage以外动作打断
- 8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？
- 9.AttackGoal的onenter：如果当前目标只能从背后攻击，动态为各个attackAction添加behindTarget的前置条件，onexit时删除
- 10.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。
- 11.AnimFSMStateGoToTarget已作废，可以删除
- 12.代码中原来由mathfx调用的函数统一改成调用phenix库里的
- 13.武士追逐、roll、攻击过程还是有bug？如何随机attacksamurai和attacksamuraiback
+ 7.主角战斗中会收刀。估计是远离敌人
+ 8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？ 
+ 10.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。 
+ 12.代码中原来由mathfx调用的函数统一改成调用phenix库里的 
 */
 public class GOAPDecision : Decision
 {
@@ -527,7 +523,7 @@ public class GOAPDecision : Decision
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
-                        //preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.ENOUGH_BERSERK, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.ENOUGH_BERSERK, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_WEAPON_RANGE, true, false));
@@ -540,7 +536,7 @@ public class GOAPDecision : Decision
                         List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
-                        //preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.ENOUGH_BERSERK, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.ENOUGH_BERSERK, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
@@ -597,8 +593,7 @@ public class GOAPDecision : Decision
                 case GOAPActionType1.ATTACK_SAMURAI:
                     {
                         List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));                        
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
@@ -624,8 +619,7 @@ public class GOAPDecision : Decision
                     {
                         List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
                         preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.AHEAD_OF_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));                        
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.BEHIND_TARGET, true, false));
@@ -645,21 +639,7 @@ public class GOAPDecision : Decision
 
                         actions.Add(new GOAPActionRollForDodge(GOAPActionType1.ROLL_FOR_DODGE, Agent, preConditionBits, effectBits));
                     }
-                    break;
-                case GOAPActionType1.ATTACK_SAMURAI_BACK:
-                    {
-                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.BEHIND_TARGET, true));
-
-                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
-                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
-
-                        actions.Add(new GOAPActionAttackSamuraiBack(GOAPActionType1.ATTACK_SAMURAI_BACK, Agent, preConditionBits, effectBits));
-                    }
-                    break;
+                    break;                
                 default:
                     break;
             }

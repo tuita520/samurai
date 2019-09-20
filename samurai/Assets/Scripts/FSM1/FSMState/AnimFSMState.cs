@@ -19,7 +19,7 @@ public enum AnimFSMStateType
     BLOCK           = 13,    // 格挡
     ATTACK_ROLL     = 14,
     ATTACK_CROSS    = 15,
-    GOTO_TARGET     = 16,    // 行进到武器范围之内（作废！！！！）
+    GOTO_TARGET     = 16,    // 已作废！！！！
     FLASH           = 17,    // 瞬移到指定位置    
     INJURY_BOSS     = 18,
     MOVE_ROTATE     = 19,    // 边移动边旋转

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Utilities;
 using Phenix.Unity.AI;
-
+/*
 public class AnimFSMStateGoToTarget : AnimFSMState
 {
     AnimFSMEventGoToTarget _eventGoToTarget;
@@ -146,4 +146,4 @@ public class AnimFSMStateGoToTarget : AnimFSMState
 
         return MotionType.WALK;
     }
-}
+}*/

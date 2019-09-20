@@ -8065,7 +8065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
   _goals: 080000000500000000000000070000000c000000
-  _actions: 0d000000080000001b0000001f000000210000001e000000110000000b0000001c0000001d000000
+  _actions: 0d000000080000001b0000001f0000001d0000001e000000110000000b0000001c000000
 --- !u!114 &936242645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8123,7 +8123,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2.2
     allowedFlashToWeaponRange: 1
-    combatRange: 5
+    combatRange: 4
     safeRange: 100
     attackRollWeaponRange: 2
     attackCD: 2
@@ -8136,7 +8136,7 @@ MonoBehaviour:
     speedSmooth: 8
     rotationSmooth: 3
     rotationSmoothInMove: 8
-    rollDistance: 4
+    rollDistance: 5
     moveSpeedModifier: 1
     attackRollSpeed: 15
     maxHealth: 100
@@ -10717,7 +10717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 826b05a833e60b049984ab862185218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FSMStates: 01000000020000000300000009000000040000000e0000000a000000060000000d000000070000000f0000001000000011000000
+  FSMStates: 01000000020000000300000009000000040000000e0000000a000000060000000d000000070000000f00000011000000
   defFSMState: 1
 --- !u!114 &1584909473
 MonoBehaviour:

@@ -19,4 +19,28 @@ public class GOAPActionAttackSamurai : GOAPActionAttackMeleeMultiSwords
 
         return combos[Random.Range(0, combos.Length)];
     }
+
+    public override void BeforeBuildPlan(Phenix.Unity.AI.GOAPGoal goal)
+    {
+        if (goal.GOAPGoalType == (int)GOAPGoalType1.ATTACK_TARGET)
+        {
+            if (Agent.BlackBoard.HasAttackTarget && Agent.BlackBoard.desiredTarget.BlackBoard.damageOnlyFromBack)
+            {
+                // 当前攻击目标只能从背后攻击
+                AddWSPrecondition((int)WorldStatePropType.BEHIND_TARGET, true);
+            }
+            else
+            {
+                // 按机率决定正面或是背面进攻
+                if (Random.Range(0, 2) == 0)
+                {
+                    AddWSPrecondition((int)WorldStatePropType.BEHIND_TARGET, true);
+                }
+                else
+                {
+                    RemoveWSPrecondition((int)WorldStatePropType.BEHIND_TARGET, true);
+                }
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Collection;
-
+/*
 public class AnimFSMEventGoToTarget : AnimFSMEvent
 {
     public static Pool<AnimFSMEventGoToTarget> pool = new Pool<AnimFSMEventGoToTarget>(10, Reset);
@@ -28,4 +28,4 @@ public class AnimFSMEventGoToTarget : AnimFSMEvent
     {
         pool.Collect(this);
     }
-}
+}*/

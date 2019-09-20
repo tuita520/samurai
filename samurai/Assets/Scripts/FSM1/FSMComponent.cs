@@ -68,9 +68,9 @@ public class FSMComponent : MonoBehaviour
                 case AnimFSMStateType.ATTACK_ROLL:
                     state = new AnimFSMStateAttackRoll(_agent);
                     break;
-                case AnimFSMStateType.GOTO_TARGET:
+                /*case AnimFSMStateType.GOTO_TARGET:
                     state = new AnimFSMStateGoToTarget(_agent);
-                    break;
+                    break;*/
                 case AnimFSMStateType.FLASH:
                     state = new AnimFSMStateFlash(_agent);
                     break;
