@@ -25,8 +25,8 @@ public class GOAPGoalReactToDamage1 : GOAPGoalBase
     }
 
     public override void OnExit(Phenix.Unity.AI.WorldState ws)
-    {
-        base.OnExit(ws);
+    {        
         Agent.BlackBoard.damageResultType = DamageResultType.NONE;
+        base.OnExit(ws);
     }
 }

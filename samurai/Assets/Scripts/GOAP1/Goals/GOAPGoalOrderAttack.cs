@@ -35,7 +35,7 @@ public class GOAPGoalOrderAttack : GOAPGoalBase
 
     public override void OnExit(Phenix.Unity.AI.WorldState ws)
     {
-        base.OnExit(ws);
         PlayerOrderPool.attacks.Collect(Agent.PlayerOrder.Pop() as OrderDataAttack);
+        base.OnExit(ws);        
     }
 }

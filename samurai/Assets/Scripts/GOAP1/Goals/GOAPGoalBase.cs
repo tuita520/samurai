@@ -19,6 +19,7 @@ public abstract class GOAPGoalBase : Phenix.Unity.AI.GOAPGoal
 
     public override void OnEnter(Phenix.Unity.AI.WorldState ws)
     {
+        base.OnEnter(ws);
         //_target = Agent.BlackBoard.desiredTarget;
     }
 

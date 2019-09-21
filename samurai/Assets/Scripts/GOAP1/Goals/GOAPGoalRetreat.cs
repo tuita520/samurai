@@ -16,6 +16,10 @@ public class GOAPGoalRetreat : GOAPGoalBase
     }
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {
+        if (IsRunning && Agent.BlackBoard.InRollMotion)
+        {
+            return Agent.BlackBoard.GOAPMaxWeightRetreat;
+        }
         if (Agent.BlackBoard.HasAttackTarget == false)
         {
             return 0;
@@ -49,4 +53,8 @@ public class GOAPGoalRetreat : GOAPGoalBase
         return ret;
     }
 
+    public override float GetCD()
+    {
+        return 1;
+    }
 }

@@ -34,8 +34,8 @@ public class GOAPGoalOrderMove : GOAPGoalBase
     }
 
     public override void OnExit(Phenix.Unity.AI.WorldState ws)
-    {
-        base.OnExit(ws);
+    {        
         PlayerOrderPool.moves.Collect(Agent.PlayerOrder.Pop() as OrderDataMove);
+        base.OnExit(ws);
     }
 }

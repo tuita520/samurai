@@ -77,11 +77,12 @@ public class AnimFSMStateRoll : AnimFSMState
     {
         if (ev is AnimFSMEventRoll)
         {
-            if (_eventRoll != null)
+            /*if (_eventRoll != null)
             {
                 _eventRoll.IsFinished = true;
             }
-            Initialize(ev);
+            Initialize(ev);*/
+            ev.IsFinished = true;
             return true;
         }       
 

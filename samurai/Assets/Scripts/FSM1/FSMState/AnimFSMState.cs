@@ -19,10 +19,10 @@ public enum AnimFSMStateType
     BLOCK           = 13,    // 格挡
     ATTACK_ROLL     = 14,
     ATTACK_CROSS    = 15,
-    GOTO_TARGET     = 16,    // 已作废！！！！
+    ATTACK_BOW      = 16,    
     FLASH           = 17,    // 瞬移到指定位置    
     INJURY_BOSS     = 18,
-    MOVE_ROTATE     = 19,    // 边移动边旋转
+    MOVE_ROTATE     = 19,    // 边移动边旋转    
 }
 
 public abstract class AnimFSMState : FSMState

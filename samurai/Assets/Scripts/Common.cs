@@ -67,7 +67,7 @@ public enum AgentType
     PEASANT,
     PEASANT_LOW,
     DOUBLE_SWORDS_MAN,
-    BOW_MAN,    
+    ARCHER,    
     MINI_BOSS01,    
     BOSS_OROCHI,
 	NPC_MAX,
@@ -263,6 +263,7 @@ public enum ComboType
     JUMP_KILL,          // ÌøÉ±£¨Ö÷½Ç¡¢samurai£©
     CROSS,              // ×óÓÒ½»²æ£¨miniboss£©
     REVENGE,            // ¸´³ð£¨boss£©
+    BOW,                // °Ù²½´©Ñî£¨archer£©
 
     /*---------------±©»÷ÕÐÊ½-------------------*/
     WHIRL,              // Ðý·çÕ¶£¨double sword man£©

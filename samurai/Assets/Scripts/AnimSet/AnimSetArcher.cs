@@ -22,7 +22,17 @@ public class AnimSetArcher : AnimSet{
         anims["knockdownLoop"].layer = 0;
         anims["knockdownUp"].layer = 0;
         anims["knockdownDeath"].layer = 0;
-	}	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleBow";	}
+
+        AddComboAttack(new Combo()
+        {
+            comboType = ComboType.BOW,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
+                    ("bowFire", null, -1, 2.95f, 3.0f, 10, 20, 1, CriticalHitType.NONE, false)},
+            }
+        });
+    }	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleBow";	}
 
     public override string GetIdleActionAnim(WeaponType weapon, WeaponState weaponState)
     {

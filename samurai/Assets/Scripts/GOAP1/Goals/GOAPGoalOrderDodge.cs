@@ -34,8 +34,8 @@ public class GOAPGoalOrderDodge : GOAPGoalBase
     }
 
     public override void OnExit(Phenix.Unity.AI.WorldState ws)
-    {
-        base.OnExit(ws);
+    {        
         PlayerOrderPool.rolls.Collect(Agent.PlayerOrder.Pop() as OrderDataRoll);
+        base.OnExit(ws);
     }
 }

@@ -350,7 +350,7 @@ Transform:
   - {fileID: 671579379}
   - {fileID: 744994398}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &99396082
 MonoBehaviour:
@@ -984,7 +984,7 @@ Transform:
   - {fileID: 136943051}
   - {fileID: 156686455}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &167468012
 GameObject:
@@ -1194,7 +1194,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4526574345094494, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 26744305716544516, guid: cb90a01bcc6a41c4980a48385fed01e2,
         type: 2}
@@ -1424,15 +1424,14 @@ GameObject:
   m_Component:
   - component: {fileID: 306095001}
   - component: {fileID: 306095000}
-  - component: {fileID: 306094999}
-  - component: {fileID: 306094998}
   - component: {fileID: 306094997}
+  - component: {fileID: 306094993}
   - component: {fileID: 306094996}
   - component: {fileID: 306094995}
   - component: {fileID: 306094994}
-  - component: {fileID: 306094993}
+  - component: {fileID: 306094998}
   m_Layer: 0
-  m_Name: EnemyBowman
+  m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1459,39 +1458,115 @@ CharacterController:
 --- !u!114 &306094994
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: c15f36728ed60b24998bc330bea6e088,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 306094992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: e8da1a1c5463dfe4298bb81fc43bcf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agentType: 5
+  group: 0
+  _blackBoard:
+    GOAPMaxWeightRetreat: 0.25
+    GOAPMaxWeightPress: 0.2
+    GOAPMaxWeightAvoidLeft: 0.4
+    GOAPMaxWeightAvoidRight: 0.4
+    GOAPMaxWeightAttackTarget: 0.9
+    GOAPMaxWeightReactToDamage: 1
+    GOAPMaxWeightAlert: 0.7
+    GOAPMaxWeightCalm: 0.2
+    GOAPMaxWeightShow: 0
+    GOAPMaxWeightOrderAttack: 0
+    GOAPMaxWeightOrderDodge: 0
+    GOAPMaxWeightOrderMove: 0
+    GOAPMaxWeightIdle: 0.1
+    GOAPMaxWeightBlock: 0
+    GOAP_INJURY: 0.9
+    GOAP_KNOCKDOWN: 0.95
+    GOAP_DEATH: 1
+    minBlock: 0
+    maxBlock: 0
+    blockModificator: 0
+    blockAttackModificator: 0
+    blockInjuryModificator: 0
+    minBerserk: 0
+    maxBerserk: 0
+    berserkModificator: 0
+    berserkBlockModificator: 0
+    berserkInjuryModificator: 0
+    berserkAttackModificator: 0
+    minRage: 50
+    maxRage: 100
+    rageModificator: 10
+    rageInjuryModificator: 0
+    rageBlockModificator: 0
+    minFear: 10
+    maxFear: 100
+    fearModificator: -5
+    fearInjuryModificator: 40
+    fearBlockModificator: 0
+    fearAttackModificator: -10
+    weaponStateOnAwake: 0
+    weaponSelected: 2
+    weaponRange: 15
+    allowedFlashToWeaponRange: 0
+    combatRange: 15
+    safeRange: 100
+    attackRollWeaponRange: 0
+    attackCD: 2
+    maxSprintSpeed: 3
+    maxRunSpeed: 3
+    maxWalkSpeed: 1.5
+    maxCombatMoveSpeed: 1
+    maxWhirlMoveSpeed: 0
+    maxKnockDownLyingTime: 4
+    speedSmooth: 4
+    rotationSmooth: 2
+    rotationSmoothInMove: 8
+    rollDistance: 0
+    moveSpeedModifier: 1
+    attackRollSpeed: 0
+    maxHealth: 100
+    criticalAllowed: 1
+    criticalHitModifier: 1.3
+    criticalChance: 18
+    damageOnlyFromBack: 0
+    knockDownAllowed: 1
+    knockDownDamageDeadly: 1
+    breakBlockChance: 20
+    knockDownLyingTime: 3
+    blockHoldTime: 5
+    attackRollHitTime: 0
+    attackWhirlHitTime: 0
 --- !u!114 &306094995
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: c15f36728ed60b24998bc330bea6e088,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 306094992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 826b05a833e60b049984ab862185218c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FSMStates: 0100000002000000030000000600000008000000070000000900000010000000
+  defFSMState: 1
 --- !u!114 &306094996
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: c15f36728ed60b24998bc330bea6e088,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 306094992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 5e8c0faf7228069409f07b952cffa134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectTargetCDForNPC: 1
+  _goals: 080000000c00000000000000010000000200000003000000040000000500000007000000
+  _actions: 0d0000000800000011000000030000000400000005000000060000000b000000070000000000000021000000
 --- !u!82 &306094997
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1576,25 +1651,12 @@ AudioSource:
 --- !u!114 &306094998
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400006, guid: c15f36728ed60b24998bc330bea6e088,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 306094992}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &306094999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400008, guid: c15f36728ed60b24998bc330bea6e088,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 306094992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 5d0c652f21a3950458cba981582cb337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!111 &306095000
@@ -1629,7 +1691,7 @@ Animation:
   - {fileID: 7400046, guid: 6390bcfd259f14cbbb3679cff8a7d7b4, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_CullingType: 1
 --- !u!4 &306095001
 Transform:
@@ -1644,7 +1706,7 @@ Transform:
   - {fileID: 988732550}
   - {fileID: 877848847}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &310448318
 GameObject:
@@ -2111,7 +2173,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4526574345094494, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 26744305716544516, guid: cb90a01bcc6a41c4980a48385fed01e2,
         type: 2}
@@ -2253,7 +2315,7 @@ MonoBehaviour:
     safeRange: 100
     attackRollWeaponRange: 2
     attackCD: 2
-    maxSprintSpeed: 8
+    maxSprintSpeed: 5
     maxRunSpeed: 3.5
     maxWalkSpeed: 1.8
     maxCombatMoveSpeed: 1
@@ -2665,7 +2727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &470875182
 AudioSource:
@@ -2895,7 +2957,7 @@ MonoBehaviour:
   _agentMgr:
     agents:
     - {fileID: 390079106}
-    - {fileID: 936242645}
+    - {fileID: 988644029}
 --- !u!1 &472263057
 GameObject:
   m_ObjectHideFlags: 0
@@ -8064,8 +8126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectTargetCDForNPC: 1
-  _goals: 080000000500000000000000070000000c000000
-  _actions: 0d000000080000001b0000001f0000001d0000001e000000110000000b0000001c000000
+  _goals: 080000000400000000000000070000000c00000005000000
+  _actions: 0d000000080000001b0000001f0000001d0000001e000000110000000b0000001c00000020000000
 --- !u!114 &936242645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8081,44 +8143,44 @@ MonoBehaviour:
   group: 0
   _blackBoard:
     GOAPMaxWeightRetreat: 0.7
-    GOAPMaxWeightPress: 0.75
-    GOAPMaxWeightAvoidLeft: 0.6
-    GOAPMaxWeightAvoidRight: 0.6
-    GOAPMaxWeightAttackTarget: 0.8
+    GOAPMaxWeightPress: 0.8
+    GOAPMaxWeightAvoidLeft: 0.85
+    GOAPMaxWeightAvoidRight: 0.85
+    GOAPMaxWeightAttackTarget: 0.9
     GOAPMaxWeightReactToDamage: 1
-    GOAPMaxWeightAlert: 0.7
+    GOAPMaxWeightAlert: 0.5
     GOAPMaxWeightCalm: 0.2
-    GOAPMaxWeightShow: 0.95
-    GOAPMaxWeightOrderAttack: 0.9
-    GOAPMaxWeightOrderDodge: 0.9
-    GOAPMaxWeightOrderMove: 0.9
+    GOAPMaxWeightShow: 0
+    GOAPMaxWeightOrderAttack: 0
+    GOAPMaxWeightOrderDodge: 0
+    GOAPMaxWeightOrderMove: 0
     GOAPMaxWeightIdle: 0.1
     GOAPMaxWeightBlock: 0.8
     GOAP_INJURY: 0
     GOAP_KNOCKDOWN: 0
     GOAP_DEATH: 0
-    minBlock: 10
-    maxBlock: 30
-    blockModificator: -3
-    blockAttackModificator: -5
-    blockInjuryModificator: 10
+    minBlock: 0
+    maxBlock: 0
+    blockModificator: 0
+    blockAttackModificator: 0
+    blockInjuryModificator: 0
     minBerserk: 0
-    maxBerserk: 0
-    berserkModificator: 0
+    maxBerserk: 100
+    berserkModificator: 1
     berserkBlockModificator: 0
-    berserkInjuryModificator: 0
+    berserkInjuryModificator: 20
     berserkAttackModificator: 0
-    minRage: 0
+    minRage: 20
     maxRage: 100
-    rageModificator: 5
-    rageInjuryModificator: 10
-    rageBlockModificator: 20
-    minFear: 10
+    rageModificator: 10
+    rageInjuryModificator: 20
+    rageBlockModificator: 0
+    minFear: 0
     maxFear: 30
-    fearModificator: -3
-    fearInjuryModificator: 5
-    fearBlockModificator: 20
-    fearAttackModificator: 20
+    fearModificator: 1
+    fearInjuryModificator: 15
+    fearBlockModificator: 0
+    fearAttackModificator: 0
     weaponStateOnAwake: 0
     weaponSelected: 0
     weaponRange: 2.2
@@ -8127,7 +8189,7 @@ MonoBehaviour:
     safeRange: 100
     attackRollWeaponRange: 2
     attackCD: 2
-    maxSprintSpeed: 8
+    maxSprintSpeed: 5
     maxRunSpeed: 3.5
     maxWalkSpeed: 1
     maxCombatMoveSpeed: 1
@@ -8599,7 +8661,7 @@ Transform:
   - {fileID: 837468643}
   - {fileID: 1900068230}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &969872038
 GameObject:
@@ -8681,7 +8743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!143 &988644018
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9836,7 +9898,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1189347235
 MonoBehaviour:
@@ -10533,7 +10595,7 @@ Transform:
   - {fileID: 1719212151}
   - {fileID: 1965328892}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1556889056
 GameObject:
@@ -11475,7 +11537,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1799671481141602, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1799671481141602, guid: cb90a01bcc6a41c4980a48385fed01e2, type: 2}
       propertyPath: m_Name

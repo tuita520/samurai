@@ -91,7 +91,8 @@ public enum GOAPActionType1
     ATTACK_SAMURAI                 = 29,
     ATTACK_JUMP                    = 30,
     ROLL_FOR_BACK_STRIKE           = 31,
-    ROLL_FOR_DODGE                 = 32,    
+    ROLL_FOR_DODGE                 = 32,
+    ATTACK_BOW                     = 33,
     //ATTACK_MELEE_ONCE,
     //ATTACK_BOW,    
     //MOVE,
@@ -135,8 +136,10 @@ public class WorldStatePropInfoEx
  6.plan.build考虑支持协程
  7.主角战斗中会收刀。估计是远离敌人
  8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？ 
- 10.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。 
- 12.代码中原来由mathfx调用的函数统一改成调用phenix库里的 
+ 9.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。 
+ 10.代码中原来由mathfx调用的函数统一改成调用phenix库里的 
+ 11.samurai后退roll有时会短距离甚至原地滚动？
+ 12.双刀人死亡后还会转动尸体。archer测试
 */
 public class GOAPDecision : Decision
 {
@@ -630,16 +633,27 @@ public class GOAPDecision : Decision
                 case GOAPActionType1.ROLL_FOR_DODGE:
                     {
                         List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_COMBAT_RANGE, true));
-                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.AHEAD_OF_TARGET, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));                        
 
                         List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
                         effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.IN_COMBAT_RANGE, false, false));
 
                         actions.Add(new GOAPActionRollForDodge(GOAPActionType1.ROLL_FOR_DODGE, Agent, preConditionBits, effectBits));
                     }
-                    break;                
+                    break;
+                case GOAPActionType1.ATTACK_BOW:
+                    {
+                        List<WorldStateBitData> preConditionBits = new List<WorldStateBitData>();
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.WEAPON_IN_HAND, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.IN_WEAPON_RANGE, true));
+                        preConditionBits.Add(new WorldStateBitData((int)WorldStatePropType.LOOKING_AT_TARGET, true));
+
+                        List<WorldStateBitDataAction> effectBits = new List<WorldStateBitDataAction>();
+                        effectBits.Add(new WorldStateBitDataAction((int)WorldStatePropType.ATTACK_TARGET, true, false));
+
+                        actions.Add(new GOAPActionAttackBow(GOAPActionType1.ATTACK_BOW, Agent, preConditionBits, effectBits));
+                    }
+                    break;
                 default:
                     break;
             }
