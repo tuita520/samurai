@@ -138,8 +138,7 @@ public class WorldStatePropInfoEx
  8.boss几个技能moveDisntance都是0，该如何处理让它打中对手？ 
  9.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。 
  10.代码中原来由mathfx调用的函数统一改成调用phenix库里的 
- 11.samurai后退roll有时会短距离甚至原地滚动？
- 12.双刀人死亡后还会转动尸体。archer测试
+ 11.samurai后退roll有时会短距离甚至原地滚动？ 
 */
 public class GOAPDecision : Decision
 {
@@ -723,15 +722,15 @@ public class GOAPDecision : Decision
     }
 
     public override void OnDead()
-    {
+    {        
         base.OnDead();
-        _goap.WorldState.Set((int)WorldStatePropType.REACT_TO_DAMAGE, true);
+        _goap.WorldState.Set((int)WorldStatePropType.REACT_TO_DAMAGE, true);        
     }
 
     public override void OnInjury()
     {
         base.OnInjury();
-        _goap.WorldState.Set((int)WorldStatePropType.REACT_TO_DAMAGE, true);
+        _goap.WorldState.Set((int)WorldStatePropType.REACT_TO_DAMAGE, true);        
     }
 
     public override void OnKnockDown()

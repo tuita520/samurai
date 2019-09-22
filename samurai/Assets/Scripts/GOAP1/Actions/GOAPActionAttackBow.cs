@@ -3,7 +3,7 @@ using Phenix.Unity.AI;
 
 public class GOAPActionAttackBow : GOAPActionBase
 {
-    AnimFSMEventAttackMelee _eventAttack;
+    AnimFSMEventAttackBow _eventAttack;
 
     public GOAPActionAttackBow(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect)
@@ -36,7 +36,7 @@ public class GOAPActionAttackBow : GOAPActionBase
 
     void SendEvent()
     {        
-        _eventAttack = AnimFSMEventAttackMelee.pool.Get();
+        _eventAttack = AnimFSMEventAttackBow.pool.Get();
         _eventAttack.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;     
         _eventAttack.attackDir = Agent.BlackBoard.desiredDirection;        
         _eventAttack.attackPhaseDone = false;

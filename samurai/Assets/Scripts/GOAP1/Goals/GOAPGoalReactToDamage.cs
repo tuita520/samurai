@@ -24,6 +24,12 @@ public class GOAPGoalReactToDamage1 : GOAPGoalBase
         return 0;
     }
 
+    public override void OnEnter(Phenix.Unity.AI.WorldState ws)
+    {
+        base.OnEnter(ws);
+        UnityEngine.Debug.Log("react to damage");
+    }
+
     public override void OnExit(Phenix.Unity.AI.WorldState ws)
     {        
         Agent.BlackBoard.damageResultType = DamageResultType.NONE;

@@ -4,7 +4,7 @@ using Phenix.Unity.AI;
 
 public class AnimFSMStateAttackBow : AnimFSMState
 {    
-    AnimFSMEventAttackMelee _eventAttack;
+    AnimFSMEventAttackBow _eventAttack;
     
     Quaternion _finalRotation;
     Quaternion _startRotation;
@@ -27,7 +27,7 @@ public class AnimFSMStateAttackBow : AnimFSMState
 
     protected override void Initialize(FSMEvent ev)
     {
-        _eventAttack = ev as AnimFSMEventAttackMelee;
+        _eventAttack = ev as AnimFSMEventAttackBow;
         
         _startRotation = Agent.Transform.rotation;
         _eventAttack.attackPhaseDone = false;
@@ -60,7 +60,7 @@ public class AnimFSMStateAttackBow : AnimFSMState
         _curRotationTime = 0;
 
         _endOfStateTime = Time.timeSinceLevelLoad +
-            Mathf.Max(Agent.AnimEngine[_eventAttack.animAttackData.animName].length,
+            Mathf.Max(Agent.AnimEngine[_eventAttack.animAttackData.animName].length / Agent.AnimEngine[_eventAttack.animAttackData.animName].speed,
             _eventAttack.animAttackData.attackEndTime);
 
         _fireTime = Time.timeSinceLevelLoad + _eventAttack.animAttackData.hitTime;
@@ -71,7 +71,7 @@ public class AnimFSMStateAttackBow : AnimFSMState
 
     public override bool OnEvent(FSMEvent ev)
     {
-        if (ev is AnimFSMEventAttackMelee)
+        if (ev is AnimFSMEventAttackBow)
         {
             if (_eventAttack != null)
             {
@@ -108,8 +108,8 @@ public class AnimFSMStateAttackBow : AnimFSMState
         if (_fireTime > 0 && _fireTime <= Time.timeSinceLevelLoad)
         {
             _fireTime = 0;
-            //ProjectileManager.Instance.SpawnArrow(Agent, Agent.Transform.position + Vector3.up * 1.5f,
-              //  Agent.Transform.forward, 15, AnimAttackData.hitDamage);
+            ArrowMgr.Instance.Spawn(Agent, Agent.Transform.position + Vector3.up * 1.5f, Agent.Transform.forward, 
+                _eventAttack.animAttackData.hitDamage, 20, _eventAttack.animAttackData.hitMomentum);
             //Agent.SoundPlayHit();
         }
 

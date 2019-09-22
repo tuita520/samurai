@@ -37,7 +37,7 @@ public class HandleAttackResult
             if (fatalAttack)
             {
                 // 一招制敌，如玩家的跳杀跌倒的敌人技能
-                ReceiveDamage(target, agent, weaponType, target.BlackBoard.maxHealth, animAttackData);
+                ReceiveDamage(target, agent, weaponType, target.BlackBoard.maxHealth, animAttackData.hitMomentum);
                 continue;
             }
 
@@ -113,7 +113,7 @@ public class HandleAttackResult
             else if (animAttackData.hitAngle == -1/*比如attack whirl*/ || Vector3.Angle(attackerDir, dirToEnemy) < animAttackData.hitAngle)
             {
                 // 普通伤害
-                ReceiveDamage(target, agent, weaponType, animAttackData.hitDamage, animAttackData);                
+                ReceiveDamage(target, agent, weaponType, animAttackData.hitDamage, animAttackData.hitMomentum);                
                 HandleSound.PlaySoundHit();
             }
             else
@@ -124,7 +124,7 @@ public class HandleAttackResult
         }        
     }
 
-    static void ReceiveDamage(Agent1 agent, Agent1 attacker, WeaponType byWeapon, float damage, AnimAttackData data)
+    static void ReceiveDamage(Agent1 agent, Agent1 attacker, WeaponType byWeapon, float damage, float hitMomentum)
     {
         if (agent.BlackBoard.IsAlive == false)
             return;
@@ -136,7 +136,7 @@ public class HandleAttackResult
 
         agent.BlackBoard.Attacker = attacker;
         agent.BlackBoard.attackerWeapon = byWeapon;
-        agent.BlackBoard.impuls = attacker.Forward * data.hitMomentum;
+        agent.BlackBoard.impuls = attacker.Forward * hitMomentum;
 
         if (agent.BlackBoard.IsKnockedDown)
         {
@@ -202,7 +202,7 @@ public class HandleAttackResult
         if (fromBehind)
         {
             //agent.BlackBoard.blockResult = BlockResult.FAIL;
-            ReceiveDamage(agent, attacker, byWeapon, damage, data);// block失败（扣血）
+            ReceiveDamage(agent, attacker, byWeapon, damage, data.hitMomentum);// block失败（扣血）
             //agent.BlackBoard.health = Mathf.Max(1, agent.BlackBoard.health - damage);
             //agent.BlackBoard.damageType = DamageType.BACK;
             //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
@@ -248,8 +248,6 @@ public class HandleAttackResult
         agent.BlackBoard.damageType = attacker.BlackBoard.FaceToOtherBack(agent) ? DamageType.BACK : DamageType.FRONT;
         agent.Decision.OnInjury();
     }
-
-
 
     static void ReceiveKnockDown(Agent1 agent, Agent1 attacker, Vector3 impuls)
     {
@@ -347,12 +345,41 @@ public class HandleAttackResult
                 //{
                 //    ReceiveImpuls(target, agent, dirToTarget.normalized * data.hitMomentum);
                 //}                
-                ReceiveDamage(target, agent, WeaponType.BODY, data.hitDamage, data);
+                ReceiveDamage(target, agent, WeaponType.BODY, data.hitDamage, data.hitMomentum);
                 HandleSound.PlaySoundHit();
             }
         }   
     }
-    
+
+    public static bool DoRangeDamage(Agent1 agent, Transform arrowTransform, float damage, float hitMomentum)
+    {
+        foreach (var target in Game1.Instance.AgentMgr.agents)
+        {
+            if (agent == target)
+            {
+                continue;
+            }
+
+            if (target.BlackBoard.invulnerable)
+            {
+                continue;
+            }
+
+            Vector3 pos1 = arrowTransform.position;
+            pos1.y = 0;
+            Vector3 pos2 = target.Transform.position;
+            pos2.y = 0;
+
+            if ((pos1 - pos2).sqrMagnitude < 0.4 * 0.4f)
+            {
+                ReceiveDamage(target, agent, WeaponType.BOW, damage, hitMomentum);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /*
      public void ReceiveRangeDamage(Agent attacker, float damage, Vector3 impuls)
     {

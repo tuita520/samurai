@@ -21,9 +21,9 @@ public class BlackBoard1
     public float GOAPMaxWeightBlock = 0.8f;
 
     //public float GOAP_ReactToDamageRelevancy = 1.0f;
-    public float GOAP_INJURY = 0.9f;
-    public float GOAP_KNOCKDOWN = 0.95f;
-    public float GOAP_DEATH = 1f;
+    //public float GOAP_INJURY = 0.9f;
+    //public float GOAP_KNOCKDOWN = 0.95f;
+    //public float GOAP_DEATH = 1f;
         
     float _block = 0;
     public float minBlock = 0;
@@ -160,7 +160,7 @@ public class BlackBoard1
     public float maxWalkSpeed = 1.5f;
     public float maxCombatMoveSpeed = 1;
     public float maxWhirlMoveSpeed = 0;
-    public float maxKnockDownLyingTime = 4;
+    //public float maxKnockDownLyingTime = 4;
 
     public float speedSmooth = 2.0f;
     public float rotationSmooth = 20.0f;

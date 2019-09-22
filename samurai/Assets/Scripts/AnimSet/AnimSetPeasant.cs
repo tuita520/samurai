@@ -25,9 +25,18 @@ public class AnimSetPeasant : AnimSet{
 
         anims["attackPeasant"].layer = 0;
         anims["attackPeasant"].speed = 1.1f;
-
          anims["showSword"].layer = 0;        anims["hideSword"].layer = 1;
-	}	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleSword";	}
+
+        AddComboAttack(new Combo()
+        {
+            comboType = ComboType.SINGLE_SWORD,
+            comboSteps = new ComboStep[]
+            {
+                new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
+                    ("attackPeasant", null, 0.8f, 0.68f, 0.55f, 0.75f, 0.8f, 5, 20, 1, CriticalHitType.NONE, 0, false, false, false, false)}
+            }
+        });
+    }	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleSword";	}
 
     public override string GetIdleActionAnim(WeaponType weapon, WeaponState weaponState)
     {

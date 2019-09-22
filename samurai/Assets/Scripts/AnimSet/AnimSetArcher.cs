@@ -15,6 +15,7 @@ public class AnimSetArcher : AnimSet{
         anims["injuryFront"].layer = 1;
         anims["injuryBack"].layer = 1;
 
+        anims["bowFire"].speed = 2;
         anims["bowFire"].layer = 0;
          //anims["showBow"].layer = 0;        //anims["hideSword"].layer = 1;
 
@@ -29,7 +30,7 @@ public class AnimSetArcher : AnimSet{
             comboSteps = new ComboStep[]
             {
                 new ComboStep(){orderAttackType = OrderAttackType.NONE, data = new AnimAttackData
-                    ("bowFire", null, -1, 2.95f, 3.0f, 10, 20, 1, CriticalHitType.NONE, false)},
+                    ("bowFire", null, -1, 1.47f, 1.5f, 10, 20, 1, CriticalHitType.NONE, false)},
             }
         });
     }	public override string GetIdleAnim(WeaponType weapon, WeaponState weaponState)	{        if (weaponState == WeaponState.NOT_IN_HANDS)            return "idle";        return "idleBow";	}
