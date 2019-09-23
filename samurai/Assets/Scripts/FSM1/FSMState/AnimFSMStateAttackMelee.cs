@@ -252,8 +252,8 @@ public class AnimFSMStateAttackMelee : AnimFSMState
         _currentMoveTime = -_eventAttackMelee.animAttackData.attackMoveStartTime;
 
         if (_eventAttackMelee.target && _eventAttackMelee.target.BlackBoard.IsAlive)
-        {
-            HandleMontageShot();            
+        {            
+            HandleCamera.SlowMotion(_isCritical, _eventAttackMelee.animAttackData.isFatal);
         }
     }
 
@@ -267,12 +267,4 @@ public class AnimFSMStateAttackMelee : AnimFSMState
     //    hitData.isKnockDown = _knockdown;
     //    onAttackHit.Invoke(hitData);
     //}
-
-    void HandleMontageShot()
-    {
-        MontageShotData montageData = new MontageShotData();
-        montageData.isCritical = _isCritical;
-        montageData.isFatalAttack = (_eventAttackMelee.animAttackData.isFatal);
-        onMontageShot.Invoke(montageData);
-    }
 }

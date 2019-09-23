@@ -41,14 +41,18 @@ public class test : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.L))
         {
-            SpriteEffectMgr.Instance.CreateBlood(
+            /*SpriteEffectMgr.Instance.CreateBlood(
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
+                new Vector3(90, Random.Range(0, 180), 0));*/
+            SpriteBlood.Create(new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));
         }
         if (Input.GetKeyUp(KeyCode.Y))
         {
-            SpriteEffectMgr.Instance.CreateFlowingBlood(
+            /*SpriteEffectMgr.Instance.CreateFlowingBlood(
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
+                new Vector3(90, Random.Range(0, 180), 0));*/
+            SpriteBloodBig.Create(new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));
         }
         if (Input.GetKeyUp(KeyCode.N))

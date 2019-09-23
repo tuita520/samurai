@@ -252,7 +252,7 @@ public class AnimFSMStateAttackCross : AnimFSMState
 
         if (_eventAttackCross.target && _eventAttackCross.target.BlackBoard.IsAlive)
         {
-            HandleMontageShot();
+            HandleCamera.SlowMotion(_isCritical, _eventAttackCross.animAttackData.isFatal);
         }
     }
 
@@ -267,11 +267,4 @@ public class AnimFSMStateAttackCross : AnimFSMState
     //    onAttackHit.Invoke(hitData);
     //}
 
-    void HandleMontageShot()
-    {
-        MontageShotData montageData = new MontageShotData();
-        montageData.isCritical = _isCritical;
-        montageData.isFatalAttack = (_eventAttackCross.animAttackData.isFatal);
-        onMontageShot.Invoke(montageData);
-    }
 }

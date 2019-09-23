@@ -139,6 +139,7 @@ public class WorldStatePropInfoEx
  9.整理各个state有关旋转的代码，目前有的用rotationSmooth，有的用时间。 
  10.代码中原来由mathfx调用的函数统一改成调用phenix库里的 
  11.samurai后退roll有时会短距离甚至原地滚动？ 
+ 12.弓箭手碎尸报错。整理碎尸管理。整理音乐音效管理。整理溅血粒子和击中火花、格挡的星星。刀光、灰尘、拖尾、人影。UI相关。
 */
 public class GOAPDecision : Decision
 {

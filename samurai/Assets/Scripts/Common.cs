@@ -271,3 +271,10 @@ public enum ComboType
     ATTACK_ROLL,        // ³å¹ö£¨miniboss£©
     ATTACK_BERSERK,     // ±©»÷£¨boss£©
 }
+
+public enum SpriteType
+{
+    NONE = 0,
+    BLOOD       = 1,
+    BLOOD_BIG   = 2,
+}

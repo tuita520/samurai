@@ -31,7 +31,7 @@ public abstract class AnimFSMState : FSMState
 
     //protected UnityAction<AttackMeleeHitData> onAttackHit = new UnityAction<AttackMeleeHitData>(HandleAttackResult.AttackMeleeHitHandler);
     //protected UnityAction<AttackWhirlHitData> onAttackWhirlHit = new UnityAction<AttackWhirlHitData>(HandleAttackResult.AttackWhirlHitHandler);
-    protected UnityAction<MontageShotData> onMontageShot = new UnityAction<MontageShotData>(HandleMontageShot.MontageShotHandler);
+    //protected UnityAction<MontageShotData> onMontageShot = new UnityAction<MontageShotData>(HandleCamera.SlowMotion);
     //protected UnityAction<SoundData> onSound = new UnityAction<SoundData>(HandleSound.SoundHandler);
     //protected UnityAction<EffectData> onEffect = new UnityAction<EffectData>(HandleEffect.EffectHandler);
     

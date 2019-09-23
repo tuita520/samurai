@@ -28,7 +28,7 @@ public class SpriteObject
 
         if (effect.scaleVal > 0)
         {
-            quad.transform.localScale = Vector3.Lerp(quad.transform.localScale,
+            quad.transform.localScale = Vector3.Lerp(Vector3.one,//quad.transform.localScale,
                     new Vector3(effect.scaleVal, effect.scaleVal, quad.transform.localScale.z), 
                     passTime / effect.scaleTime);
         }

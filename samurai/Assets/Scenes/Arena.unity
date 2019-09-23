@@ -1520,7 +1520,7 @@ MonoBehaviour:
     rollDistance: 0
     moveSpeedModifier: 1
     attackRollSpeed: 0
-    maxHealth: 10
+    maxHealth: 100
     criticalAllowed: 1
     criticalHitModifier: 1.3
     criticalChance: 18
@@ -2246,6 +2246,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxCachedOrderCount: 2
+--- !u!4 &390079105 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4526574345094494, guid: cb90a01bcc6a41c4980a48385fed01e2,
+    type: 2}
+  m_PrefabInternal: {fileID: 390079101}
 --- !u!114 &390079106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2554,6 +2559,7 @@ GameObject:
   - component: {fileID: 461250239}
   - component: {fileID: 461250238}
   - component: {fileID: 461250242}
+  - component: {fileID: 461250243}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2629,7 +2635,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 461250237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1b615a30f300814b9dc1d547c2e1a08, type: 3}
   m_Name: 
@@ -2639,6 +2645,22 @@ MonoBehaviour:
   target: {fileID: 1938820168}
   offset: {x: 0, y: 8, z: -6.4}
   _baseFov: 0
+--- !u!114 &461250243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 461250237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 397063583, guid: 134110ab35ade6045bdc75893dc4788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 461250240}
+  target: {fileID: 390079105}
+  speed: 4
+  rotateSpeed: 4
+  _offset: {x: 0, y: 8, z: -6.4}
 --- !u!1 &465068826
 GameObject:
   m_ObjectHideFlags: 0
@@ -2684,6 +2706,7 @@ GameObject:
   - component: {fileID: 470875186}
   - component: {fileID: 470875187}
   - component: {fileID: 470875188}
+  - component: {fileID: 470875189}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -2876,6 +2899,23 @@ MonoBehaviour:
     - choppedBodyType: 4
       prefabs:
       - {fileID: 100000, guid: 74a65877c7be8aa49bc4f54c203e43ed, type: 2}
+  - agentType: 5
+    data:
+    - choppedBodyType: 1
+      prefabs:
+      - {fileID: 100022, guid: ccb8dc15b084e554d9447f023073e351, type: 2}
+    - choppedBodyType: 4
+      prefabs:
+      - {fileID: 100026, guid: 60bf27f8d04ea344cae81fc0382d0dea, type: 2}
+    - choppedBodyType: 2
+      prefabs:
+      - {fileID: 100022, guid: ccb8dc15b084e554d9447f023073e351, type: 2}
+    - choppedBodyType: 0
+      prefabs:
+      - {fileID: 100022, guid: ccb8dc15b084e554d9447f023073e351, type: 2}
+    - choppedBodyType: 3
+      prefabs:
+      - {fileID: 100026, guid: 60bf27f8d04ea344cae81fc0382d0dea, type: 2}
 --- !u!114 &470875185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2913,7 +2953,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470875179}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17c35b8fd8dc63c45995ea1cf858bf94, type: 3}
   m_Name: 
@@ -2931,7 +2971,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: d4bff853671d8ae44aec6dc415251eda, type: 2}
     lifeTime: 0
     scaleVal: 3
-    scaleTime: 100
+    scaleTime: 3
 --- !u!114 &470875187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2959,6 +2999,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arrowPrefab: {fileID: 100000, guid: 686a6449136b63146928ef7dffe6a775, type: 2}
+--- !u!114 &470875189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 470875179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 402496849, guid: 134110ab35ade6045bdc75893dc4788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _templates:
+  - spriteCode: 1
+    lifeTime: 0
+    materials:
+    - {fileID: 2100000, guid: a8f48645d0256394aa3c526493d13c1b, type: 2}
+    - {fileID: 2100000, guid: 19ca4fd4dc5be5b48bae07067a39aa28, type: 2}
+    - {fileID: 2100000, guid: d4bff853671d8ae44aec6dc415251eda, type: 2}
+  - spriteCode: 2
+    lifeTime: 0
+    materials:
+    - {fileID: 2100000, guid: d4bff853671d8ae44aec6dc415251eda, type: 2}
 --- !u!1 &472263057
 GameObject:
   m_ObjectHideFlags: 0

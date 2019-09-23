@@ -82,7 +82,7 @@ public class HandleAttackResult
 
             if (target.BlackBoard.criticalAllowed && 
                 animAttackData.hitCriticalType != CriticalHitType.NONE &&
-                agent.BlackBoard.FaceToOtherBack(target)) // from behind
+                agent.BlackBoard.FaceToOtherBack(target)) // from behind            
             {
                 // 碎尸
                 ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);
