@@ -384,20 +384,20 @@ public class Agent : MonoBehaviour
         {
             int r = Random.Range(0, 100);
             if (r < 33)
-                ChoppedBodyFactory.Instance.Get(agentType, hitAgent.Transform, ChoppedBodyType.LEGS);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agentType, hitAgent.Transform, ChoppedBodyType1.LEGS);
             else if (r < 66)
-                ChoppedBodyFactory.Instance.Get(agentType, hitAgent.Transform, ChoppedBodyType.BEHEADED);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agentType, hitAgent.Transform, ChoppedBodyType1.BEHEADED);
             else
-                ChoppedBodyFactory.Instance.Get(agentType, hitAgent.Transform, ChoppedBodyType.HALF_BODY);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agentType, hitAgent.Transform, ChoppedBodyType1.HALF_BODY);
         }
         else
         {
             float dot = Vector3.Dot(Forward, attacker.Forward);
 
             if (dot < 0.5 && dot > -0.5f)
-                ChoppedBodyFactory.Instance.Get(agentType, hitAgent.Transform, ChoppedBodyType.SLICE_LEFT_RIGHT);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agentType, hitAgent.Transform, ChoppedBodyType1.SLICE_LEFT_RIGHT);
             else
-                ChoppedBodyFactory.Instance.Get(agentType, hitAgent.Transform, ChoppedBodyType.SLICE_FRONT_BACK);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agentType, hitAgent.Transform, ChoppedBodyType1.SLICE_FRONT_BACK);
         }
 
         //CombatEffectsManager.Instance.PlayCriticalEffect(Transform.position, -attacker.Forward);

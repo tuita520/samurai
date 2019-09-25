@@ -17,4 +17,10 @@ public class SpriteBlood : SpriteBase
         blood.Init((int)SpriteType.BLOOD, pos, dir);
         SpriteMgr.Instance.Add(blood);
     }
+
+    public static void Create(Transform trans)
+    {
+        Create(new Vector3(trans.localPosition.x, trans.localPosition.y + 0.5f, trans.localPosition.z),
+                new Vector3(90, Random.Range(0, 180), 0));
+    }
 }

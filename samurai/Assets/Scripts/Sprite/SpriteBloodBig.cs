@@ -7,7 +7,7 @@ public class SpriteBloodBig : SpriteBase
     public static Pool<SpriteBloodBig> pool = new Pool<SpriteBloodBig>(20, Reset);
 
     const float _scaleVal = 3;          // scale数值，0表示无效 
-    const float _scaleTime = 3;         // scale时长（秒），0表示持久 
+    const float _scaleTime = 5;         // scale时长（秒），0表示持久 
 
     public override void Release()
     {
@@ -19,6 +19,12 @@ public class SpriteBloodBig : SpriteBase
         SpriteBloodBig bloodBig = pool.Get();
         bloodBig.Init((int)SpriteType.BLOOD_BIG, pos, dir);
         SpriteMgr.Instance.Add(bloodBig);
+    }
+
+    public static void Create(Transform trans)
+    {
+        Create(new Vector3(trans.localPosition.x, trans.localPosition.y + 0.5f, trans.localPosition.z),
+                new Vector3(90, Random.Range(0, 180), 0));
     }
 
     public override void OnUpdate()

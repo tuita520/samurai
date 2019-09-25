@@ -9,7 +9,7 @@ public class BGM : MonoBehaviour
     public float fadeOutTime    = 0.4f;
     public float fadeInTime     = 0.4f;
 
-    public AudioSource bgm;
+    public AudioSource audioSource;
 
     private void Awake()
     {
@@ -30,33 +30,33 @@ public class BGM : MonoBehaviour
         StartCoroutine(FadeOutMusic(fadeOutTime));
     }
 
-    IEnumerator FadeInMusic(AudioClip clip, float musicVolume, float foTime, float fiTime)
+    IEnumerator FadeInMusic(AudioClip clip, float musicVolume, float fadeOutTime, float fadeInTime)
     {
-        if (bgm == null)
+        if (audioSource == null)
         {
             yield break;
         }
 
-        if (bgm.isPlaying)
+        if (audioSource.isPlaying)
         {
-            if (foTime == 0)
+            if (fadeOutTime == 0)
             {
-                bgm.volume = 0;
-                bgm.Stop();
+                audioSource.volume = 0;
+                audioSource.Stop();
             }
             else
             {
-                float maxVolume = bgm.volume;
-                float volume = bgm.volume;
+                float maxVolume = audioSource.volume;
+                float volume = audioSource.volume;
                 while (volume > 0)
                 {
-                    volume -= 1 / foTime * Time.deltaTime * maxVolume;
+                    volume -= 1 / fadeOutTime * Time.deltaTime * maxVolume;
                     if (volume < 0)
                         volume = 0;
-                    bgm.volume = volume;
+                    audioSource.volume = volume;
                     yield return new WaitForEndOfFrame();
                 }
-                bgm.Stop();
+                audioSource.Stop();
             }
         }
 
@@ -64,11 +64,11 @@ public class BGM : MonoBehaviour
 
         if (clip != null)
         {
-            bgm.clip = clip;
-            bgm.Play();
-            if (fiTime == 0)
+            audioSource.clip = clip;
+            audioSource.Play();
+            if (fadeInTime == 0)
             {
-                bgm.volume = musicVolume;
+                audioSource.volume = musicVolume;
             }
             else
             {
@@ -76,10 +76,10 @@ public class BGM : MonoBehaviour
                 float volume = 0;
                 while (volume < maxVolume)
                 {
-                    volume += 1 / fiTime * Time.deltaTime * maxVolume;
+                    volume += 1 / fadeInTime * Time.deltaTime * maxVolume;
                     if (volume > maxVolume)
                         volume = maxVolume;
-                    bgm.volume = volume;
+                    audioSource.volume = volume;
                     yield return new WaitForEndOfFrame();
                 }
             }
@@ -116,29 +116,29 @@ public class BGM : MonoBehaviour
 
     IEnumerator FadeOutMusic(float foTime)
     {
-        if (bgm == null || bgm.clip == null)
+        if (audioSource == null || audioSource.clip == null)
         {
             yield break;
         }
 
         if (foTime == 0)
         {
-            bgm.volume = 0;
-            bgm.Stop();
+            audioSource.volume = 0;
+            audioSource.Stop();
             yield break;
         }
         
-        float volume = bgm.volume;
+        float volume = audioSource.volume;
         while (volume > 0)
         {
             volume -= 1 / foTime * Time.deltaTime;
             if (volume < 0)
                 volume = 0;
 
-            bgm.volume = volume;
+            audioSource.volume = volume;
 
             yield return new WaitForEndOfFrame();
         }
-        bgm.Stop();        
+        audioSource.Stop();        
     }
 }

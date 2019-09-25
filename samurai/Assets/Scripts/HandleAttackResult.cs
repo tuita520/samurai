@@ -80,9 +80,10 @@ public class HandleAttackResult
                 continue;
             }
 
-            if (target.BlackBoard.criticalAllowed && 
+            /*if (target.BlackBoard.criticalAllowed && 
                 animAttackData.hitCriticalType != CriticalHitType.NONE &&
-                agent.BlackBoard.FaceToOtherBack(target)) // from behind            
+                agent.BlackBoard.FaceToOtherBack(target)) // from behind            */
+            if (agent.agentType == AgentType.PLAYER)           
             {
                 // 碎尸
                 ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);
@@ -161,6 +162,7 @@ public class HandleAttackResult
             {
                 agent.Decision.OnInjury();
                 //SpriteEffectsManager.Instance.CreateBlood(Transform);
+                SpriteBlood.Create(agent.transform);
             }
             else
             {
@@ -207,6 +209,7 @@ public class HandleAttackResult
             //agent.BlackBoard.damageType = DamageType.BACK;
             //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
             //SpriteEffectsManager.Instance.CreateBlood(Transform);
+            SpriteBlood.Create(agent.transform);
         }
         else
         {
@@ -284,20 +287,20 @@ public class HandleAttackResult
         {
             int r = Random.Range(0, 100);
             if (r < 33)
-                ChoppedBodyFactory.Instance.Get(agent.agentType, agent.Transform, ChoppedBodyType.LEGS);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agent.agentType, agent.Transform, ChoppedBodyType1.LEGS);
             else if (r < 66)
-                ChoppedBodyFactory.Instance.Get(agent.agentType, agent.Transform, ChoppedBodyType.BEHEADED);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agent.agentType, agent.Transform, ChoppedBodyType1.BEHEADED);
             else
-                ChoppedBodyFactory.Instance.Get(agent.agentType, agent.Transform, ChoppedBodyType.HALF_BODY);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agent.agentType, agent.Transform, ChoppedBodyType1.HALF_BODY);
         }
         else
         {
             float dot = Vector3.Dot(agent.Forward, attacker.Forward);
 
             if (dot < 0.5 && dot > -0.5f)
-                ChoppedBodyFactory.Instance.Get(agent.agentType, agent.Transform, ChoppedBodyType.SLICE_LEFT_RIGHT);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agent.agentType, agent.Transform, ChoppedBodyType1.SLICE_LEFT_RIGHT);
             else
-                ChoppedBodyFactory.Instance.Get(agent.agentType, agent.Transform, ChoppedBodyType.SLICE_FRONT_BACK);
+                ChoppedBodyMgr1.Instance.ShowChoppedBody(agent.agentType, agent.Transform, ChoppedBodyType1.SLICE_FRONT_BACK);
         }
 
         //CombatEffectsManager.Instance.PlayCriticalEffect(Transform.position, -attacker.Forward);

@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 400022}
   - component: {fileID: 11100000}
   - component: {fileID: 8200000}
-  - component: {fileID: 11400000}
+  - component: {fileID: 114498816971006626}
   m_Layer: 0
   m_Name: DeadBowmanH
   m_TagString: Untagged
@@ -524,19 +524,6 @@ Animation:
 --- !u!1002 &11100001
 EditorExtensionImpl:
   serializedVersion: 6
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233a7dea215e0488aaf15c1e8bdeef02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransparentMaterial: {fileID: 2100000, guid: a1f2782f224af4a5990b0e8aaea0e5b0, type: 2}
-  DiffuseMaterial: {fileID: 2100000, guid: 4024ebd51648a45cb9f8deb290b14463, type: 2}
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -592,9 +579,9 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
-  m_DirtyAABB: 1
+    m_Center: {x: -0.095823765, y: -0.37886035, z: 0.9476727}
+    m_Extent: {x: 0.89437544, y: 1.0232482, z: 1.0202519}
+  m_DirtyAABB: 0
 --- !u!1002 &13700001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -612,3 +599,18 @@ Prefab:
 --- !u!1002 &100100001
 EditorExtensionImpl:
   serializedVersion: 6
+--- !u!114 &114498816971006626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c61fb89b4ba12f47bbc5a716a668366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transparentMaterial: {fileID: 2100000, guid: a1f2782f224af4a5990b0e8aaea0e5b0, type: 2}
+  diffuseMaterial: {fileID: 2100000, guid: 4024ebd51648a45cb9f8deb290b14463, type: 2}
+  agentType: 5
+  choppedBodyType: 1
