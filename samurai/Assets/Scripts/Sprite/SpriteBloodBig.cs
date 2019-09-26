@@ -6,25 +6,20 @@ public class SpriteBloodBig : SpriteBase
 {
     public static Pool<SpriteBloodBig> pool = new Pool<SpriteBloodBig>(20, Reset);
 
-    const float _scaleVal = 3;          // scale数值，0表示无效 
-    const float _scaleTime = 5;         // scale时长（秒），0表示持久 
+    float _scaleVal = 3;          // scale数值，0表示无效 
+    float _scaleTime = 5;         // scale时长（秒），0表示持久 
 
     public override void Release()
     {
         pool.Collect(this);
     }
 
-    public static void Create(Vector3 pos, Vector3 dir)
+    public void Init(int spriteCode, float lifeTime, Material mat, Vector3 pos, Vector3 dir, 
+        float scaleVal, float scaleTime)
     {
-        SpriteBloodBig bloodBig = pool.Get();
-        bloodBig.Init((int)SpriteType.BLOOD_BIG, pos, dir);
-        SpriteMgr.Instance.Add(bloodBig);
-    }
-
-    public static void Create(Transform trans)
-    {
-        Create(new Vector3(trans.localPosition.x, trans.localPosition.y + 0.5f, trans.localPosition.z),
-                new Vector3(90, Random.Range(0, 180), 0));
+        base.Init(spriteCode,lifeTime, mat, pos, dir);
+        _scaleVal = scaleVal;
+        _scaleTime = scaleTime;        
     }
 
     public override void OnUpdate()
@@ -32,8 +27,8 @@ public class SpriteBloodBig : SpriteBase
         base.OnUpdate();
         if (_scaleVal > 0 && _scaleTime > 0)
         {
-            QuadObject.transform.localScale = Vector3.Lerp(Vector3.one,
-                    new Vector3(_scaleVal, _scaleVal, QuadObject.transform.localScale.z),
+            Quad.transform.localScale = Vector3.Lerp(Vector3.one,
+                    new Vector3(_scaleVal, _scaleVal, Quad.transform.localScale.z),
                     Mathf.Min(PassTime / _scaleTime, 1));
         }
     }

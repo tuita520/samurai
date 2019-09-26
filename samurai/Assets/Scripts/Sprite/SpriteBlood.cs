@@ -11,16 +11,8 @@ public class SpriteBlood : SpriteBase
         pool.Collect(this);
     }
 
-    public static void Create(Vector3 pos, Vector3 dir)
+    public void Init(int spriteCode, float lifeTime, Material mat, Vector3 pos, Vector3 dir)
     {
-        SpriteBlood blood = pool.Get();
-        blood.Init((int)SpriteType.BLOOD, pos, dir);
-        SpriteMgr.Instance.Add(blood);
-    }
-
-    public static void Create(Transform trans)
-    {
-        Create(new Vector3(trans.localPosition.x, trans.localPosition.y + 0.5f, trans.localPosition.z),
-                new Vector3(90, Random.Range(0, 180), 0));
+        base.Init(spriteCode, lifeTime, mat, pos, dir);        
     }
 }

@@ -26,6 +26,7 @@ public class Agent1 : MonoBehaviour
     public Transform Transform { get; private set; }
     public CharacterController CharacterController { get; private set; }
     public AnimSet AnimSet { get; private set; }
+    public SoundMgr SoundMgr { get; private set; }
 
     public Vector3 Position { get { return transform.position; } }
     public Vector3 Forward { get { return transform.forward; } }
@@ -46,6 +47,7 @@ public class Agent1 : MonoBehaviour
         Transform = GetComponent<Transform>();
         CharacterController = GetComponent<CharacterController>();
         AnimSet = GetComponent<AnimSet>();
+        SoundMgr = GetComponent<SoundMgr>();
         
         _audioEffect = GetComponent<AudioSource>();
         _collisionCenter = CharacterController.center;

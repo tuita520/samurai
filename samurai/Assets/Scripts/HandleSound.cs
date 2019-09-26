@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 
-public class SoundData
-{
-    
-}
 
 public class HandleSound
 {
@@ -31,9 +27,5 @@ public class HandleSound
     {
 
     }
-
-    public static void SoundHandler(SoundData soundData)
-    {
-
-    }    
+ 
 }

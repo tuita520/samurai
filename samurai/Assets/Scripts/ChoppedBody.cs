@@ -47,7 +47,9 @@ public class ChoppedBody : MonoBehaviour
 
         yield return new WaitForSeconds(.1f);
         //SpriteEffectsManager.Instance.CreateBloodSlatter(Transform, 2, 3);
-        SpriteBloodBig.Create(_trans);
+        SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD_BIG, 
+            new Vector3(_trans.localPosition.x, _trans.localPosition.y + 0.5f, _trans.localPosition.z),
+            new Vector3(90, Random.Range(0, 180), 0));
         yield return new WaitForSeconds(delay);
         //CombatEffectsManager.Instance.PlayDisappearEffect(Transform.position, Transform.forward);
         _renderer.material = transparentMaterial;

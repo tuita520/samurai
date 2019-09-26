@@ -278,3 +278,18 @@ public enum SpriteType
     BLOOD       = 1,
     BLOOD_BIG   = 2,
 }
+
+public enum SoundType
+{
+    NONE = 0,
+    STEP,
+    ROLL,
+    SPAWN,
+    BERSERK,
+    ATTACK_PREPARE,
+    ATTACK_MISS,
+    ATTACK_HIT,
+    ATTACK_BLOCK,
+    WEAPON_ON,
+    WEAPON_OFF,
+}

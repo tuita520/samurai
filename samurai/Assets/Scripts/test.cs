@@ -44,7 +44,9 @@ public class test : MonoBehaviour
             /*SpriteEffectMgr.Instance.CreateBlood(
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));*/
-            SpriteBlood.Create(new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
+            SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD, 
+                new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, 
+                    player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));
         }
         if (Input.GetKeyUp(KeyCode.Y))
@@ -52,7 +54,9 @@ public class test : MonoBehaviour
             /*SpriteEffectMgr.Instance.CreateFlowingBlood(
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));*/
-            SpriteBloodBig.Create(new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
+            SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD_BIG,
+                new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, 
+                    player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));
         }
         if (Input.GetKeyUp(KeyCode.N))

@@ -80,10 +80,9 @@ public class HandleAttackResult
                 continue;
             }
 
-            /*if (target.BlackBoard.criticalAllowed && 
+            if (target.BlackBoard.criticalAllowed && 
                 animAttackData.hitCriticalType != CriticalHitType.NONE &&
-                agent.BlackBoard.FaceToOtherBack(target)) // from behind            */
-            if (agent.agentType == AgentType.PLAYER)           
+                agent.BlackBoard.FaceToOtherBack(target)) // from behind
             {
                 // 碎尸
                 ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);
@@ -162,7 +161,9 @@ public class HandleAttackResult
             {
                 agent.Decision.OnInjury();
                 //SpriteEffectsManager.Instance.CreateBlood(Transform);
-                SpriteBlood.Create(agent.transform);
+                SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD,
+                    new Vector3(agent.transform.localPosition.x, agent.transform.localPosition.y + 0.5f,
+                    agent.transform.localPosition.z), new Vector3(90, Random.Range(0, 180), 0));
             }
             else
             {
@@ -209,7 +210,10 @@ public class HandleAttackResult
             //agent.BlackBoard.damageType = DamageType.BACK;
             //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
             //SpriteEffectsManager.Instance.CreateBlood(Transform);
-            SpriteBlood.Create(agent.transform);
+            SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD, 
+                new Vector3(agent.transform.localPosition.x, agent.transform.localPosition.y + 0.5f,
+                    agent.transform.localPosition.z), 
+                new Vector3(90, Random.Range(0, 180), 0));
         }
         else
         {
