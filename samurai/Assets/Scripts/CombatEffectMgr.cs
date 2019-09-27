@@ -1,4 +1,5 @@
 ﻿using UnityEngine;using System.Collections;using System.Collections.Generic;
+using Phenix.Unity.Extend;
 
 
 public class CombatEffectMgr : MonoBehaviour
@@ -123,7 +124,7 @@ public class CombatEffectMgr : MonoBehaviour
     CombatEffect Roll = new CombatEffect();
 
     void Awake()
-    {        
+    {       
         Instance = this;
 
         Blood.Init(10);

@@ -1,6 +1,5 @@
 using UnityEngine;
-[System.Serializable]public class AnimSetPlayer : AnimSet{    
-    GameObject      _trails;
+[System.Serializable]public class AnimSetPlayer : AnimSet{
     AnimAttackData  _attackKnockdown;
     public AnimAttackData[] attackDataList = new AnimAttackData[25];
 
@@ -98,36 +97,36 @@ using UnityEngine;
         anims["attackOXOXO"].layer = 1;
 
 
-        _trails = Instantiate(Resources.Load("Player/trails_combo01")) as GameObject;
-        _trails.SetActive(false);
+        trailRoot = Instantiate(Resources.Load("Player/trails_combo01")) as GameObject;
+        //trailRoot.SetActive(false);
 
         // 下面这一行可以删除
         _attackKnockdown = new AnimAttackData("attackKnockdown", null, 1.5f, 0.65f, 0.2f, 0.6f, 1.0f, 20, 0, 0, CriticalHitType.NONE, 0, false, false, false, true);
         
-        attackDataList[0] = new AnimAttackData("attackX", _trails.transform.Find("trail_X").gameObject, 0.6f, 0.23f, 0.05f, 0.366f, 0.366f, 3, 15, 0.6f, CriticalHitType.VERTICAL, 0.2f, false, false, false, false);
-        attackDataList[1] = new AnimAttackData("attackXX", _trails.transform.Find("trail_XX").gameObject, 0.6f, 0.22f, 0.15f, 0.35f, 0.4f, 5, 15, 0.6f, CriticalHitType.VERTICAL, 0.25f, false, false, false, false);        
-        attackDataList[2] = new AnimAttackData("attackXXX", _trails.transform.Find("trail_XXX").gameObject, 0.7f, 0.25f, 0.20f, 0.30f, 0.366f, 10, 45, 0.75f, CriticalHitType.HORIZONTAL, 0.3f, false, false, false, false);        
-        attackDataList[3] = new AnimAttackData("attackXXXX", _trails.transform.Find("trail_XXXX").gameObject, 0.8f, 0.28f, 0.22f, 0.35f, 0.366f, 12, 90, 0.8f, CriticalHitType.HORIZONTAL, 0.5f, false, false, true, false);
-        attackDataList[4] = new AnimAttackData("attackXXXXX", _trails.transform.Find("trail_XXXXX").gameObject, 0.8f, 0.3f, 0.15f, 0.35f, 0.366f, 16, 45, 1.5f, CriticalHitType.VERTICAL, 0.6f, false, false, true, true);
-        attackDataList[5] = new AnimAttackData("attackO", _trails.transform.Find("trail_O").gameObject, 0.7f, 0.38f, 0.30f, 0.40f, 0.45f, 6, 45, 0.8f, CriticalHitType.HORIZONTAL, 0.1f, false, true, false, false);
-        attackDataList[6] = new AnimAttackData("attackOO", _trails.transform.Find("trail_OO").gameObject, 0.7f, 0.34f, 0.10f, 0.35f, 0.4f, 10, 45, 0.8f, CriticalHitType.VERTICAL, 0.15f, false, true, false, false);        
-        attackDataList[7] = new AnimAttackData("attackOOO", _trails.transform.Find("trail_OOO").gameObject, 1.0f, 0.5f, 0.36f, 0.55f, 0.6f, 15, 15, 1.0f, CriticalHitType.NONE, 0, false, true, false, false);
-        attackDataList[8] = new AnimAttackData("attackOOOX", _trails.transform.Find("trail_OOOX").gameObject, 1.0f, 0.45f, 0.15f, 0.45f, 0.533f, 20, 45, 0.5f, CriticalHitType.VERTICAL, 0.8f, false, true, false, false);
-        attackDataList[9] = new AnimAttackData("attackOOOXX", _trails.transform.Find("trail_OOOXX").gameObject, 1.0f, 0.51f, 0.15f, 0.6f, 0.7f, 25, 20, 1.8f, CriticalHitType.VERTICAL, 1, false, true, true, true);        
-        attackDataList[10] = new AnimAttackData("attackXO", _trails.transform.Find("trail_XO").gameObject, 0.85f, 0.45f, 0.10f, 0.8f, 0.833f, 15, 25, 0.8f, CriticalHitType.NONE, 0, false, false, false, false);        
-        attackDataList[11] = new AnimAttackData("attackXOO", _trails.transform.Find("trail_XOO").gameObject, 0.8f, 0.45f, 0.20f, 0.50f, 0.55f, 20, 15, 0.8f, CriticalHitType.NONE, 0, false, false, false, false);
-        attackDataList[12] = new AnimAttackData("attackXOOX", _trails.transform.Find("trail_XOOX").gameObject, 0.7f, 0.4f, 0.3f, 0.7f, 0.8f, 20, 180, 1, CriticalHitType.VERTICAL, 0.8f, false, false, true, false);
-        attackDataList[13] = new AnimAttackData("attackXOOXX", _trails.transform.Find("trail_XOOXX").gameObject, 1.5f, 0.35f, 0.10f, 0.30f, 0.48f, 25, 20, 1.5f, CriticalHitType.VERTICAL, 1.0f, false, false, true, true);        
-        attackDataList[14] = new AnimAttackData("attackXXO", _trails.transform.Find("trail_XXO").gameObject, 0.7f, 0.30f, 0.15f, 0.4f, 0.6f, 15, 90, 1.0f, CriticalHitType.NONE, 0, true, false, true, true);        
-        attackDataList[15] = new AnimAttackData("attackXXOX", _trails.transform.Find("trail_XXOX").gameObject, 1.0f, 0.41f, 0.11f, 0.55f, 0.60f, 20, 15, 0.7f, CriticalHitType.VERTICAL, 1, false, false, true, false);
-        attackDataList[16] = new AnimAttackData("attackXXOXX", _trails.transform.Find("trail_XXOXX").gameObject, 1.0f, 0.5f, 0.1f, 0.4f, 0.6f, 20, 180, 1.2f, CriticalHitType.NONE, 0, true, false, true, true);        
-        attackDataList[17] = new AnimAttackData("attackOOX", _trails.transform.Find("trail_OOX").gameObject, 0.8f, 0.45f, 0.25f, 0.5f, 0.66f, 15, 25, 0.7f, CriticalHitType.VERTICAL, 1.2f, false, false, true, true);        
-        attackDataList[18] = new AnimAttackData("attackOOXO", _trails.transform.Find("trail_OOXX").gameObject, 0.7f, 0.6f, 0.2f, 0.6f, 0.7f, 20, 45, 0.7f, CriticalHitType.VERTICAL, 1.4f, false, false, false, false);
-        attackDataList[19] = new AnimAttackData("attackOOXOO", _trails.transform.Find("trail_OOXXX").gameObject, 1.0f, 0.45f, 0.05f, 0.65f, 1.03f, 25, 30, 1.5f, CriticalHitType.VERTICAL, 1.6f, false, false, true, true);        
-        attackDataList[20] = new AnimAttackData("attackOX", _trails.transform.Find("trail_OX").gameObject, 0.7f, 0.25f, 0.15f, 0.44f, 0.45f, 20, 25, 0.8f, CriticalHitType.VERTICAL, 0.4f, false, false, true, true);        
-        attackDataList[21] = new AnimAttackData("attackOXO", _trails.transform.Find("trail_OXO").gameObject, 1.0f, 0.35f, 0.25f, 0.4f, 0.55f, 20, 90, 1, CriticalHitType.HORIZONTAL, 0.5f, false, false, true, false);
-        attackDataList[22] = new AnimAttackData("attackOXOX", _trails.transform.Find("trail_OXOO").gameObject, 1.0f, 0.35f, 0.15f, 0.3f, 0.5f, 20, 180, 1.2f, CriticalHitType.HORIZONTAL, .7f, false, false, true, false);
-        attackDataList[23] = new AnimAttackData("attackOXOXO", _trails.transform.Find("trail_OXOOO").gameObject, 1.0f, 0.35f, 0.15f, 0.5f, 1.1f, 25, 180, 1.8f, CriticalHitType.HORIZONTAL, 0.9f, false, false, true, true);
+        attackDataList[0] = new AnimAttackData("attackX", trailRoot.transform.Find("trail_X").gameObject, 0.6f, 0.23f, 0.05f, 0.366f, 0.366f, 3, 15, 0.6f, CriticalHitType.VERTICAL, 0.2f, false, false, false, false);
+        attackDataList[1] = new AnimAttackData("attackXX", trailRoot.transform.Find("trail_XX").gameObject, 0.6f, 0.22f, 0.15f, 0.35f, 0.4f, 5, 15, 0.6f, CriticalHitType.VERTICAL, 0.25f, false, false, false, false);        
+        attackDataList[2] = new AnimAttackData("attackXXX", trailRoot.transform.Find("trail_XXX").gameObject, 0.7f, 0.25f, 0.20f, 0.30f, 0.366f, 10, 45, 0.75f, CriticalHitType.HORIZONTAL, 0.3f, false, false, false, false);        
+        attackDataList[3] = new AnimAttackData("attackXXXX", trailRoot.transform.Find("trail_XXXX").gameObject, 0.8f, 0.28f, 0.22f, 0.35f, 0.366f, 12, 90, 0.8f, CriticalHitType.HORIZONTAL, 0.5f, false, false, true, false);
+        attackDataList[4] = new AnimAttackData("attackXXXXX", trailRoot.transform.Find("trail_XXXXX").gameObject, 0.8f, 0.3f, 0.15f, 0.35f, 0.366f, 16, 45, 1.5f, CriticalHitType.VERTICAL, 0.6f, false, false, true, true);
+        attackDataList[5] = new AnimAttackData("attackO", trailRoot.transform.Find("trail_O").gameObject, 0.7f, 0.38f, 0.30f, 0.40f, 0.45f, 6, 45, 0.8f, CriticalHitType.HORIZONTAL, 0.1f, false, true, false, false);
+        attackDataList[6] = new AnimAttackData("attackOO", trailRoot.transform.Find("trail_OO").gameObject, 0.7f, 0.34f, 0.10f, 0.35f, 0.4f, 10, 45, 0.8f, CriticalHitType.VERTICAL, 0.15f, false, true, false, false);        
+        attackDataList[7] = new AnimAttackData("attackOOO", trailRoot.transform.Find("trail_OOO").gameObject, 1.0f, 0.5f, 0.36f, 0.55f, 0.6f, 15, 15, 1.0f, CriticalHitType.NONE, 0, false, true, false, false);
+        attackDataList[8] = new AnimAttackData("attackOOOX", trailRoot.transform.Find("trail_OOOX").gameObject, 1.0f, 0.45f, 0.15f, 0.45f, 0.533f, 20, 45, 0.5f, CriticalHitType.VERTICAL, 0.8f, false, true, false, false);
+        attackDataList[9] = new AnimAttackData("attackOOOXX", trailRoot.transform.Find("trail_OOOXX").gameObject, 1.0f, 0.51f, 0.15f, 0.6f, 0.7f, 25, 20, 1.8f, CriticalHitType.VERTICAL, 1, false, true, true, true);        
+        attackDataList[10] = new AnimAttackData("attackXO", trailRoot.transform.Find("trail_XO").gameObject, 0.85f, 0.45f, 0.10f, 0.8f, 0.833f, 15, 25, 0.8f, CriticalHitType.NONE, 0, false, false, false, false);        
+        attackDataList[11] = new AnimAttackData("attackXOO", trailRoot.transform.Find("trail_XOO").gameObject, 0.8f, 0.45f, 0.20f, 0.50f, 0.55f, 20, 15, 0.8f, CriticalHitType.NONE, 0, false, false, false, false);
+        attackDataList[12] = new AnimAttackData("attackXOOX", trailRoot.transform.Find("trail_XOOX").gameObject, 0.7f, 0.4f, 0.3f, 0.7f, 0.8f, 20, 180, 1, CriticalHitType.VERTICAL, 0.8f, false, false, true, false);
+        attackDataList[13] = new AnimAttackData("attackXOOXX", trailRoot.transform.Find("trail_XOOXX").gameObject, 1.5f, 0.35f, 0.10f, 0.30f, 0.48f, 25, 20, 1.5f, CriticalHitType.VERTICAL, 1.0f, false, false, true, true);        
+        attackDataList[14] = new AnimAttackData("attackXXO", trailRoot.transform.Find("trail_XXO").gameObject, 0.7f, 0.30f, 0.15f, 0.4f, 0.6f, 15, 90, 1.0f, CriticalHitType.NONE, 0, true, false, true, true);        
+        attackDataList[15] = new AnimAttackData("attackXXOX", trailRoot.transform.Find("trail_XXOX").gameObject, 1.0f, 0.41f, 0.11f, 0.55f, 0.60f, 20, 15, 0.7f, CriticalHitType.VERTICAL, 1, false, false, true, false);
+        attackDataList[16] = new AnimAttackData("attackXXOXX", trailRoot.transform.Find("trail_XXOXX").gameObject, 1.0f, 0.5f, 0.1f, 0.4f, 0.6f, 20, 180, 1.2f, CriticalHitType.NONE, 0, true, false, true, true);        
+        attackDataList[17] = new AnimAttackData("attackOOX", trailRoot.transform.Find("trail_OOX").gameObject, 0.8f, 0.45f, 0.25f, 0.5f, 0.66f, 15, 25, 0.7f, CriticalHitType.VERTICAL, 1.2f, false, false, true, true);        
+        attackDataList[18] = new AnimAttackData("attackOOXO", trailRoot.transform.Find("trail_OOXX").gameObject, 0.7f, 0.6f, 0.2f, 0.6f, 0.7f, 20, 45, 0.7f, CriticalHitType.VERTICAL, 1.4f, false, false, false, false);
+        attackDataList[19] = new AnimAttackData("attackOOXOO", trailRoot.transform.Find("trail_OOXXX").gameObject, 1.0f, 0.45f, 0.05f, 0.65f, 1.03f, 25, 30, 1.5f, CriticalHitType.VERTICAL, 1.6f, false, false, true, true);        
+        attackDataList[20] = new AnimAttackData("attackOX", trailRoot.transform.Find("trail_OX").gameObject, 0.7f, 0.25f, 0.15f, 0.44f, 0.45f, 20, 25, 0.8f, CriticalHitType.VERTICAL, 0.4f, false, false, true, true);        
+        attackDataList[21] = new AnimAttackData("attackOXO", trailRoot.transform.Find("trail_OXO").gameObject, 1.0f, 0.35f, 0.25f, 0.4f, 0.55f, 20, 90, 1, CriticalHitType.HORIZONTAL, 0.5f, false, false, true, false);
+        attackDataList[22] = new AnimAttackData("attackOXOX", trailRoot.transform.Find("trail_OXOO").gameObject, 1.0f, 0.35f, 0.15f, 0.3f, 0.5f, 20, 180, 1.2f, CriticalHitType.HORIZONTAL, .7f, false, false, true, false);
+        attackDataList[23] = new AnimAttackData("attackOXOXO", trailRoot.transform.Find("trail_OXOOO").gameObject, 1.0f, 0.35f, 0.15f, 0.5f, 1.1f, 25, 180, 1.8f, CriticalHitType.HORIZONTAL, 0.9f, false, false, true, true);
 
         // 跳杀
         attackDataList[24] = new AnimAttackData("attackKnockdown", null, 1.5f, 0.65f, 0.2f, 0.6f, 1.0f, 20, 0, 0, CriticalHitType.NONE, 0, false, false, false, true, true);

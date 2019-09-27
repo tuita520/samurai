@@ -191,4 +191,73 @@ public class Agent1 : MonoBehaviour
         CharacterController.detectCollisions = true;
         CharacterController.center = _collisionCenter;
     }
+    /*
+    public void ShowTrail(AnimAttackData data, float speed, float delay, bool critical, float dustDelay)
+    {
+        StartCoroutine(ShowTrailImpl(data, speed, delay, critical, dustDelay));
+    }
+
+    protected IEnumerator ShowTrailImpl(AnimAttackData data, float speed, float delay, bool critical, float dustDelay)
+    {
+        if (data.trail == null)
+            yield break;
+
+        if (dustDelay < 0)
+            dustDelay = 0;
+        
+        data.trailParenTrans.position = Transform.position + Vector3.up * 0.15f;
+        data.trailParenTrans.rotation = Quaternion.AngleAxis(Transform.rotation.eulerAngles.y, Vector3.up);
+
+        data.trail.SetActive(true);
+
+        if (data.dust)
+            data.dust.SetActive(false);
+
+        Color color = Color.white;
+
+        data.material.SetColor("_TintColor", color);
+
+        if (data.dust)
+        {
+            yield return new WaitForSeconds(dustDelay);
+            StartCoroutine(ShowTrailDust(data));
+        }
+
+        yield return new WaitForSeconds(delay - dustDelay);
+
+        while (color.a > 0)
+        {
+            color.a -= Time.deltaTime * speed;
+            if (color.a < 0)
+                color.a = 0;
+
+            data.material.SetColor("_TintColor", color);
+            yield return new WaitForEndOfFrame();
+        }
+
+        data.trail.SetActive(false);
+    }
+
+    public IEnumerator ShowTrailDust(AnimAttackData data)
+    {
+        Color colorDust = new Color(1, 1, 1, 1);
+        data.dust.SetActive(true);
+
+        data.materialDust.SetColor("_TintColor", colorDust);
+
+        data.animationDust["Anim_Dust"].speed = 2.0f;
+        data.animationDust.Play();
+
+        while (colorDust.a > 0)
+        {
+            colorDust.a -= Time.deltaTime * 3;
+            if (colorDust.a < 0)
+                colorDust.a = 0;
+
+            data.materialDust.SetColor("_TintColor", colorDust);
+            yield return new WaitForEndOfFrame();
+        }
+
+        data.dust.SetActive(false);
+    }*/
 }

@@ -764,6 +764,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 0
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 0
     safeRange: 0
     attackRollWeaponRange: 2
@@ -1506,6 +1507,7 @@ MonoBehaviour:
     weaponSelected: 2
     weaponRange: 15
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 15
     safeRange: 100
     attackRollWeaponRange: 0
@@ -2341,6 +2343,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2.2
     allowedFlashToWeaponRange: 1
+    showWeaponTrail: 1
     combatRange: 5
     safeRange: 100
     attackRollWeaponRange: 2
@@ -3431,6 +3434,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 3
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 6
     safeRange: 100
     attackRollWeaponRange: 0
@@ -8435,6 +8439,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2.2
     allowedFlashToWeaponRange: 1
+    showWeaponTrail: 0
     combatRange: 4
     safeRange: 100
     attackRollWeaponRange: 2
@@ -8740,6 +8745,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 0
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 0
     safeRange: 0
     attackRollWeaponRange: 2
@@ -9344,6 +9350,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 4
     safeRange: 100
     attackRollWeaponRange: 2
@@ -10851,6 +10858,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2.2
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 5
     safeRange: 100
     attackRollWeaponRange: 0
@@ -11225,6 +11233,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2.5
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 100
     safeRange: 100
     attackRollWeaponRange: 2
@@ -11571,6 +11580,7 @@ MonoBehaviour:
     weaponSelected: 0
     weaponRange: 2.2
     allowedFlashToWeaponRange: 0
+    showWeaponTrail: 0
     combatRange: 4
     safeRange: 100
     attackRollWeaponRange: 2

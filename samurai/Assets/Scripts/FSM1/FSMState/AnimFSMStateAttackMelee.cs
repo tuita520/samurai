@@ -195,11 +195,25 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                 HandleAttackResult.DoMeleeDamage(Agent, _eventAttackMelee.target, Agent.BlackBoard.attackerWeapon,
                     _eventAttackMelee.animAttackData, _isCritical, _knockdown, 
                     _eventAttackMelee.animAttackData.isFatal);
+
+                // 显示刀光
+                if (_eventAttackMelee.animAttackData.lastAttackInCombo)
+                    HandleEffect.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.4f);
+                    //Agent.ShowTrail(_eventAttackMelee.animAttackData, 1, 0.3f, _isCritical, _moveTime - Time.timeSinceLevelLoad);
+                else
+                    HandleEffect.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.5f);
+                    //Agent.ShowTrail(_eventAttackMelee.animAttackData, 2, 0.1f, _isCritical, _moveTime - Time.timeSinceLevelLoad);
+
+                /*// 屏幕震动
+                if (AnimAttackData.LastAttackInCombo || AnimAttackData.ComboStep == 3)
+                    CameraBehaviour.Instance.ComboShake(AnimAttackData.ComboStep - 3);
+
+                if (Owner.IsPlayer && AnimAttackData.FullCombo)
+                    GuiManager.Instance.ShowComboMessage(AnimAttackData.ComboIndex);*/
             }
         }
         else if (_attackStatus == AttackStatus.FINISHED && _endOfStateTime <= Time.timeSinceLevelLoad)
-        {            
-            //Debug.Log(Time.timeSinceLevelLoad + " attack finished");
+        {   
             IsFinished = true;
             _eventAttackMelee.IsFinished = true;
         }

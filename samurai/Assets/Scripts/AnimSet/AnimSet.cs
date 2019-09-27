@@ -18,7 +18,9 @@ public abstract class AnimSet : MonoBehaviour
     List<OrderAttackType> _comboProgress = new List<OrderAttackType>();    // 连续攻击动作类型(出招表)
     List<Combo> _comboAttacks = new List<Combo>();
     int _curAttackIdx = 0;
-    
+
+    protected GameObject trailRoot = null;
+
     protected List<OrderAttackType> ComboProgress { get { return _comboProgress; } }
     
     protected void AddComboAttack(Combo combo)

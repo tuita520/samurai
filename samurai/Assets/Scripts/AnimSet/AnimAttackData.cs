@@ -30,7 +30,8 @@ public class AnimAttackData
     public GameObject dust;
     public Animation animationDust;
     public Animation anim;
-    public Material material;
+    public Renderer renderer;
+    public Material material;    
     public Material materialDust;
 
     // combo
@@ -61,19 +62,27 @@ public class AnimAttackData
             }
 
             anim = this.trail.transform.parent.GetComponent<Animation>();
-            if (this.trail.GetComponentInChildren(typeof(Renderer)))
-                material = (this.trail.GetComponentInChildren(typeof(Renderer)) as Renderer).material;
-            else if (this.trail.GetComponentInChildren(typeof(SkinnedMeshRenderer)))
-                material = (this.trail.GetComponentInChildren(typeof(SkinnedMeshRenderer)) as Renderer).material;
-            else
-                material = null;
 
-            if (material == null)
+            renderer = this.trail.GetComponentInChildren(typeof(Renderer)) as Renderer;
+            if (renderer == null)
+            {                
+                renderer = this.trail.GetComponentInChildren(typeof(SkinnedMeshRenderer)) as Renderer;                
+            }
+
+            if (renderer == null)
+            {
+                material = null;
                 Debug.LogError("Trail - no Material");
+            }
+            else
+            {
+                material = renderer.material;
+            }
         }
         else
         {
             anim = null;
+            renderer = null;
             material = null;
         }
 
@@ -114,21 +123,27 @@ public class AnimAttackData
             }
 
             anim = this.trail.transform.parent.GetComponent<Animation>();
-            if (this.trail.GetComponent(typeof(Renderer)))
-                material = (this.trail.GetComponent(typeof(Renderer)) as Renderer).material;
-            else if (this.trail.GetComponentInChildren(typeof(Renderer)))
-                material = (this.trail.GetComponentInChildren(typeof(Renderer)) as Renderer).material;
-            else if (this.trail.GetComponentInChildren(typeof(SkinnedMeshRenderer)))
-                material = (this.trail.GetComponentInChildren(typeof(SkinnedMeshRenderer)) as Renderer).material;
-            else
-                material = null;
 
-            if (material == null)
+            renderer = this.trail.GetComponentInChildren(typeof(Renderer)) as Renderer;
+            if (renderer == null)
+            {
+                renderer = this.trail.GetComponentInChildren(typeof(SkinnedMeshRenderer)) as Renderer;
+            }
+
+            if (renderer == null)
+            {
+                material = null;
                 Debug.LogError("Trail - no Material");
+            }
+            else
+            {
+                material = renderer.material;
+            }
         }
         else
         {
             anim = null;
+            renderer = null;
             material = null;
         }
 
