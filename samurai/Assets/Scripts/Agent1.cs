@@ -34,7 +34,9 @@ public class Agent1 : MonoBehaviour
     public Vector3 ChestPosition { get { return Transform.position + transform.up * 1.5f; } }
 
     public bool IsPlayer { get { return agentType == AgentType.PLAYER; } }
-    
+
+    public ParticleSystem particleSystemSust;
+
     void Awake()
     {
         _blackBoard.Agent = this;
@@ -51,6 +53,8 @@ public class Agent1 : MonoBehaviour
         
         _audioEffect = GetComponent<AudioSource>();
         _collisionCenter = CharacterController.center;
+
+        particleSystemSust = transform.Find("sust").GetComponent<ParticleSystem>();
     }
 
     private void Update()

@@ -44,7 +44,7 @@ public class test : MonoBehaviour
             /*SpriteEffectMgr.Instance.CreateBlood(
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));*/
-            SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD, 
+            SpriteComponent.Instance.CreateSprite(SpriteType.BLOOD, 
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, 
                     player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));
@@ -54,7 +54,7 @@ public class test : MonoBehaviour
             /*SpriteEffectMgr.Instance.CreateFlowingBlood(
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));*/
-            SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD_BIG,
+            SpriteComponent.Instance.CreateSprite(SpriteType.BLOOD_BIG,
                 new Vector3(player.transform.localPosition.x, player.transform.localPosition.y + 0.5f, 
                     player.transform.localPosition.z),
                 new Vector3(90, Random.Range(0, 180), 0));

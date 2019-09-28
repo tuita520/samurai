@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Utilities;
+using Phenix.Unity.Extend;
 using Phenix.Unity.AI;
 
 public class AnimFSMStateRoll : AnimFSMState
@@ -17,7 +18,7 @@ public class AnimFSMStateRoll : AnimFSMState
     float _endOfStateTime;
     
     bool _rotationOk = false;
-    bool _positionOK = false;
+    bool _positionOK = false;    
 
     public AnimFSMStateRoll(Agent1 agent)
         : base((int)AnimFSMStateType.ROLL, agent)
@@ -71,6 +72,8 @@ public class AnimFSMStateRoll : AnimFSMState
         _positionOK = false;
 
         Agent.BlackBoard.motionType = MotionType.ROLL;
+
+        ParticleTools.Instance.Play(Agent.particleSystemSust, Agent.gameObject.ForwardRadian(), 0.1f);
     }
 
     public override bool OnEvent(FSMEvent ev)

@@ -293,3 +293,12 @@ public enum SoundType
     WEAPON_ON,
     WEAPON_OFF,
 }
+
+public enum ParticleType
+{
+    NONE = 0,
+    BLOOD_AND_HIT_BLINK,
+    BIG_BLOOD_AND_HIT_BLINK,
+    BLOCK_SUCCESS,
+    WHIRL,
+}

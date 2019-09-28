@@ -13,7 +13,7 @@ public class SpriteProp
     public float scaleTime = 5;         // scale时长（秒），0表示持久 
 }
 
-public class SpriteMgrComponent : Singleton<SpriteMgrComponent>
+public class SpriteComponent : Singleton<SpriteComponent>
 {
     SpriteMgr _spriteMgr = new SpriteMgr();
 

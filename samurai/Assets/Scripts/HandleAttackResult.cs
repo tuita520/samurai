@@ -161,7 +161,7 @@ public class HandleAttackResult
             {
                 agent.Decision.OnInjury();
                 //SpriteEffectsManager.Instance.CreateBlood(Transform);
-                SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD,
+                SpriteComponent.Instance.CreateSprite(SpriteType.BLOOD,
                     new Vector3(agent.transform.localPosition.x, agent.transform.localPosition.y + 0.5f,
                     agent.transform.localPosition.z), new Vector3(90, Random.Range(0, 180), 0));
             }
@@ -177,17 +177,26 @@ public class HandleAttackResult
                 }
             }
 
-            //if (damage >= 15)
-            //    CombatEffectMgr.Instance.PlayBloodBigEffect(Transform.position, -attacker.Forward);
-            //else
-            //    CombatEffectMgr.Instance.PlayBloodEffect(Transform.position, -attacker.Forward);
+            if (damage >= 15)
+            {
+                //CombatEffectMgr.Instance.PlayBloodBigEffect(agent.Transform.position, -attacker.Forward);
+                ParticleComponent.Instance.Play(ParticleType.BIG_BLOOD_AND_HIT_BLINK, 
+                    agent.Transform.position, -attacker.Forward); ;
+            }
+            else
+            {
+                //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
+                ParticleComponent.Instance.Play(ParticleType.BLOOD_AND_HIT_BLINK, 
+                    agent.Transform.position, -attacker.Forward); ;
+            }
 
         }
     }
 
     static void ReceiveHitCompletelyBlocked(Agent1 agent, Agent1 attacker)
     {
-        CombatEffectMgr.Instance.PlayBlockHitEffect(agent.ChestPosition, -attacker.Forward);
+        //CombatEffectMgr.Instance.PlayBlockHitEffect(agent.ChestPosition, -attacker.Forward);
+        ParticleComponent.Instance.Play(ParticleType.BLOCK_SUCCESS, agent.ChestPosition, -attacker.Forward);
         /*BlackBoard.Berserk += BlackBoard.BerserkBlockModificator;
         BlackBoard.Rage += BlackBoard.RageBlockModificator;
         if (attacker.IsPlayer)
@@ -209,8 +218,9 @@ public class HandleAttackResult
             //agent.BlackBoard.health = Mathf.Max(1, agent.BlackBoard.health - damage);
             //agent.BlackBoard.damageType = DamageType.BACK;
             //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
+            ParticleComponent.Instance.Play(ParticleType.BLOOD_AND_HIT_BLINK, agent.Transform.position, -attacker.Forward); ;
             //SpriteEffectsManager.Instance.CreateBlood(Transform);
-            SpriteMgrComponent.Instance.CreateSprite(SpriteType.BLOOD, 
+            SpriteComponent.Instance.CreateSprite(SpriteType.BLOOD, 
                 new Vector3(agent.transform.localPosition.x, agent.transform.localPosition.y + 0.5f,
                     agent.transform.localPosition.z), 
                 new Vector3(90, Random.Range(0, 180), 0));
@@ -242,7 +252,8 @@ public class HandleAttackResult
                 agent.FSMComponent.SendEvent(eventBreakBlock);
                 //if (attacker.isPlayer)
                 //  Game.Instance.NumberOfBlockedHits++;
-                CombatEffectMgr.Instance.PlayBlockHitEffect(agent.ChestPosition, -attacker.Forward);
+                //CombatEffectMgr.Instance.PlayBlockHitEffect(agent.ChestPosition, -attacker.Forward);
+                ParticleComponent.Instance.Play(ParticleType.BLOCK_SUCCESS, agent.ChestPosition, -attacker.Forward);
             }
         }
     }
