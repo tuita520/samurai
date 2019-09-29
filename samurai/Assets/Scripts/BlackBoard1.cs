@@ -144,7 +144,7 @@ public class BlackBoard1
     public WeaponType weaponSelected = WeaponType.KATANA;                 // 武器类型    
     public float weaponRange = 2;
     public bool allowedFlashToWeaponRange = false;
-    public bool showWeaponTrail = false;
+    public bool showMotionEffect = false;
     public float SqrWeaponRange { get { return weaponRange * weaponRange; } }
     public float combatRange = 4;
     public float SqrCombatRange { get { return combatRange * combatRange; } }

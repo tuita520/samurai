@@ -5,7 +5,7 @@ public class HandleEffect
 {
     public static void ShowTrail(Agent1 agent, AnimAttackData data, float trailTime)
     {
-        if (agent.BlackBoard.showWeaponTrail == false || data.trail == null)
+        if (agent.BlackBoard.showMotionEffect == false || data.trail == null)
             return;
         
         data.trailParenTrans.position = agent.Transform.position + Vector3.up * 0.15f;

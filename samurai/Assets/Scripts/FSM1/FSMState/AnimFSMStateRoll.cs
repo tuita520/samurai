@@ -73,7 +73,10 @@ public class AnimFSMStateRoll : AnimFSMState
 
         Agent.BlackBoard.motionType = MotionType.ROLL;
 
-        ParticleTools.Instance.Play(Agent.particleSystemSust, Agent.gameObject.ForwardRadian(), 0.1f);
+        if (Agent.BlackBoard.showMotionEffect)
+        {
+            ParticleTools.Instance.Play(Agent.particleSystemRollTust, Agent.gameObject.ForwardRadian(), 0f);
+        }        
     }
 
     public override bool OnEvent(FSMEvent ev)
@@ -122,16 +125,17 @@ public class AnimFSMStateRoll : AnimFSMState
             Vector3 finalPos = Mathfx.Hermite(_startPosition, _finalPosition, progress);
             //MoveTo(finalPos);
             if (TransformTools.MoveOnGround(Agent.Transform, Agent.CharacterController,
-                   finalPos - Agent.Transform.position, true) == false)
+                   finalPos - Agent.Transform.position, false) == false)
             {
                 _positionOK = true;
+                ParticleTools.Instance.Stop(Agent.particleSystemRollTust);
             }
         }
 
         if (_endOfStateTime <= Time.timeSinceLevelLoad)
         {
             IsFinished = true;
-            _eventRoll.IsFinished = true;
+            _eventRoll.IsFinished = true;            
         }
     }
 

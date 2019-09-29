@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Utilities;
 using Phenix.Unity.AI;
+using Phenix.Unity.Extend;
 
 public class AnimFSMStateAttackMelee : AnimFSMState
 {
@@ -73,8 +74,9 @@ public class AnimFSMStateAttackMelee : AnimFSMState
         {
             float angle = 0;
             float distance = 0;
+            Agent.Transform.LookAt(_eventAttackMelee.target.transform);
             Vector3 dir = _eventAttackMelee.target.Position - Agent.Transform.position;
-            distance = dir.magnitude;
+            distance = dir.magnitude;            
             if (distance > 0.1f)
             {
                 dir.Normalize();
@@ -89,12 +91,24 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
             _finalRotation.SetLookRotation(dir);
 
-            if (distance < Agent.BlackBoard.weaponRange 
+            if (distance < Agent.BlackBoard.weaponRange
                     || Agent.BlackBoard.allowedFlashToWeaponRange == false
                     || distance > Agent.BlackBoard.combatRange * 1.2f)
+            {
                 _finalPosition = _startPosition;
+            }
             else
-                _finalPosition = _eventAttackMelee.target.transform.position - dir * Agent.BlackBoard.weaponRange;
+            {
+                if (distance >= Agent.BlackBoard.weaponRange * 1.5)
+                {
+                    if (Agent.BlackBoard.showMotionEffect)
+                    {
+                        ParticleTools.Instance.Play(Agent.particleSystemFlashTust,
+                            (_eventAttackMelee.target.Position - Agent.Position).RadianInXZ());
+                    }                    
+                }
+                _finalPosition = _eventAttackMelee.target.transform.position - dir * Agent.BlackBoard.weaponRange;                
+            }
 
             _moveTime = (_finalPosition - _startPosition).magnitude / 20.0f;
             _rotationTime = angle / 720.0f;
@@ -142,6 +156,7 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                 {
                     _currentMoveTime = _moveTime;
                     _positionOK = true;
+                    ParticleTools.Instance.Stop(Agent.particleSystemFlashTust);
                 }
 
                 if (_currentMoveTime > 0)
@@ -153,12 +168,13 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                         finalPos - Agent.Transform.position, true) == false)
                     {
                         _positionOK = true;
+                        ParticleTools.Instance.Stop(Agent.particleSystemFlashTust);
                     }
                 }
             }
 
             if (_rotationOk && _positionOK)
-            {
+            {                
                 _attackStatus = AttackStatus.ATTACKING;
                 InitializeAttacking();
             }

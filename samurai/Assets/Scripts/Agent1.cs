@@ -35,7 +35,8 @@ public class Agent1 : MonoBehaviour
 
     public bool IsPlayer { get { return agentType == AgentType.PLAYER; } }
 
-    public ParticleSystem particleSystemSust;
+    public ParticleSystem particleSystemRollTust;
+    public ParticleSystem particleSystemFlashTust;
 
     void Awake()
     {
@@ -54,7 +55,16 @@ public class Agent1 : MonoBehaviour
         _audioEffect = GetComponent<AudioSource>();
         _collisionCenter = CharacterController.center;
 
-        particleSystemSust = transform.Find("sust").GetComponent<ParticleSystem>();
+        Transform tust = transform.Find("rollTust");
+        if (tust)
+        {
+            particleSystemRollTust = tust.GetComponent<ParticleSystem>();
+        }
+        tust = transform.Find("flashTust");
+        if (tust)
+        {
+            particleSystemFlashTust = tust.GetComponent<ParticleSystem>();
+        }
     }
 
     private void Update()
