@@ -29,13 +29,13 @@ public class AnimFSMStateRoll : AnimFSMState
     public override void OnEnter(FSMEvent ev = null)
     {
         base.OnEnter(ev);
-        Agent.BlackBoard.invulnerable = true;
+        Agent.BlackBoard.invulnerable = true;        
     }
 
     public override void OnExit()
     {
         Agent.BlackBoard.speed = 0;
-        Agent.BlackBoard.invulnerable = false;
+        Agent.BlackBoard.invulnerable = false;        
     }
 
     protected override void Initialize(FSMEvent ev)

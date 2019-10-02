@@ -74,31 +74,33 @@ public class AnimFSMStateAttackMelee : AnimFSMState
         {
             float angle = 0;
             float distance = 0;
-            Agent.Transform.LookAt(_eventAttackMelee.target.transform);
-            Vector3 dir = _eventAttackMelee.target.Position - Agent.Transform.position;
-            distance = dir.magnitude;            
+            
+            Vector3 finalDir = _eventAttackMelee.target.Position - Agent.Transform.position;
+            distance = finalDir.magnitude;            
             if (distance > 0.1f)
             {
-                dir.Normalize();
-                angle = Vector3.Angle(Agent.Transform.forward, dir);
+                finalDir.Normalize();
+                angle = Vector3.Angle(Agent.Transform.forward, finalDir);
                 if (angle < 40 && Vector3.Angle(Agent.Forward, _eventAttackMelee.target.Forward) < 80)
                     _backHit = true;
             }
             else
             {
-                dir = Agent.Transform.forward;
+                finalDir = Agent.Transform.forward;
             }
 
-            _finalRotation.SetLookRotation(dir);
+            _finalRotation.SetLookRotation(finalDir);
 
             if (distance < Agent.BlackBoard.weaponRange
                     || Agent.BlackBoard.allowedFlashToWeaponRange == false
                     || distance > Agent.BlackBoard.combatRange * 1.2f)
             {
                 _finalPosition = _startPosition;
+                _rotationTime = angle / 720.0f;
             }
             else
             {
+                // flash
                 if (distance >= Agent.BlackBoard.weaponRange * 1.5)
                 {
                     if (Agent.BlackBoard.showMotionEffect)
@@ -107,11 +109,12 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                             (_eventAttackMelee.target.Position - Agent.Position).RadianInXZ());
                     }                    
                 }
-                _finalPosition = _eventAttackMelee.target.transform.position - dir * Agent.BlackBoard.weaponRange;                
+                _finalPosition = _eventAttackMelee.target.transform.position - finalDir * Agent.BlackBoard.weaponRange;
+                Agent.Transform.LookAt(_eventAttackMelee.target.transform);
+                _rotationTime = 0;
             }
 
-            _moveTime = (_finalPosition - _startPosition).magnitude / 20.0f;
-            _rotationTime = angle / 720.0f;
+            _moveTime = (_finalPosition - _startPosition).magnitude / 20.0f;            
         }
         else
         {
@@ -214,10 +217,10 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
                 // 显示刀光
                 if (_eventAttackMelee.animAttackData.lastAttackInCombo)
-                    HandleEffect.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.4f);
+                    HandleTrail.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.4f);
                     //Agent.ShowTrail(_eventAttackMelee.animAttackData, 1, 0.3f, _isCritical, _moveTime - Time.timeSinceLevelLoad);
                 else
-                    HandleEffect.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.5f);
+                    HandleTrail.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.5f);
                     //Agent.ShowTrail(_eventAttackMelee.animAttackData, 2, 0.1f, _isCritical, _moveTime - Time.timeSinceLevelLoad);
 
                 /*// 屏幕震动

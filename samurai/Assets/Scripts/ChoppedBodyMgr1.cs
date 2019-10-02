@@ -28,7 +28,7 @@ public class ChoppedBodyData1
     public GameObject prefab;
 
     [HideInInspector]
-    public GameObjectPool choppedBodies;
+    public GameObjectPool pool;    
 }
 
 public class ChoppedBodyMgr1 : Singleton<ChoppedBodyMgr1>
@@ -41,7 +41,7 @@ public class ChoppedBodyMgr1 : Singleton<ChoppedBodyMgr1>
         {
             foreach (var bodyData in bodyInfo.data)
             {
-                bodyData.choppedBodies = new GameObjectPool(5, bodyData.prefab);
+                bodyData.pool = new GameObjectPool(5, bodyData.prefab);
             }            
         }
     }
@@ -58,7 +58,7 @@ public class ChoppedBodyMgr1 : Singleton<ChoppedBodyMgr1>
                     ChoppedBodyData1 bodyData = bodyInfo.data[ii];
                     if (bodyData.choppedBodyType == choppedBodyType)
                     {
-                        ChoppedBody choppedBody = bodyData.choppedBodies.Get().GetComponent<ChoppedBody>();
+                        ChoppedBody choppedBody = bodyData.pool.Get().GetComponent<ChoppedBody>();
                         choppedBody.Activate(trans);
                     }                    
                 }                
@@ -72,9 +72,7 @@ public class ChoppedBodyMgr1 : Singleton<ChoppedBodyMgr1>
         {
             return;
         }
-        ChoppedBody choppedBody = choppedBodyObject.GetComponent<ChoppedBody>();
-        choppedBody.Deactivate();
-
+        
         for (int i = 0; i < choppedBodies.Count; ++i)
         {
             if (choppedBodies[i].agentType == agentType)
@@ -85,7 +83,7 @@ public class ChoppedBodyMgr1 : Singleton<ChoppedBodyMgr1>
                     ChoppedBodyData1 bodyData = bodyInfo.data[ii];
                     if (bodyData.choppedBodyType == choppedBodyType)
                     {
-                        bodyData.choppedBodies.Collect(choppedBodyObject);
+                        bodyData.pool.Collect(choppedBodyObject);
                     }
                 }
             }

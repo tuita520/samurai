@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Phenix.Unity.Effect;
 
 public class Agent1 : MonoBehaviour
 {
@@ -27,16 +27,18 @@ public class Agent1 : MonoBehaviour
     public CharacterController CharacterController { get; private set; }
     public AnimSet AnimSet { get; private set; }
     public SoundMgr SoundMgr { get; private set; }
+    public MotionTrace MotionTrace { get; private set; }
 
     public Vector3 Position { get { return transform.position; } }
     public Vector3 Forward { get { return transform.forward; } }
     public Vector3 Right { get { return transform.right; } }
-    public Vector3 ChestPosition { get { return Transform.position + transform.up * 1.5f; } }
+    public Vector3 ChestPosition { get { return Transform.position + transform.up * 1.5f; } }    
 
     public bool IsPlayer { get { return agentType == AgentType.PLAYER; } }
 
     public ParticleSystem particleSystemRollTust;
     public ParticleSystem particleSystemFlashTust;
+    public ParticleSystem particleSystemWhirlWind;
 
     void Awake()
     {
@@ -51,6 +53,7 @@ public class Agent1 : MonoBehaviour
         CharacterController = GetComponent<CharacterController>();
         AnimSet = GetComponent<AnimSet>();
         SoundMgr = GetComponent<SoundMgr>();
+        MotionTrace = GetComponent<MotionTrace>();
         
         _audioEffect = GetComponent<AudioSource>();
         _collisionCenter = CharacterController.center;
@@ -64,6 +67,11 @@ public class Agent1 : MonoBehaviour
         if (tust)
         {
             particleSystemFlashTust = tust.GetComponent<ParticleSystem>();
+        }
+        Transform whirlWind = transform.Find("whirlWind");
+        if (whirlWind)
+        {
+            particleSystemWhirlWind = whirlWind.GetComponent<ParticleSystem>();
         }
     }
 

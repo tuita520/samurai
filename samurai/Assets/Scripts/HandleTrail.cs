@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Utilities;
 
-public class HandleEffect
+public class HandleTrail
 {
     public static void ShowTrail(Agent1 agent, AnimAttackData data, float trailTime)
     {

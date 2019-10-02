@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using Phenix.Unity.Utilities;
 using Phenix.Unity.AI;
+using Phenix.Unity.Extend;
 
 public class AnimFSMStateAttackWhirl : AnimFSMState
 {
     AnimFSMEventAttackWhirl _eventWhirl;
     float _maxSpeed;
     float _timeToEndState;    
-
-    //CombatEffectsManager.CacheData Effect;
+    
     float _timeToStartEffect;
     float _timeToEndEffect;
 
@@ -17,6 +17,12 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
 
     float _hitTimer;
     float _rotationProgress;
+
+    float _whirlWindTimer = 0;
+    float _whirlWindRadian = 0;
+    bool _whirlWindFirst = true;
+    const float _whirlWindFirstDelay = 1f;
+    const float _whirlWindInterval = 0.1f;
 
     public AnimFSMStateAttackWhirl(Agent1 agent)
         : base((int)AnimFSMStateType.ATTACK_WHIRL, agent)
@@ -27,17 +33,19 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
     public override void OnEnter(FSMEvent ev = null)
     {
         base.OnEnter(ev);
-        Agent.BlackBoard.invulnerable = true;        
-        //Effect = null;
+        Agent.BlackBoard.invulnerable = true;
+        if (Agent.particleSystemWhirlWind != null)
+        {
+            _whirlWindTimer = Time.timeSinceLevelLoad + _whirlWindFirstDelay;
+            _whirlWindRadian = -Agent.gameObject.ForwardRadian();
+        }        
     }
 
     public override void OnExit()
     {
         Agent.BlackBoard.invulnerable = false;
         Agent.BlackBoard.speed = 0;
-        //if (Effect != null)
-        //  CombatEffectsManager.Instance.ReturnWhirlEffect(Effect);
-        //Effect = null;                
+        ParticleTools.Instance.Stop(Agent.particleSystemWhirlWind);
     }
 
     protected override void Initialize(FSMEvent ev)
@@ -89,20 +97,23 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
             _hitTimer = Time.timeSinceLevelLoad + Agent.BlackBoard.attackWhirlHitTime;//0.75f;
         }
 
-        /*if (Effect == null && Time.timeSinceLevelLoad > TimeToStartEffect && Time.timeSinceLevelLoad < TimeToEndEffect)
-        {
-            Effect = CombatEffectsManager.Instance.PlayWhirlEffect(Transform);
-        }
-        else if (Effect != null && Time.timeSinceLevelLoad > TimeToEndEffect)
-        {
-            CombatEffectsManager.Instance.ReturnWhirlEffect(Effect);
-            Effect = null;
-        }*/
-
         if (_timeToEndState < Time.timeSinceLevelLoad)
         {
             IsFinished = true;
             _eventWhirl.IsFinished = true;
+        }
+
+
+        if (_whirlWindTimer > 0 && Time.timeSinceLevelLoad >= _whirlWindTimer)
+        {
+            ParticleTools.Instance.Play(Agent.particleSystemWhirlWind, _whirlWindRadian);
+            _whirlWindFirst = false;
+            _whirlWindTimer = Time.timeSinceLevelLoad + _whirlWindInterval;
+            _whirlWindRadian += (Mathf.PI * 0.75f);
+            if (_whirlWindRadian >= 2*Mathf.PI)
+            {
+                _whirlWindRadian -= 2 * Mathf.PI;
+            }
         }
     }
 
@@ -125,12 +136,4 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
         if (_startRotation != _finalRotation)
             _rotationProgress = 0;
     }
-
-    //void HandleAttackWhirlHit()
-    //{
-    //    AttackWhirlHitData hitData = new AttackWhirlHitData();
-    //    hitData.agent = Agent;        
-    //    hitData.attackData = _eventWhirl.data;        
-    //    onAttackWhirlHit.Invoke(hitData);
-    //}
 }

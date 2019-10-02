@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Phenix.Unity.Utilities;
+using Phenix.Unity.Extend;
 
 [RequireComponent(typeof(AudioSource))]
 public class ChoppedBody : MonoBehaviour
@@ -12,15 +14,17 @@ public class ChoppedBody : MonoBehaviour
     Transform           _trans;
     Animation           _anims;
     AudioSource         _audio;
-    SkinnedMeshRenderer _renderer;    
+    SkinnedMeshRenderer _renderer;
+    GameObject _ancestor;
 
     void Awake()
     {
         _trans = transform;
         _anims = GetComponent<Animation>();
         _audio = GetComponent<AudioSource>();
-        _renderer = GetComponentInChildren(typeof(SkinnedMeshRenderer)) as SkinnedMeshRenderer;
+        _renderer = GetComponentInChildren<SkinnedMeshRenderer>() as SkinnedMeshRenderer;
         _anims[_anims.clip.name].wrapMode = WrapMode.ClampForever;
+        _ancestor = gameObject.Ancestor();
     }
 
     public void Activate(Transform spawnTransform)
@@ -35,9 +39,9 @@ public class ChoppedBody : MonoBehaviour
         //GuiManager.Instance.ShowBloodSplash();
     }
 
-    public void Deactivate()
+    void Deactivate()
     {
-
+        ChoppedBodyMgr1.Instance.Collect(_ancestor, agentType, choppedBodyType);
     }
 
     protected IEnumerator Fadeout(float delay, float disappearTime)
@@ -46,36 +50,25 @@ public class ChoppedBody : MonoBehaviour
             yield break;
 
         yield return new WaitForSeconds(.1f);
-        //SpriteEffectsManager.Instance.CreateBloodSlatter(Transform, 2, 3);
+        
         SpriteComponent.Instance.CreateSprite(SpriteType.BLOOD_BIG, 
             new Vector3(_trans.localPosition.x, _trans.localPosition.y + 0.5f, _trans.localPosition.z),
             new Vector3(90, Random.Range(0, 180), 0));
         yield return new WaitForSeconds(delay);
         //CombatEffectsManager.Instance.PlayDisappearEffect(Transform.position, Transform.forward);
+
         _renderer.material = transparentMaterial;
-                
-        transparentMaterial.SetColor("_Color", Color.white);
+        MaterialTools.Instance.FadeOut(_renderer, "_Color", disappearTime, _ancestor, true, Deactivate);
+        
+        /*transparentMaterial.SetColor("_Color", Color.white);
         Color finalColor = new Color(1, 1, 1, 0);
         float passTime = 0;
         while (passTime < disappearTime)
         {
-            passTime += Time.deltaTime;
-            //color.a = Mathf.Lerp(1, 0, passTime / 5);
-            //transparentMaterial.SetColor("_Color", color);
+            passTime += Time.deltaTime;            
             transparentMaterial.SetColor("_Color", Color.Lerp(Color.white, finalColor, passTime/disappearTime));
             yield return new WaitForEndOfFrame();
-        }
-        /*while (color.a > 0)
-        {
-            color.a -= Time.deltaTime;
-            if (color.a < 0)
-                color.a = 0;
-
-            transparentMaterial.SetColor("_Color", color);
-            yield return new WaitForEndOfFrame();
-        }*/
-
-        ChoppedBodyMgr1.Instance.Collect(gameObject, agentType, choppedBodyType);
+        }*/        
     }
 
 }
