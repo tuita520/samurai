@@ -16,13 +16,7 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
     Quaternion _startRotation = new Quaternion();
 
     float _hitTimer;
-    float _rotationProgress;
-
-    float _whirlWindTimer = 0;
-    float _whirlWindRadian = 0;
-    bool _whirlWindFirst = true;
-    const float _whirlWindFirstDelay = 1f;
-    const float _whirlWindInterval = 0.1f;
+    float _rotationProgress;    
 
     public AnimFSMStateAttackWhirl(Agent1 agent)
         : base((int)AnimFSMStateType.ATTACK_WHIRL, agent)
@@ -34,11 +28,10 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
     {
         base.OnEnter(ev);
         Agent.BlackBoard.invulnerable = true;
-        if (Agent.particleSystemWhirlWind != null)
+        if (Agent.particleSystemWhirlWind != null && Agent.BlackBoard.showMotionEffect)
         {
-            _whirlWindTimer = Time.timeSinceLevelLoad + _whirlWindFirstDelay;
-            _whirlWindRadian = -Agent.gameObject.ForwardRadian();
-        }        
+            ParticleTools.Instance.Play(Agent.particleSystemWhirlWind, 0, 1f);
+        }
     }
 
     public override void OnExit()
@@ -101,19 +94,6 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
         {
             IsFinished = true;
             _eventWhirl.IsFinished = true;
-        }
-
-
-        if (_whirlWindTimer > 0 && Time.timeSinceLevelLoad >= _whirlWindTimer)
-        {
-            ParticleTools.Instance.Play(Agent.particleSystemWhirlWind, _whirlWindRadian);
-            _whirlWindFirst = false;
-            _whirlWindTimer = Time.timeSinceLevelLoad + _whirlWindInterval;
-            _whirlWindRadian += (Mathf.PI * 0.75f);
-            if (_whirlWindRadian >= 2*Mathf.PI)
-            {
-                _whirlWindRadian -= 2 * Mathf.PI;
-            }
         }
     }
 
