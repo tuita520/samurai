@@ -62,11 +62,7 @@ public class AnimFSMStateInjuryBoss : AnimFSMState
     {
         if (_endOfStateTime <= Time.timeSinceLevelLoad)
         {
-            IsFinished = true;
-            if (_curInjuryPhaseIDX == 2)
-            {
-                Debug.Log("======================");
-            }
+            IsFinished = true;            
             _eventInjury.IsFinished = true;
         }
     }

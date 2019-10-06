@@ -617,6 +617,69 @@ Transform:
   m_Father: {fileID: 165597481}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &157005197 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1830333668877442, guid: d835ea5792a39c34a88fa0acf7937185,
+    type: 2}
+  m_PrefabInternal: {fileID: 508273011}
+--- !u!114 &157005198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 157005197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1705540211, guid: 134110ab35ade6045bdc75893dc4788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sampleInterval: 0.02
+  sampleLife: 0.5
+  sampleLifeStab: 0
+  weaponLength: 1.5
+  weaponWidth: 0
+  _minSampleDistance: 0.1
+--- !u!23 &157005199
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 157005197}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 9517eb0fc60964f48b2a76bd98074611, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &157005200
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 157005197}
+  m_Mesh: {fileID: 0}
 --- !u!1 &161838432
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +858,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &165597475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1544,6 +1608,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &306094995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2406,6 +2471,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &390079107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2498,7 +2564,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 390079102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -1041013200, guid: 134110ab35ade6045bdc75893dc4788c, type: 3}
   m_Name: 
@@ -3048,7 +3114,7 @@ MonoBehaviour:
   _agentMgr:
     agents:
     - {fileID: 390079106}
-    - {fileID: 988644029}
+    - {fileID: 1584909473}
 --- !u!114 &470875188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3337,6 +3403,15 @@ Prefab:
       propertyPath: m_Name
       value: BossOrochi
       objectReference: {fileID: 0}
+    - target: {fileID: 1830333668877442, guid: d835ea5792a39c34a88fa0acf7937185, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 137101258788194842, guid: d835ea5792a39c34a88fa0acf7937185,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114729110391648410, guid: d835ea5792a39c34a88fa0acf7937185, type: 2}
     - {fileID: 114723034623489066, guid: d835ea5792a39c34a88fa0acf7937185, type: 2}
@@ -3462,6 +3537,8 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList:
+  - {fileID: 157005198}
 --- !u!114 &508273016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3979,8 +4056,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 671579378}
   m_LocalRotation: {x: 0.20045702, y: 0.026447592, z: -0.0054151984, w: -0.9793305}
-  m_LocalPosition: {x: 255.44753, y: 296.6576, z: -102.03551}
-  m_LocalScale: {x: 0.6387501, y: 0.63875, z: 0.6387501}
+  m_LocalPosition: {x: 325.84476, y: 298.1529, z: -98.53653}
+  m_LocalScale: {x: 0.81500006, y: 0.815, z: 0.815}
   m_Children:
   - {fileID: 680913264}
   - {fileID: 1726071583}
@@ -11867,6 +11944,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &936242646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12176,6 +12254,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &965468648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12448,7 +12527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!143 &988644018
 CharacterController:
   m_ObjectHideFlags: 0
@@ -12785,6 +12864,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!1 &988732549
 GameObject:
   m_ObjectHideFlags: 0
@@ -21094,6 +21174,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &1545519969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21335,13 +21416,14 @@ GameObject:
   - component: {fileID: 1584909471}
   - component: {fileID: 1584909474}
   - component: {fileID: 1584909476}
+  - component: {fileID: 1584909479}
   m_Layer: 8
   m_Name: MiniBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!143 &1584909470
 CharacterController:
   m_ObjectHideFlags: 0
@@ -21472,6 +21554,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &1584909474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21656,6 +21739,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1584909479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1584909469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1041013200, guid: 134110ab35ade6045bdc75893dc4788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1584909469}
+  traceMat: {fileID: 2100000, guid: d2328f41499514f8c941d6946a01e658, type: 2}
+  traceShader: {fileID: 0}
+  sampleInterval: 0.1
+  sampleLife: 0.5
+  shaderColorProp: _Color
 --- !u!1 &1586734502
 GameObject:
   m_ObjectHideFlags: 0
@@ -21822,6 +21922,7 @@ MonoBehaviour:
   particleSystemRollTust: {fileID: 0}
   particleSystemFlashTust: {fileID: 0}
   particleSystemWhirlWind: {fileID: 0}
+  trailGeneratorList: []
 --- !u!114 &1587374404
 MonoBehaviour:
   m_ObjectHideFlags: 0

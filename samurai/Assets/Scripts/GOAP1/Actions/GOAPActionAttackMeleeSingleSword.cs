@@ -49,7 +49,8 @@ public class GOAPActionAttackMeleeSingleSword : GOAPActionBase
             _eventAttack.attackDir = Agent.Forward;
         }
 
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessSingle(ComboType.SINGLE_SWORD);        
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessSingle(ComboType.SINGLE_SWORD);
+        _eventAttack.attackPhaseStart = false;
         _eventAttack.attackPhaseDone = false;
         Agent.FSMComponent.SendEvent(_eventAttack);        
     }

@@ -62,7 +62,8 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
             _eventAttack.attackDir = Agent.Forward;
         }
 
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(_comboType);        
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(_comboType);
+        _eventAttack.attackPhaseStart = false;
         _eventAttack.attackPhaseDone = false;
         Agent.FSMComponent.SendEvent(_eventAttack);
         --_remainAttackCount;

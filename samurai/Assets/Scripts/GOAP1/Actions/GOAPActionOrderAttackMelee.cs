@@ -64,8 +64,8 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
     {
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
 
-        //_eventAttack.attackType = (Agent.PlayerOrder.GetCurOrder() as OrderDataAttack).attackType;
-        //_eventAttack.hitTimeStart = false;
+        //_eventAttack.attackType = (Agent.PlayerOrder.GetCurOrder() as OrderDataAttack).attackType;        
+        _eventAttack.attackPhaseStart = false;
         _eventAttack.attackPhaseDone = false;
 
         Agent.BlackBoard.desiredTarget = _eventAttack.target = Agent.Decision.SelectTarget(

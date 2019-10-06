@@ -7,8 +7,8 @@ public class AnimFSMEventAttackMelee : AnimFSMEvent
 
     public Agent1 target;
     public AnimAttackData animAttackData;    
-    public Vector3 attackDir;
-   // public bool hitTimeStart;
+    public Vector3 attackDir;    
+    public bool attackPhaseStart;
     public bool attackPhaseDone;
 
     public override void Release()
@@ -20,8 +20,8 @@ public class AnimFSMEventAttackMelee : AnimFSMEvent
     {
         base.Reset();
         target = null;
-        attackDir = Vector3.zero;
-        //hitTimeStart = false;
+        attackDir = Vector3.zero;        
+        attackPhaseStart = false;
         attackPhaseDone = false;
         animAttackData = null;
     }

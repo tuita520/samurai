@@ -164,7 +164,6 @@ public class AnimFSMStateAttackCross : AnimFSMState
                 {
                     _currentMoveTime = _moveTime;
                 }
-                // Debug.Log(Time.timeSinceLevelLoad + " moving");
             }
 
             if (_hitTimeStart == false && _hitTime <= Time.timeSinceLevelLoad)

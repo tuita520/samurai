@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Phenix.Unity.AI;
+using UnityEngine;
 
 public class GOAPActionReactToDamageBoss : GOAPActionBase
 {
@@ -14,6 +15,9 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
 
     int _injuryPhrase = 0;
     int maxInjuryPhrase = 3;
+
+    const float _startTrailDelay = 0.5f;
+    float _startTrailTimer = 0;
 
     public GOAPActionReactToDamageBoss(GOAPActionType1 actionType, Agent1 agent,
         List<WorldStateBitData> WSPrecondition, List<WorldStateBitDataAction> WSEffect) 
@@ -32,6 +36,7 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
         _attacker = null;
         _attackerRepeatCount = 0;
         _damageResultType = DamageResultType.NONE;
+        _startTrailTimer = 0;
     }
 
     public override void OnEnter()
@@ -40,6 +45,7 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
         _attacker = Agent.BlackBoard.Attacker;
         _attackerRepeatCount = Agent.BlackBoard.AttackerRepeatCount;
         _damageResultType = Agent.BlackBoard.damageResultType;
+        _startTrailTimer = 0;
 
         SendEvent();
     }
@@ -105,6 +111,26 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
         if (_eventInjury != null && _eventInjury.IsFinished && _injuryPhrase >= 3 && _eventAttack == null)
         {
             SendRevengeAttackEvent();
+        }
+
+        if (_eventAttack != null)
+        {
+            if (_eventAttack.attackPhaseStart && _startTrailTimer == 0)
+            {
+                _startTrailTimer = Time.timeSinceLevelLoad + _startTrailDelay;                 
+            }
+
+            if (_startTrailTimer > 0 && Time.timeSinceLevelLoad > _startTrailTimer)
+            {
+                // 显示刀光(方案2：动态生成mesh，参见BossOrochi)
+                Agent.PlayWeaponTrail(false);
+            }
+            
+            if (_eventAttack.attackPhaseDone)
+            {
+                // 关闭刀光(方案2：动态生成mesh，参见BossOrochi)
+                Agent.StopWeaponTrail();
+            }
         }
     }
 

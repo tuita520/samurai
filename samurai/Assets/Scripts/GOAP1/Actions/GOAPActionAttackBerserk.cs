@@ -49,8 +49,8 @@ public class GOAPActionAttackBerserk : GOAPActionBase
             _eventAttack.attackDir = Agent.Forward;
         }
 
-        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.ATTACK_BERSERK);
-        //_eventAttack.hitTimeStart = false;        
+        _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.ATTACK_BERSERK);        
+        _eventAttack.attackPhaseStart = false;
         _eventAttack.attackPhaseDone = false;
         Agent.FSMComponent.SendEvent(_eventAttack);        
     }

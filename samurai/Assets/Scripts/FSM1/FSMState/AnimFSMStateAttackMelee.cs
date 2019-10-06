@@ -207,21 +207,18 @@ public class AnimFSMStateAttackMelee : AnimFSMState
                 }                
             }
 
-            if (/*_eventAttackMelee.hitTimeStart*/_hitTimeStart == false && _hitTime <= Time.timeSinceLevelLoad)
-            {
-                //_eventAttackMelee.hitTimeStart = true;
+            if (_hitTimeStart == false && _hitTime <= Time.timeSinceLevelLoad)
+            {                
                 _hitTimeStart = true;
                 HandleAttackResult.DoMeleeDamage(Agent, _eventAttackMelee.target, Agent.BlackBoard.attackerWeapon,
                     _eventAttackMelee.animAttackData, _isCritical, _knockdown, 
                     _eventAttackMelee.animAttackData.isFatal);
 
-                // 显示刀光
+                // 显示刀光(方案1：美术做好mesh，参见player)
                 if (_eventAttackMelee.animAttackData.lastAttackInCombo)
-                    HandleTrail.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.4f);
-                    //Agent.ShowTrail(_eventAttackMelee.animAttackData, 1, 0.3f, _isCritical, _moveTime - Time.timeSinceLevelLoad);
+                    HandleTrail.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.4f);                    
                 else
                     HandleTrail.ShowTrail(Agent, _eventAttackMelee.animAttackData, 0.5f);
-                    //Agent.ShowTrail(_eventAttackMelee.animAttackData, 2, 0.1f, _isCritical, _moveTime - Time.timeSinceLevelLoad);
 
                 /*// 屏幕震动
                 if (AnimAttackData.LastAttackInCombo || AnimAttackData.ComboStep == 3)
@@ -272,6 +269,7 @@ public class AnimFSMStateAttackMelee : AnimFSMState
         _finalPosition = _startPosition + Agent.Transform.forward * _eventAttackMelee.animAttackData.moveDistance;
         _moveTime = _eventAttackMelee.animAttackData.attackMoveEndTime - _eventAttackMelee.animAttackData.attackMoveStartTime;
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[_eventAttackMelee.animAttackData.animName].length * 0.9f;
+        _eventAttackMelee.attackPhaseStart = true;        
 
         if (_eventAttackMelee.animAttackData.lastAttackInCombo)
         {
@@ -289,15 +287,4 @@ public class AnimFSMStateAttackMelee : AnimFSMState
             HandleCamera.SlowMotion(_isCritical, _eventAttackMelee.animAttackData.isFatal);
         }
     }
-
-    //void HandleHit()
-    //{
-    //    AttackMeleeHitData hitData = new AttackMeleeHitData();
-    //    hitData.agent = Agent;
-    //    hitData.target = _eventAttackMelee.target;
-    //    hitData.attackData = _eventAttackMelee.animAttackData;
-    //    hitData.isCritical = _isCritical;
-    //    hitData.isKnockDown = _knockdown;
-    //    onAttackHit.Invoke(hitData);
-    //}
 }

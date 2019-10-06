@@ -27,7 +27,7 @@ public class Agent1 : MonoBehaviour
     public CharacterController CharacterController { get; private set; }
     public AnimSet AnimSet { get; private set; }
     public SoundMgr SoundMgr { get; private set; }
-    public MotionTrace MotionTrace { get; private set; }
+    public MotionTrace MotionTrace { get; private set; }    
 
     public Vector3 Position { get { return transform.position; } }
     public Vector3 Forward { get { return transform.forward; } }
@@ -36,9 +36,14 @@ public class Agent1 : MonoBehaviour
 
     public bool IsPlayer { get { return agentType == AgentType.PLAYER; } }
 
+    [HideInInspector]
     public ParticleSystem particleSystemRollTust;
+    [HideInInspector]
     public ParticleSystem particleSystemFlashTust;
+    [HideInInspector]
     public ParticleSystem particleSystemWhirlWind;
+
+    public TrailGenerator[] trailGeneratorList;
 
     void Awake()
     {
@@ -213,6 +218,23 @@ public class Agent1 : MonoBehaviour
         CharacterController.detectCollisions = true;
         CharacterController.center = _collisionCenter;
     }
+
+    public void PlayWeaponTrail(bool isStab)
+    {
+        foreach (var trailGenerator in trailGeneratorList)
+        {
+            trailGenerator.Play(isStab);
+        }
+    }
+
+    public void StopWeaponTrail()
+    {
+        foreach (var trailGenerator in trailGeneratorList)
+        {
+            trailGenerator.Stop();
+        }
+    }
+
     /*
     public void ShowTrail(AnimAttackData data, float speed, float delay, bool critical, float dustDelay)
     {

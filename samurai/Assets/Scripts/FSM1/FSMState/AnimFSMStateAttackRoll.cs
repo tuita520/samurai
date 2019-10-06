@@ -20,9 +20,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
     float _rotationTime;
     float _endOfStateTime;
     float _hitTimer;
-
-    //CombatEffectsManager.CacheData Effect;
-
+    
     bool _rotationOk = false;
     AttackRollState _state;
 
@@ -36,18 +34,14 @@ public class AnimFSMStateAttackRoll : AnimFSMState
     public override void OnEnter(FSMEvent ev = null)
     {
         base.OnEnter(ev);
-        Agent.BlackBoard.invulnerable = true;        
-        //Effect = null;
+        Agent.BlackBoard.invulnerable = true;                
     }
 
     public override void OnExit()
     {
         Agent.BlackBoard.invulnerable = false;
         Agent.BlackBoard.speed = 0;
-        //if (Effect != null)
-        //    CombatEffectsManager.Instance.ReturnRolllEffect(Effect);
-
-        //Effect = null;
+        Agent.MotionTrace.Stop();
     }
 
     protected override void Initialize(FSMEvent ev)
@@ -120,8 +114,8 @@ public class AnimFSMStateAttackRoll : AnimFSMState
     {
         _state = AttackRollState.ROLL;
         Tools.PlayAnimation(Agent.AnimEngine, "attackRollLoop", 0.1f);
-        Agent.BlackBoard.motionType = MotionType.ROLL;
-        //Effect = CombatEffectsManager.Instance.PlayRollEffect(Transform);
+        Agent.BlackBoard.motionType = MotionType.ROLL;        
+        Agent.MotionTrace.Play();
     }
 
     void InitializeStandUp()
@@ -130,8 +124,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
         Tools.PlayAnimation(Agent.AnimEngine, "attackRollEnd", 0.1f);
         Agent.BlackBoard.motionType = MotionType.ROLL;
         _endOfStateTime = Agent.AnimEngine["attackRollEnd"].length * 0.95f + Time.timeSinceLevelLoad;
-        //CombatEffectsManager.Instance.ReturnRolllEffect(Effect);
-        //Effect = null;
+        Agent.MotionTrace.Stop();
         //Agent.SoundPlay(Agent.RollSounds[2]);
     }
 
