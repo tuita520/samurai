@@ -51,15 +51,15 @@ public class AnimFSMStateIdle : AnimFSMState
         {
             if ((ev as AnimFSMEventShowHideSword).show == true)
             {                
-                string s = Agent.AnimSet.GetShowWeaponAnim(Agent.BlackBoard.weaponSelected);
-                _timeToFinishWeapon = Time.timeSinceLevelLoad + Agent.AnimEngine[s].length * 0.8f;
-                Agent.AnimEngine.CrossFade(s, 0.1f);                
+                string animName = Agent.AnimSet.GetShowWeaponAnim(Agent.BlackBoard.weaponSelected);
+                _timeToFinishWeapon = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.8f;                
+                AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);
             }
             else
             {
-                string s = Agent.AnimSet.GetHideWeaponAnim(Agent.BlackBoard.weaponSelected);
-                _timeToFinishWeapon = Time.timeSinceLevelLoad + (Agent.AnimEngine[s].length * 0.9f);
-                Agent.AnimEngine.CrossFade(s, 0.1f);                
+                string animName = Agent.AnimSet.GetHideWeaponAnim(Agent.BlackBoard.weaponSelected);
+                _timeToFinishWeapon = Time.timeSinceLevelLoad + (Agent.AnimEngine[animName].length * 0.9f);
+                AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);
             }
             _eventSword = ev as AnimFSMEventShowHideSword;
             return true;
@@ -76,7 +76,7 @@ public class AnimFSMStateIdle : AnimFSMState
             _eventSword.IsFinished = true;
             _eventSword = null;
             _timeToFinishWeapon = 0;
-            Tools.PlayAnimation(Agent.AnimEngine, Agent.AnimSet.GetIdleAnim(
+            AnimationTools.PlayAnim(Agent.AnimEngine, Agent.AnimSet.GetIdleAnim(
                 Agent.BlackBoard.weaponSelected, Agent.BlackBoard.weaponState), 0.2f); // 播放待机动作         
         }
 
@@ -90,6 +90,6 @@ public class AnimFSMStateIdle : AnimFSMState
     {
         //Debug.Log(Owner.AnimSet.GetIdleAnim(Owner.BlackBoard.WeaponSelected, Owner.BlackBoard.WeaponState).ToString());
         string name = Agent.AnimSet.GetIdleAnim(Agent.BlackBoard.weaponSelected, Agent.BlackBoard.weaponState);
-        Tools.PlayAnimation(Agent.AnimEngine, name, 0.2f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, name, 0.2f);
     }
 }

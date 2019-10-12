@@ -61,7 +61,7 @@ public class AnimFSMStateRoll : AnimFSMState
         }
 
         string animName = Agent.AnimSet.GetRollAnim(Agent.BlackBoard.weaponSelected, Agent.BlackBoard.weaponState);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.1f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);
 
         _finalRotation.SetLookRotation(finalDir);
         _rotationTime = Vector3.Angle(Agent.Transform.forward, finalDir) / 1000.0f;

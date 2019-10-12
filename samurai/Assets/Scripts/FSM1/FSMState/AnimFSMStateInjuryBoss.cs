@@ -34,7 +34,7 @@ public class AnimFSMStateInjuryBoss : AnimFSMState
 
         _curInjuryPhaseIDX = 0;
         string animName = Agent.AnimSet.GetInjuryPhaseAnim(_curInjuryPhaseIDX);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.1f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);
         _endOfStateTime = Agent.AnimEngine[animName].length + Time.timeSinceLevelLoad;
         Agent.BlackBoard.motionType = MotionType.NONE;
     }
@@ -42,8 +42,8 @@ public class AnimFSMStateInjuryBoss : AnimFSMState
     void InitializeNext(FSMEvent ev)
     {      
         _eventInjury = ev as AnimFSMEventInjuryBoss;
-        string animName = Agent.AnimSet.GetInjuryPhaseAnim(++_curInjuryPhaseIDX);        
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.1f);
+        string animName = Agent.AnimSet.GetInjuryPhaseAnim(++_curInjuryPhaseIDX);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);
         _endOfStateTime = Agent.AnimEngine[animName].length + Time.timeSinceLevelLoad;
         Agent.BlackBoard.motionType = MotionType.NONE;
     }

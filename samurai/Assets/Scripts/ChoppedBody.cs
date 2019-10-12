@@ -32,7 +32,7 @@ public class ChoppedBody : MonoBehaviour
         _trans.position = spawnTransform.position;
         _trans.rotation = spawnTransform.rotation;
         //_anims.Play();
-        Phenix.Unity.Utilities.Tools.PlayAnimation(_anims, _anims.clip.name, 0.5f);
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(_anims, _anims.clip.name, 0.5f);
         _audio.Play();
         _renderer.material = diffuseMaterial;
         StartCoroutine(Fadeout(10, 3));

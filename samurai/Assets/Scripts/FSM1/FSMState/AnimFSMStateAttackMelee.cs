@@ -263,7 +263,7 @@ public class AnimFSMStateAttackMelee : AnimFSMState
 
     void InitializeAttacking()
     {
-        Tools.PlayAnimation(Agent.AnimEngine, _eventAttackMelee.animAttackData.animName, 0.2f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, _eventAttackMelee.animAttackData.animName, 0.2f);
         _hitTime = Time.timeSinceLevelLoad + _eventAttackMelee.animAttackData.hitTime;
         _startPosition = Agent.Transform.position;
         _finalPosition = _startPosition + Agent.Transform.forward * _eventAttackMelee.animAttackData.moveDistance;

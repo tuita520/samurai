@@ -108,7 +108,7 @@ public class AnimFSMStateFlash : AnimFSMState
         Agent.BlackBoard.motionType = motion;
         _animName = Agent.AnimSet.GetMoveAnim(Agent.BlackBoard.motionType, MoveType.FORWARD, 
             Agent.BlackBoard.weaponSelected, Agent.BlackBoard.weaponState);
-        Tools.PlayAnimation(Agent.AnimEngine, _animName, 0.2f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, _animName, 0.2f);
     }
 
     MotionType GetMotionType()

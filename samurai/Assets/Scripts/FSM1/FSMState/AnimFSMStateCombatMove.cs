@@ -132,7 +132,7 @@ public class AnimFSMStateCombatMove : AnimFSMState
     void UpdateMoveType()
     {
         Agent.BlackBoard.moveType = _eventCombatMove.moveType;
-        Tools.PlayAnimation(Agent.AnimEngine, Agent.AnimSet.GetMoveAnim(_eventCombatMove.motionType, Agent.BlackBoard.moveType, 
+        AnimationTools.PlayAnim(Agent.AnimEngine, Agent.AnimSet.GetMoveAnim(_eventCombatMove.motionType, Agent.BlackBoard.moveType, 
             Agent.BlackBoard.weaponSelected, Agent.BlackBoard.weaponState), 0.2f);
         _maxSpeed = _eventCombatMove.motionType == MotionType.RUN ? Agent.BlackBoard.maxRunSpeed : 
             Agent.BlackBoard.maxCombatMoveSpeed;

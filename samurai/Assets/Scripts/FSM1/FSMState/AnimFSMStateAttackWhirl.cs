@@ -44,8 +44,8 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
     protected override void Initialize(FSMEvent ev)
     {
         _eventWhirl = ev as AnimFSMEventAttackWhirl;
-        
-        Tools.PlayAnimation(Agent.AnimEngine, _eventWhirl.data.animName, 0.2f);
+
+        AnimationTools.PlayAnim(Agent.AnimEngine, _eventWhirl.data.animName, 0.2f);
         //UpdateFinalRotation();
         Agent.BlackBoard.motionType = MotionType.ATTACK;// MotionType.WALK;
         _rotationProgress = 0;

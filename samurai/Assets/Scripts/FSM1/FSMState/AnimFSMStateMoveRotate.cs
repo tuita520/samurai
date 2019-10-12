@@ -55,7 +55,7 @@ public class AnimFSMStateMoveRotate : AnimFSMState
 
         _animName = Agent.AnimSet.GetMoveAnim(Agent.BlackBoard.motionType, MoveType.FORWARD,
             Agent.BlackBoard.weaponSelected, Agent.BlackBoard.weaponState);
-        Tools.PlayAnimation(Agent.AnimEngine, _animName, 0.2f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, _animName, 0.2f);
         
         _finalRotation.SetLookRotation(finalDir);       
     }

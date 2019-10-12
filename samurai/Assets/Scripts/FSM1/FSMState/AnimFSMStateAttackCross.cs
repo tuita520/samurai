@@ -226,7 +226,7 @@ public class AnimFSMStateAttackCross : AnimFSMState
     {
         if (playAnim)
         {
-            Tools.PlayAnimation(Agent.AnimEngine, _eventAttackCross.animAttackData.animName, 0.2f);
+            AnimationTools.PlayAnim(Agent.AnimEngine, _eventAttackCross.animAttackData.animName, 0.2f);
         }
         
         _hitTime = Time.timeSinceLevelLoad + _eventAttackCross.animAttackData.hitTime;

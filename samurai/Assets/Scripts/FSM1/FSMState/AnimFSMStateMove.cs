@@ -87,7 +87,7 @@ public class AnimFSMStateMove : AnimFSMState
         string animName = Agent.AnimSet.GetMoveAnim(
             Agent.BlackBoard.motionType, MoveType.FORWARD, Agent.BlackBoard.weaponSelected,
             Agent.BlackBoard.weaponState);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.2f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.2f);
     }
 
     private MotionType GetMoveMotionType()

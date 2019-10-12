@@ -1498,13 +1498,14 @@ GameObject:
   - component: {fileID: 306094994}
   - component: {fileID: 306094998}
   - component: {fileID: 306094999}
+  - component: {fileID: 306095002}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!143 &306094993
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1812,6 +1813,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &306095002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 306094992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2136507359, guid: 134110ab35ade6045bdc75893dc4788c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixDatum:
+  - baseClip: {fileID: 7400034, guid: 6390bcfd259f14cbbb3679cff8a7d7b4, type: 3}
+    mixTransformList:
+    - {fileID: 857465469}
+    layer: 10
+    wrapMode: 1
+    newAnimationName: mixBowFire
+  _animation: {fileID: 306095000}
 --- !u!1 &310448318
 GameObject:
   m_ObjectHideFlags: 0
@@ -3114,7 +3134,7 @@ MonoBehaviour:
   _agentMgr:
     agents:
     - {fileID: 390079106}
-    - {fileID: 1584909473}
+    - {fileID: 306094994}
 --- !u!114 &470875188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21423,7 +21443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!143 &1584909470
 CharacterController:
   m_ObjectHideFlags: 0

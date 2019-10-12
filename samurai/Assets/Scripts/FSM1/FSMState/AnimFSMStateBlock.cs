@@ -72,7 +72,7 @@ public class AnimFSMStateBlock : AnimFSMState
         _curRotationTime = 0;
         _curMoveTime = 0;
 
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
 
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
         _blockHoldEndTime = Time.timeSinceLevelLoad + _eventBlock.holdTime;
@@ -187,7 +187,7 @@ public class AnimFSMStateBlock : AnimFSMState
     private void InitializeHold()
     {
         string animName = Agent.AnimSet.GetBlockAnim(BlockState.HOLD, Agent.BlackBoard.weaponSelected);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);        
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);        
         _endOfStateTime = _blockHoldEndTime;
 
         _blockState = BlockState.HOLD;
@@ -197,7 +197,7 @@ public class AnimFSMStateBlock : AnimFSMState
     private void InitializeBlockSuccess()
     {
         string animName = Agent.AnimSet.GetBlockAnim(global::BlockState.BLOCK_SUCCESS, Agent.BlackBoard.weaponSelected);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
         
         _startRotation = Agent.Transform.rotation;
         _startPosition = Agent.Transform.position;
@@ -225,7 +225,7 @@ public class AnimFSMStateBlock : AnimFSMState
         _curRotationTime = 0;
         _curMoveTime = 0;
 
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
 
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
 
@@ -237,7 +237,7 @@ public class AnimFSMStateBlock : AnimFSMState
     private void InitializeBlockFailed()
     {        
         string animName = Agent.AnimSet.GetBlockAnim(BlockState.BLOCK_FAIL, Agent.BlackBoard.weaponSelected);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);        
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);        
 
         _startRotation = Agent.Transform.rotation;
         _startPosition = Agent.Transform.position;
@@ -265,7 +265,7 @@ public class AnimFSMStateBlock : AnimFSMState
         _curRotationTime = 0;
         _curMoveTime = 0;
 
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
 
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
 
@@ -276,7 +276,7 @@ public class AnimFSMStateBlock : AnimFSMState
     private void InitializeEnd()
     {
         string animName = Agent.AnimSet.GetBlockAnim(global::BlockState.END, Agent.BlackBoard.weaponSelected);
-        Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
 
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
         Agent.BlackBoard.motionType = MotionType.NONE;
@@ -319,12 +319,12 @@ public class AnimFSMStateBlock : AnimFSMState
                 animName = Agent.AnimSet.GetRotateAnim(Agent.BlackBoard.motionType, RotationType.RIGHT);
             else
                 animName = Agent.AnimSet.GetRotateAnim(Agent.BlackBoard.motionType, RotationType.LEFT);
-            Tools.PlayAnimation(Agent.AnimEngine, animName, 0.01f, QueueMode.CompleteOthers);
+            AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.01f, QueueMode.CompleteOthers);
         }        
         else
         {
             animName = Agent.AnimSet.GetBlockAnim(BlockState.HOLD, Agent.BlackBoard.weaponSelected);
-            Tools.PlayAnimation(Agent.AnimEngine, animName, 0.01f);
+            AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.01f);
         }
         
     }

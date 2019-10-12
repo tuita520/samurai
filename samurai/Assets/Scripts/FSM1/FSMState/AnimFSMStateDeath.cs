@@ -35,7 +35,7 @@ public class AnimFSMStateDeath : AnimFSMState
         _eventDeath = ev as AnimFSMEventDeath;
 
         string animName = Agent.AnimSet.GetDeathAnim(_eventDeath.fromWeapon, _eventDeath.damageType);
-        Phenix.Unity.Utilities.Tools.PlayAnimation(Agent.AnimEngine, animName, 0.1f);        
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);        
 
         Agent.BlackBoard.motionType = MotionType.NONE;
         _startPosition = Agent.Transform.position;

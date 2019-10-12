@@ -41,7 +41,7 @@ public class AnimFSMStateInjury : AnimFSMState
         _eventInjury = ev as AnimFSMEventInjury;        
 
         string animName = Agent.AnimSet.GetInjuryAnim(_eventInjury.fromWeapon, _eventInjury.damageType);
-        Phenix.Unity.Utilities.Tools.PlayAnimation(Agent.AnimEngine, animName, 0.1f);
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);
 
         _endOfStateTime = Agent.AnimEngine[animName].length + Time.timeSinceLevelLoad;
         Agent.BlackBoard.motionType = MotionType.NONE;

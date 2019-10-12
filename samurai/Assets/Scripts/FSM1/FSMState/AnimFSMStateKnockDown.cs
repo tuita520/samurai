@@ -78,7 +78,7 @@ public class AnimFSMStateKnockDown : AnimFSMState
         _curRotationTime = 0;
         _curMoveTime = 0;
 
-        Phenix.Unity.Utilities.Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);        
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);        
 
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
         _lyingEndTime = _endOfStateTime + _eventKnockDown.lyingTime;
@@ -177,7 +177,7 @@ public class AnimFSMStateKnockDown : AnimFSMState
     void InitializeDeath()
     {
         string animName = Agent.AnimSet.GetKnockdowAnim(KnockdownState.Fatality, Agent.BlackBoard.weaponSelected);
-        Phenix.Unity.Utilities.Tools.PlayAnimation(Agent.AnimEngine, animName, 0.1f);      
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.1f);      
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
         _status = KnockdownStatus.DEATH;
         Agent.BlackBoard.motionType = MotionType.DEATH;
@@ -186,7 +186,7 @@ public class AnimFSMStateKnockDown : AnimFSMState
     void InitializeLying()
     {
         string animName = Agent.AnimSet.GetKnockdowAnim(KnockdownState.Loop, Agent.BlackBoard.weaponSelected);
-        Phenix.Unity.Utilities.Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
         _endOfStateTime = _lyingEndTime;
         _status = KnockdownStatus.LYING;
         Agent.DisableCollisions();
@@ -195,7 +195,7 @@ public class AnimFSMStateKnockDown : AnimFSMState
     void InitializeGetUp()
     {
         string animName = Agent.AnimSet.GetKnockdowAnim(KnockdownState.Up, Agent.BlackBoard.weaponSelected);
-        Phenix.Unity.Utilities.Tools.PlayAnimation(Agent.AnimEngine, animName, 0.05f);
+        Phenix.Unity.Utilities.AnimationTools.PlayAnim(Agent.AnimEngine, animName, 0.05f);
         _endOfStateTime = Time.timeSinceLevelLoad + Agent.AnimEngine[animName].length * 0.9f;
         _status = KnockdownStatus.GET_UP;
         Agent.EnableCollisions();

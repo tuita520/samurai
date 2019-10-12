@@ -52,7 +52,7 @@ public class AnimFSMStateRotate : AnimFSMState
         else
             _animName = Agent.AnimSet.GetRotateAnim(Agent.BlackBoard.motionType, RotationType.LEFT);
 
-        Tools.PlayAnimation(Agent.AnimEngine, _animName, 0.01f, QueueMode.CompleteOthers);
+        AnimationTools.PlayAnim(Agent.AnimEngine, _animName, 0.01f, QueueMode.CompleteOthers);
         
         _finalRotation.SetLookRotation(finalDir);
         /*_rotationTime = Vector3.Angle(Agent.Transform.forward, finalDir) / (360 * Agent.BlackBoard.rotationSmooth);

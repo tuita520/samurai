@@ -49,7 +49,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
         _eventAttackRoll = ev as AnimFSMEventAttackRoll;
 
         _state = AttackRollState.PREPARE;
-        Tools.PlayAnimation(Agent.AnimEngine, "attackRollStart", 0.4f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, "attackRollStart", 0.4f);
         base.Initialize(_eventAttackRoll);
         Agent.BlackBoard.motionType = MotionType.NONE;
         _endOfStateTime = Agent.AnimEngine["attackRollStart"].length * 0.95f + Time.timeSinceLevelLoad;
@@ -113,7 +113,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
     void InitializeRoll()
     {
         _state = AttackRollState.ROLL;
-        Tools.PlayAnimation(Agent.AnimEngine, "attackRollLoop", 0.1f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, "attackRollLoop", 0.1f);
         Agent.BlackBoard.motionType = MotionType.ROLL;        
         Agent.MotionTrace.Play();
     }
@@ -121,7 +121,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
     void InitializeStandUp()
     {
         _state = AttackRollState.STAND_UP;
-        Tools.PlayAnimation(Agent.AnimEngine, "attackRollEnd", 0.1f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, "attackRollEnd", 0.1f);
         Agent.BlackBoard.motionType = MotionType.ROLL;
         _endOfStateTime = Agent.AnimEngine["attackRollEnd"].length * 0.95f + Time.timeSinceLevelLoad;
         Agent.MotionTrace.Stop();

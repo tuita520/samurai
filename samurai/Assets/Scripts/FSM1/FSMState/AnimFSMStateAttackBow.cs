@@ -66,7 +66,7 @@ public class AnimFSMStateAttackBow : AnimFSMState
         _fireTime = Time.timeSinceLevelLoad + _eventAttack.animAttackData.hitTime;
         Agent.BlackBoard.motionType = MotionType.ATTACK;
 
-        Tools.PlayAnimation(Agent.AnimEngine, _eventAttack.animAttackData.animName, 0.1f);
+        AnimationTools.PlayAnim(Agent.AnimEngine, _eventAttack.animAttackData.animName, 0.1f);
     }
 
     public override bool OnEvent(FSMEvent ev)
