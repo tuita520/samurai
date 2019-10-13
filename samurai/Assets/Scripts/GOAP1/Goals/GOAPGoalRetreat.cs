@@ -16,7 +16,7 @@ public class GOAPGoalRetreat : GOAPGoalBase
     }
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
     {
-        if (IsRunning && Agent.BlackBoard.InRollMotion)
+        if (InProgress && Agent.BlackBoard.InRollMotion)
         {
             return Agent.BlackBoard.GOAPMaxWeightRetreat;
         }
