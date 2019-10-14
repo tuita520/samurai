@@ -20,7 +20,7 @@ public class GOAPGoalIdle : GOAPGoalBase
     //}
 
     public override float GetWeight(Phenix.Unity.AI.WorldState ws)
-    {        
+    {
         return Agent.BlackBoard.GOAPMaxWeightIdle;
     }
 }

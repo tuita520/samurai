@@ -107,7 +107,7 @@ public class AnimFSMStateInjury : AnimFSMState
 
             float progress = Mathf.Max(0, Mathf.Min(1.0f, _currentMoveTime / _moveTime));
             Vector3 impuls = Vector3.Lerp(_impuls, Vector3.zero, progress);
-            if (Phenix.Unity.Utilities.TransformTools.MoveOnGround(Agent.Transform, 
+            if (Phenix.Unity.Utilities.TransformTools.Instance.MoveOnGround(Agent.Transform, 
                 Agent.CharacterController, impuls * Time.deltaTime, true) == false)
             //if (MoveEx(impuls * Time.deltaTime) == false)
             {

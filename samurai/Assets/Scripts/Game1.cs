@@ -1,25 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Phenix.Unity.Pattern;
 
-public class Game1 : MonoBehaviour
+public class Game1 : Singleton<Game1>
 {
-    public static Game1 Instance;
-
     [SerializeField]
     AgentMgr _agentMgr = new AgentMgr();
 
     public AgentMgr AgentMgr { get { return _agentMgr; } }
+    public Transform world;
+
 
     BGM _bgm;
     GameState _gameState;
 
 	// Use this for initialization
-	void Awake ()
+	protected override void Awake ()
     {
-        Instance = this;        
+        base.Awake();
         _bgm = GetComponent<BGM>();
         _gameState = GameState.Game;
+        world = GameObject.Find("World").transform;
     }
 
     void Start()

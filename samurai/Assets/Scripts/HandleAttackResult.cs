@@ -347,7 +347,7 @@ public class HandleAttackResult
             }
 
             if (target.BlackBoard.invulnerable ||
-                (target.BlackBoard.damageOnlyFromBack && TransformTools.IsBehindTarget(agent.Transform, target.Transform) == false))
+                (target.BlackBoard.damageOnlyFromBack && TransformTools.Instance.IsBehindTarget(agent.Transform, target.Transform) == false))
             {
                 // 攻击无效
                 ReceiveHitCompletelyBlocked(target, agent);

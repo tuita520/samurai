@@ -142,7 +142,7 @@ public class WorldStatePropInfoEx
  12.整理溅血粒子和击中火花、格挡的星星。UI相关。
  13.镜头动画，boss咆哮时镜头震动、圆形烟雾。樱花飘落粒子、灯笼摆动动画
  14.音效、全屏颜色渐变成黑白。
- 15.弓箭手快速跑动，同时转动spine朝敌人射箭（动作融合）
+ 15.新增npc将要被攻击时，可以左右侧移
 */
 public class GOAPDecision : Decision
 {

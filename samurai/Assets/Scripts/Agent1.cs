@@ -42,8 +42,11 @@ public class Agent1 : MonoBehaviour
     public ParticleSystem particleSystemFlashTust;
     [HideInInspector]
     public ParticleSystem particleSystemWhirlWind;
+    [HideInInspector]
+    public ParticleSystem particleSystemTauntTust;
 
     public TrailGenerator[] trailGeneratorList;
+    public MotionEffectBase MotionEffect { get; private set; }
 
     void Awake()
     {
@@ -73,10 +76,25 @@ public class Agent1 : MonoBehaviour
         {
             particleSystemFlashTust = tust.GetComponent<ParticleSystem>();
         }
+        tust = transform.Find("tauntTust");
+        if (tust)
+        {
+            particleSystemTauntTust = tust.GetComponent<ParticleSystem>();
+        }
         Transform whirlWind = transform.Find("whirlWind");
         if (whirlWind)
         {
             particleSystemWhirlWind = whirlWind.GetComponent<ParticleSystem>();
+        }
+
+        switch (agentType)
+        {            
+            case AgentType.BOSS_OROCHI:
+                MotionEffect = new MotionEffectBossOrochi();
+                break;
+            default:
+                MotionEffect = new MotionEffectBase();
+                break;
         }
     }
 

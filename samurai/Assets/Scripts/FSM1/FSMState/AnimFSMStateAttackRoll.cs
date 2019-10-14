@@ -85,7 +85,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
                 break;
             case AttackRollState.ROLL: 
                 {                    
-                    if (TransformTools.MoveOnGround(Agent.Transform, Agent.CharacterController, 
+                    if (TransformTools.Instance.MoveOnGround(Agent.Transform, Agent.CharacterController, 
                         Agent.Transform.forward * Agent.BlackBoard.attackRollSpeed * Time.deltaTime, false) == false)
                     {
                         HandleAttackResult.DoRollDamage(Agent, _eventAttackRoll.animAttackData, Agent.BlackBoard.attackRollWeaponRange);                        

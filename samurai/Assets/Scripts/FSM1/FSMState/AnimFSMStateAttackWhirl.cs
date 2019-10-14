@@ -75,7 +75,7 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
             Agent.BlackBoard.moveDir = Agent.Forward;
 
             float dist = Agent.BlackBoard.speed * Time.deltaTime;
-            bool _moveOk = TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController, 
+            bool _moveOk = TransformTools.Instance.MoveOnGround(Agent.transform, Agent.CharacterController, 
                 Agent.BlackBoard.moveDir * dist, true);
             if (_moveOk == false)
             {

@@ -24,6 +24,7 @@ public class AnimFSMStatePlayAnim : AnimFSMState
         Agent.BlackBoard.motionType = MotionType.ANIMATION_DRIVE;
         Agent.BlackBoard.moveDir = Vector3.zero;
         Agent.BlackBoard.speed = 0;
+        Agent.MotionEffect.OnTauntBegin(Agent);
     }
 
     protected override void Initialize(FSMEvent ev = null)
@@ -41,6 +42,7 @@ public class AnimFSMStatePlayAnim : AnimFSMState
         {
             Agent.BlackBoard.invulnerable = false;
         }
+        Agent.MotionEffect.OnTauntEnd(Agent);
     }
 
     public override void OnUpdate()

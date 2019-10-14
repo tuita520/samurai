@@ -61,7 +61,7 @@ public class AnimFSMStateGoTo : AnimFSMState
         Agent.BlackBoard.moveDir = dir;
 
         // MOVE
-        if (TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController, 
+        if (TransformTools.Instance.MoveOnGround(Agent.transform, Agent.CharacterController, 
             Agent.BlackBoard.moveDir * Agent.BlackBoard.speed * Time.deltaTime, true) == false)
         {
             IsFinished = true;

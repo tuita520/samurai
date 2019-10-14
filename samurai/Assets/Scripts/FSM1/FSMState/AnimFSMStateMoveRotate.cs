@@ -87,7 +87,7 @@ public class AnimFSMStateMoveRotate : AnimFSMState
 
         float curSmooth = Agent.BlackBoard.speedSmooth * Time.deltaTime;
         Agent.BlackBoard.speed = Mathf.Lerp(Agent.BlackBoard.speed, Agent.BlackBoard.maxWalkSpeed, curSmooth);
-        TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController,
+        TransformTools.Instance.MoveOnGround(Agent.transform, Agent.CharacterController,
             Agent.BlackBoard.moveDir * Agent.BlackBoard.speed * Time.deltaTime, true);
 
         /*_currentRotationTime += Time.deltaTime;

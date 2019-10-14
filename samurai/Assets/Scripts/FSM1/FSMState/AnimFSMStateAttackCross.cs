@@ -134,7 +134,7 @@ public class AnimFSMStateAttackCross : AnimFSMState
                     float progress = _currentMoveTime / _moveTime;
                     Vector3 finalPos = Mathfx.Hermite(_startPosition, _finalPosition, progress);
                     //if (MoveToCollideWithEnemy(finalPos, Transform.forward) == false)
-                    if (TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController,
+                    if (TransformTools.Instance.MoveOnGround(Agent.transform, Agent.CharacterController,
                         finalPos - Agent.Transform.position, true) == false)
                     {
                         _positionOK = true;
@@ -159,7 +159,7 @@ public class AnimFSMStateAttackCross : AnimFSMState
                 float progress = Mathf.Min(1.0f, _currentMoveTime / _moveTime);
                 Vector3 finalPos = Mathfx.Hermite(_startPosition, _finalPosition, progress);
                 //if (MoveToCollideWithEnemy(finalPos, Transform.forward) == false)
-                if (TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController,
+                if (TransformTools.Instance.MoveOnGround(Agent.transform, Agent.CharacterController,
                     finalPos - Agent.Transform.position, false) == false)
                 {
                     _currentMoveTime = _moveTime;

@@ -124,7 +124,7 @@ public class AnimFSMStateRoll : AnimFSMState
             float progress = _currentMoveTime / _moveTime;
             Vector3 finalPos = Mathfx.Hermite(_startPosition, _finalPosition, progress);
             //MoveTo(finalPos);
-            if (TransformTools.MoveOnGround(Agent.Transform, Agent.CharacterController,
+            if (TransformTools.Instance.MoveOnGround(Agent.Transform, Agent.CharacterController,
                    finalPos - Agent.Transform.position, false) == false)
             {
                 _positionOK = true;

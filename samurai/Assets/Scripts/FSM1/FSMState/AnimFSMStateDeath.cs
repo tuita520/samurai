@@ -105,7 +105,7 @@ public class AnimFSMStateDeath : AnimFSMState
             float progress = Mathf.Min(1.0f, _curMoveTime / _moveTime);
             Vector3 finalPos = Mathfx.Sinerp(_startPosition, _finalPosition, progress);
             
-            if (Phenix.Unity.Utilities.TransformTools.MoveOnGround(Agent.Transform, Agent.CharacterController, 
+            if (Phenix.Unity.Utilities.TransformTools.Instance.MoveOnGround(Agent.Transform, Agent.CharacterController, 
                 finalPos - Agent.Transform.position, true) == false)
             {
                 _positionOK = true;

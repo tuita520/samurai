@@ -41,7 +41,7 @@ public class AnimFSMStateCombatMove : AnimFSMState
 
         float dist = Agent.BlackBoard.speed * Time.deltaTime;
 
-        if (TransformTools.MoveOnGround(Agent.transform, Agent.CharacterController, Agent.BlackBoard.moveDir * dist, true))
+        if (TransformTools.Instance.MoveOnGround(Agent.transform, Agent.CharacterController, Agent.BlackBoard.moveDir * dist, true))
         {
             _movedDistance += dist;
             if (_movedDistance > _eventCombatMove.totalMoveDistance)

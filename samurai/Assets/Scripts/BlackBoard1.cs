@@ -276,7 +276,7 @@ public class BlackBoard1
     {
         get
         {
-            return Phenix.Unity.Utilities.TransformTools.ForwardAngleToTarget(Agent.Transform, desiredTarget.Transform);            
+            return Phenix.Unity.Utilities.TransformTools.Instance.ForwardAngleToTarget(Agent.Transform, desiredTarget.Transform);            
         }
     }
 
@@ -328,7 +328,7 @@ public class BlackBoard1
             {
                 return false;
             }
-            return Phenix.Unity.Utilities.TransformTools.IsLookingAtTarget(Agent.Transform, desiredTarget.Transform);
+            return Phenix.Unity.Utilities.TransformTools.Instance.IsLookingAtTarget(Agent.Transform, desiredTarget.Transform);
         }
     }
 
@@ -337,7 +337,7 @@ public class BlackBoard1
     {        
         get
         {
-            return Phenix.Unity.Utilities.TransformTools.AngleToTargetForward(Agent.Transform, desiredTarget.Transform);
+            return Phenix.Unity.Utilities.TransformTools.Instance.AngleToTargetForward(Agent.Transform, desiredTarget.Transform);
         }
     }
 
@@ -347,7 +347,7 @@ public class BlackBoard1
         get
         {
             return HasAttackTarget &&
-                Phenix.Unity.Utilities.TransformTools.IsAheadOfTarget(Agent.Transform, desiredTarget.Transform);            
+                Phenix.Unity.Utilities.TransformTools.Instance.IsAheadOfTarget(Agent.Transform, desiredTarget.Transform);            
         }
     }
 
@@ -357,7 +357,7 @@ public class BlackBoard1
         get
         {
             return HasAttackTarget && 
-                Phenix.Unity.Utilities.TransformTools.IsBehindTarget(Agent.Transform, desiredTarget.Transform);
+                Phenix.Unity.Utilities.TransformTools.Instance.IsBehindTarget(Agent.Transform, desiredTarget.Transform);
         }
     }
 
