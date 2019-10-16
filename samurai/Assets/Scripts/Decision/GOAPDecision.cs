@@ -128,7 +128,7 @@ public class WorldStatePropInfoEx
 /*
  1.goto动作如果前面忽然有人挡住，左或右拐一下弯，再冲
  2.决策是是否面对敌人背后，模糊算法？
- 3.剑之道。类似功夫的闯关游戏，最后一关打自己。每关开始有一行特效tip：剑之道，贵乎奇。剑之道，攻其不备出其不意。剑之道，胜人先胜己
+ 3.斩。类似功夫的闯关游戏，最后一关打自己。每关开始有一行特效tip：剑之道，贵乎奇。剑之道，攻其不备出其不意。剑之道，胜人先胜己
    三把刀，三箭客，武田信玄，服部半藏，小boss，鬼冢一郎，你自己。三箭客用动作融合实现边跑边射箭
  4.goalRound（迂回，目的是到达敌人背面）,flash选择目的位置时在道场中央放置隐形物体，flash时目标位置距离中央距离不能超过半径
  5.goapdecision新增nextTarget，由selecttarget赋值，在goalbase.onexit（bool replaced为false）时给desiredtarget赋值。
@@ -140,9 +140,12 @@ public class WorldStatePropInfoEx
  10.代码中原来由mathfx调用的函数统一改成调用phenix库里的 
  11.samurai后退roll有时会短距离甚至原地滚动？ 
  12.整理溅血粒子和击中火花、格挡的星星。UI相关。
- 13.镜头动画，boss咆哮时镜头震动、圆形烟雾。樱花飘落粒子、灯笼摆动动画
+ 13.镜头动画，樱花飘落粒子
  14.音效、全屏颜色渐变成黑白。
  15.新增npc将要被攻击时，可以左右侧移
+ 16.增加木桶（可击碎）、狼牙棒（间或闪现），动作相应的绕开障碍物处理
+ 17.增加佛像竹林场景、竹排河面（落日、站立的竹排随波浪浮动、波浪可使用动态mesh）、铁索桥（类似拳皇，可使用unity公众号
+    cinemachine渲染格斗）、大boss最终斗场（火焰粒子）
 */
 public class GOAPDecision : Decision
 {

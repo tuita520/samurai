@@ -20,11 +20,6 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
 
     public override void OnEnter()
     {
-        /*ComboMgr comboMgr = Agent.GetComponent<ComboMgr>();
-        if (comboMgr)
-        {
-            comboMgr.Reset();
-        }*/
         Agent.AnimSet.ResetComboProgress();
         SendEvent();
     }
@@ -85,29 +80,20 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
         {            
             _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.JUMP_KILL);
             //_eventAttack.attackType = OrderAttackType.FATALITY;
+            Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.BERSERK);
         }
         else
         {
             _eventAttack.animAttackData = Agent.AnimSet.ProcessOrderCombo((Agent.PlayerOrder.GetCurOrder() as OrderDataAttack).attackType/*_eventAttack.attackType*/);
-        }
-        /*ComboMgr comboMgr = Agent.transform.GetComponent<ComboMgr>();
-        if (comboMgr != null)
-        {
-            if (_eventAttack.target != null && _eventAttack.target.BlackBoard.IsKnockedDown)
+            if (_eventAttack.animAttackData.fullCombo)
             {
-                _eventAttack.animAttackData = Agent.AnimSet.GetFirstAttackAnim(
-                    Agent.BlackBoard.weaponSelected, AttackType.FATALITY);
-                _eventAttack.attackType = AttackType.FATALITY;
-                comboMgr.Reset();
+                Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.BERSERK);
             }
-            else
-                _eventAttack.animAttackData = comboMgr.ProcessCombo(_eventAttack.attackType);
-        }
-        else
-        {
-            _eventAttack.animAttackData = Agent.GetComponent<AnimSet>().GetFirstAttackAnim(
-                Agent.BlackBoard.weaponSelected, _eventAttack.attackType);
-        }        */
+            else if (UnityEngine.Random.Range(0, 100) < 20)
+            {
+                Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_PREPARE);
+            }
+        }        
 
         Agent.FSMComponent.SendEvent(_eventAttack);
     }

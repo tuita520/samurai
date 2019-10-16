@@ -48,9 +48,11 @@ public class HandleAttackResult
             if (target.BlackBoard.invulnerable || 
                 (target.BlackBoard.damageOnlyFromBack && Vector3.Angle(attackerDir, target.Forward) > 80))
             {
-                // 攻击无效
-                ReceiveHitCompletelyBlocked(target, agent);                
-                HandleSound.PlaySoundBlocked();
+                if (dist <= agent.BlackBoard.weaponRange)
+                {
+                    // 攻击无效
+                    ReceiveHitCompletelyBlocked(target, agent);
+                }                
                 continue;
             }
 
@@ -59,8 +61,7 @@ public class HandleAttackResult
                 if (animAttackData.hitAreaKnockdown && knockdown && dist < agent.BlackBoard.weaponRange * 1.2f)
                 {
                     // 击倒                    
-                    ReceiveKnockDown(target, agent, dirToEnemy * animAttackData.hitMomentum);
-                    HandleSound.PlaySoundKnockDown();
+                    ReceiveKnockDown(target, agent, dirToEnemy * animAttackData.hitMomentum);                    
                 }
                 else if (animAttackData.useImpuls && dist < agent.BlackBoard.weaponRange * 1.4f)
                 {
@@ -85,14 +86,12 @@ public class HandleAttackResult
                 agent.BlackBoard.FaceToOtherBack(target)) // from behind            
             {
                 // 碎尸
-                ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);
-                HandleSound.PlaySoundHit();
+                ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);                
             }
             else if (target.BlackBoard.IsBlocking)            
             {
                 // 被格挡
-                ReceiveBlockedHit(target, agent, weaponType, animAttackData.hitDamage, animAttackData);
-                HandleSound.PlaySoundBlocked();
+                ReceiveBlockedHit(target, agent, weaponType, animAttackData.hitDamage, animAttackData);                
             }
             else if (target.BlackBoard.criticalAllowed && 
                     critical &&
@@ -100,26 +99,23 @@ public class HandleAttackResult
                     (animAttackData.hitCriticalType == CriticalHitType.HORIZONTAL && Random.Range(0, 100) < 30)))
             {
                 // 碎尸
-                ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);
-                HandleSound.PlaySoundHit();
+                ReceiveCriticalHit(target, agent, animAttackData.hitCriticalType, false);                
             }
             else if (animAttackData.hitAreaKnockdown && knockdown)            
             {
                 // 击倒
                 ReceiveKnockDown(target, agent, dirToEnemy * 
-                    (1 - (dist / agent.BlackBoard.weaponRange) + animAttackData.hitMomentum));
-                HandleSound.PlaySoundKnockDown();
+                    (1 - (dist / agent.BlackBoard.weaponRange) + animAttackData.hitMomentum));                
             }
             else if (animAttackData.hitAngle == -1/*比如attack whirl*/ || Vector3.Angle(attackerDir, dirToEnemy) < animAttackData.hitAngle)
             {
                 // 普通伤害
                 ReceiveDamage(target, agent, weaponType, animAttackData.hitDamage, animAttackData.hitMomentum);                
-                HandleSound.PlaySoundHit();
             }
             else
             {                
-                // miss
-                HandleSound.PlaySoundMiss();
+                // miss                
+                agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_MISS);
             }
         }        
     }
@@ -143,9 +139,9 @@ public class HandleAttackResult
             agent.BlackBoard.health = 0;
             agent.BlackBoard.damageType = DamageType.IN_KNOCK_DOWN;            
             agent.Decision.OnDead();
-            //CombatEffectsManager.Instance.PlayCriticalEffect(Transform.position, -attacker.Forward);
-            //StartCoroutine(Fadeout(3));
-            //SoundPlay(SoundDataManager.Instance.FatalitySound);
+                        
+            attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_FATAL);
+
             if (attacker.IsPlayer)
             {
                 //Game.Instance.Score += Experience;
@@ -160,7 +156,7 @@ public class HandleAttackResult
             if (agent.BlackBoard.IsAlive)
             {
                 agent.Decision.OnInjury();
-                //SpriteEffectsManager.Instance.CreateBlood(Transform);
+                
                 SpriteComponent.Instance.CreateSprite(SpriteType.BLOOD,
                     new Vector3(agent.transform.localPosition.x, agent.transform.localPosition.y + 0.5f,
                     agent.transform.localPosition.z), new Vector3(90, Random.Range(0, 180), 0));
@@ -168,8 +164,7 @@ public class HandleAttackResult
             else
             {
                 agent.Decision.OnDead();
-                //StartCoroutine(Fadeout(3));
-
+                
                 if (attacker.IsPlayer)
                 {
                     //Game.Instance.Score += Experience;
@@ -178,18 +173,17 @@ public class HandleAttackResult
             }
 
             if (damage >= 15)
-            {
-                //CombatEffectMgr.Instance.PlayBloodBigEffect(agent.Transform.position, -attacker.Forward);
+            {                
                 ParticleComponent.Instance.Play(ParticleType.BIG_BLOOD_AND_HIT_BLINK, 
                     agent.Transform.position, -attacker.Forward); ;
             }
             else
-            {
-                //CombatEffectMgr.Instance.PlayBloodEffect(agent.Transform.position, -attacker.Forward);
+            {                
                 ParticleComponent.Instance.Play(ParticleType.BLOOD_AND_HIT_BLINK, 
                     agent.Transform.position, -attacker.Forward); ;
             }
 
+            attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_HIT);
         }
     }
 
@@ -201,6 +195,7 @@ public class HandleAttackResult
         BlackBoard.Rage += BlackBoard.RageBlockModificator;
         if (attacker.IsPlayer)
             Game.Instance.NumberOfBlockedHits++;*/
+        attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_BLOCK);
     }
 
     static void ReceiveBlockedHit(Agent1 agent, Agent1 attacker, WeaponType byWeapon, 
@@ -224,6 +219,8 @@ public class HandleAttackResult
                 new Vector3(agent.transform.localPosition.x, agent.transform.localPosition.y + 0.5f,
                     agent.transform.localPosition.z), 
                 new Vector3(90, Random.Range(0, 180), 0));
+
+            attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_HIT);
         }
         else
         {
@@ -240,6 +237,8 @@ public class HandleAttackResult
                 //if (attacker.isPlayer)
                 //  Game.Instance.NumberOfBreakBlocks++;
                 //CombatEffectsManager.Instance.PlayBlockBreakEffect(Transform.position, -attacker.Forward);
+
+                attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_BLOCK);
             }
             else
             {
@@ -254,6 +253,7 @@ public class HandleAttackResult
                 //  Game.Instance.NumberOfBlockedHits++;
                 //CombatEffectMgr.Instance.PlayBlockHitEffect(agent.ChestPosition, -attacker.Forward);
                 ParticleComponent.Instance.Play(ParticleType.BLOCK_SUCCESS, agent.ChestPosition, -attacker.Forward);
+                attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_BLOCK);
             }
         }
     }
@@ -283,6 +283,7 @@ public class HandleAttackResult
 
         agent.Decision.OnKnockDown();
         //CombatEffectsManager.Instance.PlayKnockdownEffect(Transform.position, -attacker.Forward);
+        attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_KNOCK_DOWN);
     }
 
     static void ReceiveCriticalHit(Agent1 agent, Agent1 attacker, CriticalHitType type, bool effectOnly/* = false*/)
@@ -318,6 +319,8 @@ public class HandleAttackResult
                 ChoppedBodyMgr1.Instance.ShowChoppedBody(agent.agentType, agent.Transform, ChoppedBodyType1.SLICE_FRONT_BACK);
         }
 
+        attacker.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_HIT);
+
         //CombatEffectsManager.Instance.PlayCriticalEffect(Transform.position, -attacker.Forward);
         //Mission.Instance.ReturnHuman(hitAgent.gameObject);
         agent.gameObject.SetActive(false); // 临时这么写着
@@ -350,8 +353,7 @@ public class HandleAttackResult
                 (target.BlackBoard.damageOnlyFromBack && TransformTools.Instance.IsBehindTarget(agent.Transform, target.Transform) == false))
             {
                 // 攻击无效
-                ReceiveHitCompletelyBlocked(target, agent);
-                HandleSound.PlaySoundBlocked();
+                ReceiveHitCompletelyBlocked(target, agent);                
                 continue;
             }
 
@@ -363,8 +365,7 @@ public class HandleAttackResult
                 //{
                 //    ReceiveImpuls(target, agent, dirToTarget.normalized * data.hitMomentum);
                 //}                
-                ReceiveDamage(target, agent, WeaponType.BODY, data.hitDamage, data.hitMomentum);
-                HandleSound.PlaySoundHit();
+                ReceiveDamage(target, agent, WeaponType.BODY, data.hitDamage, data.hitMomentum);                
             }
         }   
     }

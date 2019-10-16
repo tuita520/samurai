@@ -55,7 +55,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
         _endOfStateTime = Agent.AnimEngine["attackRollStart"].length * 0.95f + Time.timeSinceLevelLoad;
         _hitTimer = 0;
         UpdateFinalRotation();
-        //Agent.SoundPlay(Agent.RollSounds[0]);
+        Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_ROLL_BEGIN);
     }
 
     public override void OnUpdate()
@@ -125,7 +125,7 @@ public class AnimFSMStateAttackRoll : AnimFSMState
         Agent.BlackBoard.motionType = MotionType.ROLL;
         _endOfStateTime = Agent.AnimEngine["attackRollEnd"].length * 0.95f + Time.timeSinceLevelLoad;
         Agent.MotionTrace.Stop();
-        //Agent.SoundPlay(Agent.RollSounds[2]);
+        Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_ROLL_END);
     }
 
     void UpdateFinalRotation()

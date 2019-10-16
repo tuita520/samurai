@@ -191,7 +191,7 @@ public class GOAPActionReactToDamageBoss : GOAPActionBase
 
     void SendRevengeAttackEvent()
     {
-        HandleSound.PlaySoundBerserk();
+        Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.BERSERK);
         Agent.BlackBoard.invulnerable = true;
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
         _eventAttack.animAttackData = Agent.AnimSet.ProcessCombo(ComboType.REVENGE);

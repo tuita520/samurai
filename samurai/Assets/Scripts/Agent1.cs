@@ -16,8 +16,7 @@ public class Agent1 : MonoBehaviour
     //Fsm         _animFsm;
     //PlayerInput _input;
     //GOAPManager _goapMgr;
-    AudioSource _audioEffect;       // 音效
-
+    public AudioSource AudioSource { get; private set; }
     public Decision Decision { get; private set; }
     public PlayerOrder PlayerOrder { get; private set; }
     public FSMComponent FSMComponent { get; private set; }
@@ -26,7 +25,8 @@ public class Agent1 : MonoBehaviour
     public Transform Transform { get; private set; }
     public CharacterController CharacterController { get; private set; }
     public AnimSet AnimSet { get; private set; }
-    public SoundMgr SoundMgr { get; private set; }
+    //public SoundMgr SoundMgr { get; private set; }
+    public SoundComponent SoundComponent { get; private set; }
     public MotionTrace MotionTrace { get; private set; }    
 
     public Vector3 Position { get { return transform.position; } }
@@ -60,10 +60,11 @@ public class Agent1 : MonoBehaviour
         Transform = GetComponent<Transform>();
         CharacterController = GetComponent<CharacterController>();
         AnimSet = GetComponent<AnimSet>();
-        SoundMgr = GetComponent<SoundMgr>();
-        MotionTrace = GetComponent<MotionTrace>();
-        
-        _audioEffect = GetComponent<AudioSource>();
+        //SoundMgr = GetComponent<SoundMgr>();
+        MotionTrace = GetComponent<MotionTrace>();        
+        AudioSource = GetComponent<AudioSource>();
+        SoundComponent = GetComponent<SoundComponent>();
+
         _collisionCenter = CharacterController.center;
 
         Transform tust = transform.Find("rollTust");
@@ -88,7 +89,28 @@ public class Agent1 : MonoBehaviour
         }
 
         switch (agentType)
-        {            
+        {
+            case AgentType.PLAYER:
+                MotionEffect = new MotionEffectPlayer();
+                break;
+            case AgentType.SAMURAI:
+                MotionEffect = new MotionEffectSamurai();
+                break;
+            case AgentType.PEASANT:
+                MotionEffect = new MotionEffectPeasant();
+                break;
+            case AgentType.SWORD_MAN:
+                MotionEffect = new MotionEffectSwordMan();
+                break;
+            case AgentType.DOUBLE_SWORDS_MAN:
+                MotionEffect = new MotionEffectDoubleSwordsMan();
+                break;
+            case AgentType.ARCHER:
+                MotionEffect = new MotionEffectArcher();
+                break;
+            case AgentType.MINI_BOSS:
+                MotionEffect = new MotionEffectMiniBoss();
+                break;
             case AgentType.BOSS_OROCHI:
                 MotionEffect = new MotionEffectBossOrochi();
                 break;
@@ -175,7 +197,7 @@ public class Agent1 : MonoBehaviour
 
     
 
-    public void PlaySound(AudioClip clip)
+    /*public void PlaySound(AudioClip clip)
     {
         if (_audioEffect && clip)
             _audioEffect.PlayOneShot(clip);
@@ -186,7 +208,7 @@ public class Agent1 : MonoBehaviour
         StartCoroutine(PlaySoundLoopImp(clip, delay, time, fadeInTime, fadeOutTime));
     }
 
-    IEnumerator PlaySoundLoopImp(AudioClip clip, float delay, float time/*播放时长*/, float fadeInTime, float fadeOutTime)
+    IEnumerator PlaySoundLoopImp(AudioClip clip, float delay, float time, float fadeInTime, float fadeOutTime)
     {
         if (_audioEffect == null || clip == null)
         {
@@ -223,7 +245,7 @@ public class Agent1 : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         _audioEffect.volume = 1;
-    }
+    }*/
 
     public void DisableCollisions()
     {

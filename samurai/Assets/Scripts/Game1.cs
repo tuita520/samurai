@@ -10,21 +10,22 @@ public class Game1 : Singleton<Game1>
     public Transform world;
 
 
-    BGM _bgm;
+    //BGM _bgm;
     GameState _gameState;
 
 	// Use this for initialization
 	protected override void Awake ()
     {
         base.Awake();
-        _bgm = GetComponent<BGM>();
+        //_bgm = GetComponent<BGM>();
         _gameState = GameState.Game;
         world = GameObject.Find("World").transform;
     }
 
     void Start()
     {
-        _bgm.FadeIn(_bgm.bgmClip);
+        //_bgm.FadeIn(_bgm.bgmClip);
+        SoundCenter.Instance.SoundMgr.PlayLoop((int)SoundType.BGM);
     }
 
     // Update is called once per frame

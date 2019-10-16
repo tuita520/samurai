@@ -56,7 +56,8 @@ public class GOAPGoalAttack : GOAPGoalBase
     public override void OnEnter(Phenix.Unity.AI.WorldState ws)
     {
         UnityEngine.Debug.Log("attack");
-        base.OnEnter(ws);        
+        base.OnEnter(ws);
+        Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_PREPARE);
     }
 
     public override void OnExit(Phenix.Unity.AI.WorldState ws)

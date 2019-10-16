@@ -68,7 +68,7 @@ public enum AgentType
     PEASANT_LOW,
     DOUBLE_SWORDS_MAN,
     ARCHER,    
-    MINI_BOSS01,    
+    MINI_BOSS,    
     BOSS_OROCHI,
 	NPC_MAX,
     PLAYER,
@@ -292,6 +292,12 @@ public enum SoundType
     ATTACK_BLOCK,
     WEAPON_ON,
     WEAPON_OFF,
+    ATTACK_FATAL,
+    ATTACK_KNOCK_DOWN,
+    ATTACK_ROLL_BEGIN,
+    ATTACK_ROLL_END,
+    TAUNT,                  // ÃÙ–∆
+    BGM,                    // ≥°æ∞±≥æ∞“Ù¿÷
 }
 
 public enum ParticleType

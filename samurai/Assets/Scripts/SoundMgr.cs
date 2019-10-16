@@ -20,13 +20,14 @@ public class SoundData
 
 public class SoundMgr : MonoBehaviour
 {
+    Agent1 _agent;
     public List<SoundData> sounds = new List<SoundData>();
-
     Dictionary<SoundType, AudioClip> _sounds = new Dictionary<SoundType, AudioClip>();
 
     // Use this for initialization
     void Start()
     {
+        _agent = GetComponent<Agent1>();
         foreach (var sound in sounds)
         {
             _sounds.Add(sound.soundType, sound.GetClip());
@@ -36,75 +37,75 @@ public class SoundMgr : MonoBehaviour
     /// <summary>
     /// 简单播一发
     /// </summary>    
-    public void PlayOneShot(AudioSource audioSource, SoundType soundType)
+    public Coroutine PlayOneShot(SoundType soundType, float delay = 0)
     {
         if (_sounds.ContainsKey(soundType) == false)
         {
-            return;
+            return null;
         }
-        AudioTools.Instance.PlayOneShot(audioSource, _sounds[soundType]);        
+        return AudioTools.Instance.PlayOneShot(_agent.AudioSource, _sounds[soundType], delay);        
     }
 
     /// <summary>
     /// 音量渐起
     /// </summary>    
-    public void PlayIn(AudioSource audioSource, SoundType soundType, float fadeInTime)
+    public void PlayIn(SoundType soundType, float fadeInTime)
     {
         if (_sounds.ContainsKey(soundType) == false)
         {
             return;
         }
 
-        AudioTools.Instance.PlayIn(audioSource, _sounds[soundType], fadeInTime);
+        AudioTools.Instance.PlayIn(_agent.AudioSource, _sounds[soundType], fadeInTime);
     }
     
     /// <summary>
     /// 音量渐落
     /// </summary>    
-    public void PlayOut(AudioSource audioSource, SoundType soundType, float fadeOutTime)
+    public void PlayOut(SoundType soundType, float fadeOutTime)
     {
         if (_sounds.ContainsKey(soundType) == false)
         {
             return;
         }
 
-        AudioTools.Instance.PlayOut(audioSource, _sounds[soundType], fadeOutTime);        
+        AudioTools.Instance.PlayOut(_agent.AudioSource, _sounds[soundType], fadeOutTime);        
     }
 
     /// <summary>
     /// 循环播放clip
     /// </summary>    
-    public void PlayLoop(AudioSource audioSource, SoundType soundType)
+    public void PlayLoop(SoundType soundType)
     {
         if (_sounds.ContainsKey(soundType) == false)
         {
             return;
         }
-        AudioTools.Instance.PlayLoop(audioSource, _sounds[soundType]);
+        AudioTools.Instance.PlayLoop(_agent.AudioSource, _sounds[soundType]);
     }
 
     /// <summary>
     /// 在指定时长内循环播放clip
     /// </summary>    
-    public void PlayLoop(AudioSource audioSource, SoundType soundType, float time,
+    public void PlayLoop(SoundType soundType, float time,
         float fadeInTime = 0, float fadeOutTime = 0)
     {
         if (_sounds.ContainsKey(soundType) == false)
         {
             return;
         }
-        AudioTools.Instance.PlayLoop(audioSource, _sounds[soundType], time, fadeInTime, fadeOutTime);
+        AudioTools.Instance.PlayLoop(_agent.AudioSource, _sounds[soundType], time, fadeInTime, fadeOutTime);
     }
 
     /// <summary>
     /// 过渡播放(当前clip渐落之后，新clip渐起)
     /// </summary>    
-    public void PlayCross(AudioSource audioSource, SoundType soundType, float fadeOutTime, float fadeInTime)
+    public void PlayCross(SoundType soundType, float fadeOutTime, float fadeInTime)
     {
         if (_sounds.ContainsKey(soundType) == false)
         {
             return;
         }
-        AudioTools.Instance.PlayCross(audioSource, _sounds[soundType], fadeOutTime, fadeInTime);
+        AudioTools.Instance.PlayCross(_agent.AudioSource, _sounds[soundType], fadeOutTime, fadeInTime);
     }    
 }

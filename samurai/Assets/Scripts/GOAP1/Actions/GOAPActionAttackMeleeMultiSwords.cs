@@ -78,7 +78,7 @@ public class GOAPActionAttackMeleeMultiSwords : GOAPActionBase
         if (_eventAttack.attackPhaseDone && _remainAttackCount > 0 && 
             (_eventAttack.target.Position - Agent.Position).magnitude <= _eventAttack.target.BlackBoard.weaponRange * 1.5)
         {
-            //Owner.SoundPlayPrepareAttack();
+            Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.ATTACK_PREPARE);
             _eventAttack.Release();
             SendEvent();            
         }       

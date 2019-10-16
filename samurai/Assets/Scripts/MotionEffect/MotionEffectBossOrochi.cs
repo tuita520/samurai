@@ -15,6 +15,7 @@ public class MotionEffectBossOrochi : MotionEffectBase
         {
             ParticleTools.Instance.Play(agent.particleSystemTauntTust, 0, 0.8f);
         }
+        agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.TAUNT, 0.8f);
     }
 
     public override void OnTauntEnd(Agent1 agent)

@@ -76,7 +76,8 @@ public class AnimFSMStateRoll : AnimFSMState
         if (Agent.BlackBoard.showMotionEffect)
         {
             ParticleTools.Instance.Play(Agent.particleSystemRollTust, Agent.gameObject.ForwardRadian(), 0f);
-        }        
+        }
+        Agent.MotionEffect.OnRoll(Agent);
     }
 
     public override bool OnEvent(FSMEvent ev)

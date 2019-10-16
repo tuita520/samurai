@@ -36,7 +36,7 @@ public class GOAPActionAttackCounter : GOAPActionBase
 
     void SendEvent()
     {
-        //Owner.SoundPlayBerserk();
+        Agent.SoundComponent.SoundMgr.PlayOneShot((int)SoundType.BERSERK);
         _eventAttack = AnimFSMEventAttackMelee.pool.Get();
         _eventAttack.target = Agent.BlackBoard.HasAttackTarget ? Agent.BlackBoard.desiredTarget : null;
         //_eventAttack.attackType = OrderAttackType.COUNTER;

@@ -53,6 +53,7 @@ public class AnimFSMStateAttackWhirl : AnimFSMState
         _hitTimer = Time.timeSinceLevelLoad + 0.75f;
 
         // Owner.PlayLoopSound(Owner.BerserkSound, 1, AnimEngine[Action.Data.AnimName].length - 1, 0.5f, 0.9f);
+        Agent.SoundComponent.SoundMgr.PlayLoop((int)SoundType.BERSERK, Agent.AnimEngine[_eventWhirl.data.animName].length - 1, 1.5f, 0.9f);
 
         _timeToStartEffect = Time.timeSinceLevelLoad + 1;
         _timeToEndEffect = Time.timeSinceLevelLoad + Agent.AnimEngine[_eventWhirl.data.animName].length - 1;        
