@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class test : MonoBehaviour
+[ExecuteInEditMode]public class test : MonoBehaviour
 {
     public Transform player;
     GameObject blood;
@@ -11,6 +11,11 @@ public class test : MonoBehaviour
     List<OrderAttackType> attackTypeList = new List<OrderAttackType>();
     uint hitVal = 0;
     
+    private void Awake()
+    {
+        Debug.Log("awake");
+    }
+
     // Use this for initialization
     void Start () {
         //Time.timeScale = 0;

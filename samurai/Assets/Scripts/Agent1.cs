@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Phenix.Unity.Effect;
+using Phenix.Unity.UI;
 
 public class Agent1 : MonoBehaviour
 {
@@ -92,6 +92,7 @@ public class Agent1 : MonoBehaviour
         {
             case AgentType.PLAYER:
                 MotionEffect = new MotionEffectPlayer();
+                (Model.Get((int)UIType.ARENA) as ModelArena).Player = this;
                 break;
             case AgentType.SAMURAI:
                 MotionEffect = new MotionEffectSamurai();

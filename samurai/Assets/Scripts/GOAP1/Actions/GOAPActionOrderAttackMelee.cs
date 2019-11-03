@@ -96,5 +96,13 @@ public class GOAPActionOrderAttackMelee : GOAPActionBase
         }        
 
         Agent.FSMComponent.SendEvent(_eventAttack);
+        NotifyUI(Agent.BlackBoard.desiredTarget);   
+    }
+
+    void NotifyUI(Agent1 newTarget)
+    {
+        MsgTargetChanged msg = MsgTargetChanged.pool.Get();
+        msg.newAgent = newTarget;
+        UIFacadeComponent.Instance.SendMsg(msg);
     }
 }

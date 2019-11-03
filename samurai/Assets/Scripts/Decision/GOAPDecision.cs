@@ -145,7 +145,8 @@ public class WorldStatePropInfoEx
  15.新增npc将要被攻击时，可以左右侧移
  16.增加木桶（可击碎）、狼牙棒（间或闪现），动作相应的绕开障碍物处理
  17.增加佛像竹林场景、竹排河面（落日、站立的竹排随波浪浮动、波浪可使用动态mesh）、铁索桥（类似拳皇，可使用unity公众号
-    cinemachine渲染格斗）、大boss最终斗场（火焰粒子）
+    cinemachine渲染格斗,或坦克大战那个显示两辆坦克的镜头）、大boss最终斗场（火焰粒子）
+ 18."瞬杀"：可以在敌人将要攻击某一刻按动，即时触发跳斩或身后斩
 */
 public class GOAPDecision : Decision
 {

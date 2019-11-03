@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: UIAtlas
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    packedHash:
+      serializedVersion: 2
+      Hash: 2c78e9201ebbec7f2314413c852922b1
+    variantMultiplier: 1
+    bindAsDefault: 1
+    finalFormat: 4
+    hashString: 2c78e9201ebbec7f2314413c852922b1
+    totalSpriteSurfaceArea: 157752
+    packables:
+    - {fileID: 102900000, guid: 0edb4739de621774780d706bc282a360, type: 3}
+    packedSpriteRenderDataKeys:
+    - 4019acc651748fe40a69cf5f42d6ce07: 21300000
+    - 0f6bcfda709afbb4dbce415677088ad6: 21300000
+    - c526a5502b496334a9a2ac4a570a5d7d: 21300000
+    - c323b25b40fe0e541b76789b03dbf8b9: 21300000
+    - 2aed43ceb47494049b16ed72c8e2b5c1: 21300000
+    - 3c7b28ae8b9519e47b39f7e8054b0f3b: 21300000
+    - 53c93f705eb60444680add67cda1b245: 21300000
+    - c7204e2adfafaea4fa8143efafc5cfb8: 21300000
+    - ee72d1f52fe48b2448bbb824eff24724: 21300000
+    - e3a5c6753d43cc341b8df3359813d9c3: 21300000
+    - 4c64ac16c9fd7834ba68c4927caa35e8: 21300000
+    - 400d4158ac8a061499728206a5885da5: 21300000
+    - e43ff89226a79fb408162cd3a17b13ea: 21300000
+    - a30ba4aeeec9c7d41bd35422912a4e43: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4019acc651748fe40a69cf5f42d6ce07, type: 3}
+  - {fileID: 21300000, guid: 0f6bcfda709afbb4dbce415677088ad6, type: 3}
+  - {fileID: 21300000, guid: c526a5502b496334a9a2ac4a570a5d7d, type: 3}
+  - {fileID: 21300000, guid: c323b25b40fe0e541b76789b03dbf8b9, type: 3}
+  - {fileID: 21300000, guid: 2aed43ceb47494049b16ed72c8e2b5c1, type: 3}
+  - {fileID: 21300000, guid: 3c7b28ae8b9519e47b39f7e8054b0f3b, type: 3}
+  - {fileID: 21300000, guid: 53c93f705eb60444680add67cda1b245, type: 3}
+  - {fileID: 21300000, guid: c7204e2adfafaea4fa8143efafc5cfb8, type: 3}
+  - {fileID: 21300000, guid: ee72d1f52fe48b2448bbb824eff24724, type: 3}
+  - {fileID: 21300000, guid: e3a5c6753d43cc341b8df3359813d9c3, type: 3}
+  - {fileID: 21300000, guid: 4c64ac16c9fd7834ba68c4927caa35e8, type: 3}
+  - {fileID: 21300000, guid: 400d4158ac8a061499728206a5885da5, type: 3}
+  - {fileID: 21300000, guid: e43ff89226a79fb408162cd3a17b13ea, type: 3}
+  - {fileID: 21300000, guid: a30ba4aeeec9c7d41bd35422912a4e43, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Player_Info_BG
+  - Monster_Info_BG
+  - Skill6
+  - Skill4
+  - Skill5
+  - Skill2
+  - Skill3
+  - Skill1
+  - HeadImg2
+  - HeadImg3
+  - HeadImg1
+  - HeadImg4
+  - HeadImg5
+  - TitleBar_001
+  m_Tag: UIAtlas
+  m_IsVariant: 0

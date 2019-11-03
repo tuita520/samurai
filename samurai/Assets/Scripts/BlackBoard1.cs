@@ -183,7 +183,9 @@ public class BlackBoard1
     [System.NonSerialized]
     public float health = 100;
     public float maxHealth = 100;
-        
+
+    public Sprite head;
+
     [System.NonSerialized]
     public Vector3 desiredDirection;
     [System.NonSerialized]
