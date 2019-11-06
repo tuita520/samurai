@@ -95,7 +95,7 @@ namespace Phenix.Unity.Editor
             // 以下三行必须在此执行，若放在CreateJoyStick中会因为新建对象层级未绑定以至canvas为null
             UIDragable dragable = joyStick.GetComponentInChildren<UIDragable>();
             Canvas canvas = dragable.GetComponentInParent<Canvas>();
-            dragable.canvasTransform = canvas.GetComponent<RectTransform>();
+            dragable.rect = canvas.GetComponent<RectTransform>();
         }
 
         static GameObject CreateJoyStick(UIResources resources)
@@ -382,6 +382,46 @@ namespace Phenix.Unity.Editor
             ssv.viewPort = viewPort;
 
             return scroll;
+        }
+        #endregion
+
+        #region ---------------- 弧形列表 ----------------
+        [MenuItem("GameObject/UI/Phenix/ArcView", false)]
+        public static void RegisterArcView(MenuCommand menuCommand)
+        {
+            GameObject arcView = CreateArcView(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(arcView, menuCommand);
+        }
+
+        static GameObject CreateArcView(UIResources resources)
+        {
+            GameObject arc = DefaultControls.CreateImage(UIDefaultControls.ConvertToDefaultResources(resources));
+            arc.name = "ArcView";
+            Image background = arc.GetComponent<Image>();
+            background.enabled = false;
+            background.raycastTarget = false;
+            ArcView arcView = arc.AddComponent<ArcView>();
+
+            GameObject content = new GameObject("Content");
+            content.transform.parent = arc.transform;
+
+            GameObject hotSpot = DefaultControls.CreateImage(UIDefaultControls.ConvertToDefaultResources(resources));
+            hotSpot.name = "HotSpot";
+            hotSpot.GetComponent<Image>().color = new Vector4(255, 255, 255, 0);
+            UIDragable uiDragable = hotSpot.AddComponent<UIDragable>();
+            uiDragable.rect = hotSpot.GetComponent<RectTransform>();
+            hotSpot.transform.parent = arc.transform;
+
+            GameObject btnSwitch = DefaultControls.CreateButton(UIDefaultControls.ConvertToDefaultResources(resources));
+            btnSwitch.transform.parent = arc.transform;
+
+            arcView.panel = arc.transform as RectTransform;
+            arcView.content = content.transform as RectTransform;
+            arcView.hotSpot = uiDragable;
+            arcView.btnSwitch = btnSwitch.GetComponent<Button>();
+            arcView.foldDir = ArcView.FoldDirection.TO_LEFT;
+
+            return arc;
         }
         #endregion
     }

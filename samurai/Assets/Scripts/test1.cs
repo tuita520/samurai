@@ -3,21 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Phenix.Unity.Utilities;
-using Phenix.Unity.UI;
 
 [ExecuteInEditMode]
-public class test : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class test1 : MonoBehaviour, IPointerClickHandler
 {
     public Transform player;
     GameObject blood;
     ViewCtrlMain viewCtrlMain;
     List<OrderAttackType> attackTypeList = new List<OrderAttackType>();
     uint hitVal = 0;
-
-    public GameObject btn1;
-    public GameObject btn2;
-    public ArcView arc;
-
+    
     private void Awake()
     {
         Debug.Log("awake");
@@ -100,21 +95,8 @@ public class test : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         int c = a + b;
         /*if (UITools.Instance.IsPointerOverGameObject())
         {
-            Debug.Log("YES");
-        } */
-
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            arc.Add(btn1);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            arc.Add(btn2);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha0))
-        {
-            arc.Remove(btn1);
-        }
+            Debug.Log("YES " + gameObject.name);
+        } */      
     }
 
     public void OnClick()
@@ -133,23 +115,5 @@ public class test : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         Debug.Log("TEST OnPointerClick");
         UITools.Instance.PassPointerEventClick(eventData);
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        Debug.Log("TEST OnBeginDrag");
-        UITools.Instance.PassPointerEventBeginDrag(eventData);
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        Debug.Log("TEST OnDrag");
-        UITools.Instance.PassPointerEventDrag(eventData);
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        Debug.Log("TEST OnEndDrag");
-        UITools.Instance.PassPointerEventEndDrag(eventData);
     }
 }
