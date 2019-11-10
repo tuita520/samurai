@@ -7,8 +7,8 @@ namespace Phenix.Unity.Editor
     public class InspectorNumFont : UnityEditor.Editor
     {
         ulong _oriValue;
-
-        private void Awake()
+        
+        private void OnEnable()
         {
             _oriValue = (target as NumFont).Value;
         }
@@ -35,27 +35,27 @@ namespace Phenix.Unity.Editor
     public class InspectorArcView : UnityEditor.Editor
     {
         ArcView _arcView;
-        int _oriCellCount;
-        float _oriAxisRadius;
-        float _oriAxisOffsetDegree;
-        float _oriCellSpaceDegree;
+        //int _oriCellCount;
+        //float _oriAxisRadius;
+        //float _oriAxisOffsetDegree;
+        //float _oriCellSpaceDegree;
 
-        private void Awake()
+        private void OnEnable()
         {
             _arcView = target as ArcView;
-            _oriCellCount = _arcView.cells.Count;
-            float _oriAxisRadius = serializedObject.FindProperty("_axisRadius").floatValue;
-            float _oriAxisOffsetDegree = serializedObject.FindProperty("_axisOffsetDegree").floatValue;
-            float _oriCellSpaceDegree = serializedObject.FindProperty("_cellSpaceDegree").floatValue;            
+            //_oriCellCount = _arcView.cells.Count;
+            //_oriAxisRadius = serializedObject.FindProperty("_axisRadius").floatValue;
+            //_oriAxisOffsetDegree = serializedObject.FindProperty("_axisOffsetDegree").floatValue;
+            //_oriCellSpaceDegree = serializedObject.FindProperty("_cellSpaceDegree").floatValue;            
         }
-
-        bool IsDirty()
+        
+        /*bool IsDirty()
         {
             return _oriCellCount != _arcView.cells.Count ||
                 _oriAxisRadius != serializedObject.FindProperty("_axisRadius").floatValue ||
                 _oriAxisOffsetDegree != serializedObject.FindProperty("_axisOffsetDegree").floatValue ||
                 _oriCellSpaceDegree != serializedObject.FindProperty("_cellSpaceDegree").floatValue;
-        }
+        }*/
 
         public override void OnInspectorGUI()
         {
@@ -66,10 +66,56 @@ namespace Phenix.Unity.Editor
                 return;
             }
 
-            if (IsDirty())
-            {
+            //if (IsDirty())
+            //{
                 _arcView.Reset();
+            //}
+        }
+    }
+    
+    [CustomEditor(typeof(TabView)), CanEditMultipleObjects]
+    public class InspectorTabView : UnityEditor.Editor
+    {
+        TabView _tabView;        
+
+        private void OnEnable()
+        {
+            _tabView = target as TabView;            
+        }
+        
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            if (EditorApplication.isPlaying)
+            {
+                return;
             }
+
+            _tabView.InitTabsOnInspetor();
+        }
+    }
+
+    [CustomEditor(typeof(GridView)), CanEditMultipleObjects]
+    public class InspectorGridView : UnityEditor.Editor
+    {
+        GridView _gridView;
+
+        private void OnEnable()
+        {
+            _gridView = target as GridView;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            if (EditorApplication.isPlaying)
+            {
+                return;
+            }
+
+            _gridView.InitCellsOnInspector();
         }
     }
 }

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using Phenix.Unity.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
+using Phenix.Unity.Utilities;
 
 namespace Phenix.Unity.Editor
 {
@@ -399,11 +399,14 @@ namespace Phenix.Unity.Editor
             arc.name = "ArcView";
             Image background = arc.GetComponent<Image>();
             background.enabled = false;
-            background.raycastTarget = false;
-            ArcView arcView = arc.AddComponent<ArcView>();
+            background.raycastTarget = false;                        
 
-            GameObject content = new GameObject("Content");
-            content.transform.parent = arc.transform;
+            GameObject content = new GameObject("Content", typeof(RectTransform));
+            content.transform.parent = arc.transform;            
+
+            GameObject btnSwitch = DefaultControls.CreateButton(UIDefaultControls.ConvertToDefaultResources(resources));
+            btnSwitch.name = "BtnSwitch";
+            btnSwitch.transform.parent = arc.transform;
 
             GameObject hotSpot = DefaultControls.CreateImage(UIDefaultControls.ConvertToDefaultResources(resources));
             hotSpot.name = "HotSpot";
@@ -411,17 +414,197 @@ namespace Phenix.Unity.Editor
             UIDragable uiDragable = hotSpot.AddComponent<UIDragable>();
             uiDragable.rect = hotSpot.GetComponent<RectTransform>();
             hotSpot.transform.parent = arc.transform;
+            hotSpot.AddComponent<PassPointerEvent>();
 
-            GameObject btnSwitch = DefaultControls.CreateButton(UIDefaultControls.ConvertToDefaultResources(resources));
-            btnSwitch.transform.parent = arc.transform;
-
+            ArcView arcView = arc.AddComponent<ArcView>();
             arcView.panel = arc.transform as RectTransform;
             arcView.content = content.transform as RectTransform;
             arcView.hotSpot = uiDragable;
-            arcView.btnSwitch = btnSwitch.GetComponent<Button>();
-            arcView.foldDir = ArcView.FoldDirection.TO_LEFT;
+            arcView.btnSwitch = btnSwitch.GetComponent<Button>();            
 
             return arc;
+        }
+        #endregion
+
+        #region ---------------- 头顶HUD ----------------
+        [MenuItem("GameObject/UI/Phenix/HeadHud", false)]
+        public static void RegisterHeadHud(MenuCommand menuCommand)
+        {
+            GameObject headHud = CreateHeadHud(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(headHud, menuCommand);            
+        }
+
+        static GameObject CreateHeadHud(UIResources resources)
+        {
+            GameObject headHud = new GameObject("HeadHud");
+            Canvas canvas = headHud.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.WorldSpace;
+            VerticalLayoutGroup layout = headHud.AddComponent<VerticalLayoutGroup>();
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = true;
+            Billboard billboard = headHud.AddComponent<Billboard>();
+            billboard.trans = headHud.transform;
+
+            GameObject hp = DefaultControls.CreateSlider(UIDefaultControls.ConvertToDefaultResources(resources));
+            hp.name = "HP";
+            GameObject.DestroyImmediate(hp.transform.Find("Handle Slide Area").gameObject);
+            hp.transform.parent = headHud.transform;
+
+            GameObject mp = DefaultControls.CreateSlider(UIDefaultControls.ConvertToDefaultResources(resources));
+            mp.name = "MP";
+            GameObject.DestroyImmediate(mp.transform.Find("Handle Slide Area").gameObject);
+            mp.transform.parent = headHud.transform;
+
+            GameObject name = DefaultControls.CreateText(UIDefaultControls.ConvertToDefaultResources(resources));
+            name.name = "Name";            
+            name.transform.parent = headHud.transform;
+            name.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+
+            return headHud;
+        }
+        #endregion
+
+        #region ---------------- 电视秀 ----------------
+        [MenuItem("GameObject/UI/Phenix/TVShow", false)]
+        public static void RegisterTVShow(MenuCommand menuCommand)
+        {
+            GameObject tv = CreateTVShow(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(tv, menuCommand);
+            // 以下必须在此执行，若放在CreateTVShow中会因为新建对象层级未绑定以至canvas为null      
+            TVShow tvShow = tv.GetComponent<TVShow>();
+            tvShow.canvas = tv.GetComponentInParent<Canvas>();
+        }
+
+        static GameObject CreateTVShow(UIResources resources)
+        {
+            GameObject tv = new GameObject("TVShow");
+            TVShow tvShow = tv.AddComponent<TVShow>();
+            RawImage tvScreen = tv.AddComponent<RawImage>();
+
+            GameObject tvCamera = new GameObject("TVCamera", typeof(UnityEngine.Camera));
+            tvCamera.transform.parent = tv.transform;
+            UnityEngine.Camera cam = tvCamera.GetComponent<UnityEngine.Camera>();
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = new Color(0, 0, 0, 0);
+
+            tvShow.tvCamera = cam;
+            tvShow.tvScreen = tvScreen;
+
+            return tv;
+        }
+        #endregion
+
+        #region ---------------- 多页签(横向) ----------------
+        [MenuItem("GameObject/UI/Phenix/HorizontalTabView", false)]
+        public static void RegisterHorizontalTabView(MenuCommand menuCommand)
+        {
+            GameObject tabViewObj = CreateHorizontalTabView(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(tabViewObj, menuCommand);            
+        }
+
+        static GameObject CreateHorizontalTabView(UIResources resources)
+        {
+            GameObject tabViewObj = new GameObject("TabView", typeof(Image));
+            TabView tabView = tabViewObj.AddComponent<TabView>();
+
+            GameObject contents = new GameObject("Contents");
+            HorizontalLayoutGroup layout = contents.AddComponent<HorizontalLayoutGroup>();
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childControlHeight = layout.childControlWidth = false;
+            layout.childForceExpandHeight = layout.childForceExpandWidth = false;
+            ContentSizeFitter csf = contents.AddComponent<ContentSizeFitter>();
+            csf.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            csf.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+
+            tabView.contents = contents.transform as RectTransform;
+            contents.transform.parent = tabViewObj.transform;
+
+            return tabViewObj;
+        }
+        #endregion
+
+        #region ---------------- 多页签(纵向) ----------------
+        [MenuItem("GameObject/UI/Phenix/VerticalTabView", false)]
+        public static void RegisterVerticalTabView(MenuCommand menuCommand)
+        {
+            GameObject tabViewObj = CreateVerticalTabView(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(tabViewObj, menuCommand);
+        }
+
+        static GameObject CreateVerticalTabView(UIResources resources)
+        {
+            GameObject tabViewObj = new GameObject("TabView", typeof(Image));
+            TabView tabView = tabViewObj.AddComponent<TabView>();
+
+            GameObject contents = new GameObject("Contents");
+            VerticalLayoutGroup layout = contents.AddComponent<VerticalLayoutGroup>();
+            layout.childAlignment = TextAnchor.MiddleCenter;
+            layout.childControlHeight = layout.childControlWidth = false;
+            layout.childForceExpandHeight = layout.childForceExpandWidth = false;
+            ContentSizeFitter csf = contents.AddComponent<ContentSizeFitter>();
+            csf.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+            csf.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            tabView.contents = contents.transform as RectTransform;
+            contents.transform.parent = tabViewObj.transform;
+
+            return tabViewObj;
+        }
+        #endregion
+
+        #region ---------------- 开关 ----------------
+        [MenuItem("GameObject/UI/Phenix/Switch", false)]
+        public static void RegisterSwitch(MenuCommand menuCommand)
+        {
+            GameObject toggleOffObj = CreateSwitch(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(toggleOffObj, menuCommand);
+        }
+
+        static GameObject CreateSwitch(UIResources resources)
+        {
+            GameObject switchOff = new GameObject("Switch Off");
+            Toggle toggle = switchOff.AddComponent<Toggle>();
+            Image targetGraphic = switchOff.AddComponent<Image>();
+            GameObject switchOn = new GameObject("Switch On");
+            Image graphic = switchOn.AddComponent<Image>();
+            switchOn.transform.parent = switchOff.transform;
+
+            toggle.targetGraphic = targetGraphic;
+            toggle.graphic = graphic;
+
+            (switchOn.transform as RectTransform).pivot = new Vector2(0.5f, 0.5f);
+            (switchOn.transform as RectTransform).anchorMin = Vector2.zero;
+            (switchOn.transform as RectTransform).anchorMax = Vector2.one;
+            (switchOn.transform as RectTransform).offsetMin = Vector2.zero;
+            (switchOn.transform as RectTransform).offsetMax = Vector2.one;
+
+            return switchOff;
+        }
+        #endregion
+
+        #region ---------------- 网格 ----------------
+        [MenuItem("GameObject/UI/Phenix/GridView", false)]
+        public static void RegisterGridView(MenuCommand menuCommand)
+        {
+            GameObject gridViewObj = CreateGridView(UIMenuTools.GetStandardResources());
+            UIMenuTools.PlaceUIElementRoot(gridViewObj, menuCommand);
+        }
+
+        static GameObject CreateGridView(UIResources resources)
+        {
+            GameObject gridViewObj = DefaultControls.CreateScrollView(UIDefaultControls.ConvertToDefaultResources(resources));
+            gridViewObj.name = "GridView";
+            GridView gridView = gridViewObj.AddComponent<GridView>();            
+            Transform content = gridView.transform.Find("Viewport").Find("Content");
+            gridView.content = content as RectTransform;
+            content.gameObject.AddComponent<GridLayoutGroup>();
+            ScrollRect scrollRect = gridViewObj.GetComponentInChildren<ScrollRect>();
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
+
+            return gridViewObj;
         }
         #endregion
     }
