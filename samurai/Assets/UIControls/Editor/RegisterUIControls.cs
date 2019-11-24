@@ -231,9 +231,9 @@ namespace Phenix.Unity.Editor
             GameObject book = new GameObject("Book", typeof(RectTransform));
             FlipPage flipPage = book.AddComponent<FlipPage>();
 
-            GameObject border = new GameObject("Border", typeof(Image));
+            /*GameObject border = new GameObject("Border", typeof(Image));
             border.transform.parent = book.transform;
-            border.GetComponent<Image>().raycastTarget = false;
+            border.GetComponent<Image>().raycastTarget = false;*/
 
             GameObject left = new GameObject("Left", typeof(Image));
             (left.transform as RectTransform).pivot = Vector2.zero;
@@ -325,12 +325,13 @@ namespace Phenix.Unity.Editor
 
             ScrollRect scrollRect = scroll.GetComponent<ScrollRect>();
             scrollRect.vertical = false;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
 
             RectTransform content = viewPort.transform.Find("Content") as RectTransform;
             HorizontalLayoutGroup layout = content.gameObject.AddComponent<HorizontalLayoutGroup>();
             layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlHeight = layout.childControlWidth = true;
-            layout.childForceExpandHeight = layout.childForceExpandWidth = false;
+            layout.childControlHeight = layout.childControlWidth = false;
+            layout.childForceExpandHeight = layout.childForceExpandWidth = true;
             content.sizeDelta = Vector2.one * 100;
             content.anchorMin = new Vector2(0, 0);
             content.anchorMax = new Vector2(0, 1);
@@ -366,12 +367,13 @@ namespace Phenix.Unity.Editor
 
             ScrollRect scrollRect = scroll.GetComponent<ScrollRect>();
             scrollRect.horizontal = false;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
 
             RectTransform content = viewPort.transform.Find("Content") as RectTransform;
             VerticalLayoutGroup layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.childAlignment = TextAnchor.MiddleCenter;
-            layout.childControlHeight = layout.childControlWidth = true;
-            layout.childForceExpandHeight = layout.childForceExpandWidth = false;
+            layout.childControlHeight = layout.childControlWidth = false;
+            layout.childForceExpandHeight = layout.childForceExpandWidth = true;
             content.anchorMin = new Vector2(0, 1);
             content.anchorMax = new Vector2(1, 1);
 

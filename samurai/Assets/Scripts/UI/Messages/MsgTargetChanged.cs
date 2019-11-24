@@ -24,14 +24,14 @@ public class MessageHandlerTargetChanged : MessageHandler
     public override void OnMessage(Message msg)
     {
         MsgTargetChanged msgTargetChanged = msg as MsgTargetChanged;
-        (Model.Get((int)UIType.ARENA) as ModelArena).Target = msgTargetChanged.newAgent;
+        (Model.Get((int)UIType.VIEW_ARENA) as ModelArena).Target = msgTargetChanged.newAgent;
         if (msgTargetChanged.newAgent)
         {
-            (View.Get((int)UIType.ARENA) as ViewArena).ShowTargetPanel();
+            (View.Get((int)UIType.VIEW_ARENA) as ViewArena).ShowTargetPanel();
         }
         else
         {
-            (View.Get((int)UIType.ARENA) as ViewArena).HideTargetPanel();
+            (View.Get((int)UIType.VIEW_ARENA) as ViewArena).HideTargetPanel();
         }
     }
 }

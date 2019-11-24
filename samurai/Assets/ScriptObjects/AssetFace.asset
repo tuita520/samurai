@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa0a82821d69344c8b1d23284c181b2, type: 3}
+  m_Name: AssetFace
+  m_EditorClassIdentifier: 
+  faces:
+  - agentType: 9
+    name: "\u65E0"
+    homeland: "\u795E\u5948\u5DDD"
+    nickname: "\u5F71"
+    brief: "\u6D6A\u8FF9\u6C5F\u6E56\u7684\u6B66\u58EB"
+    head: {fileID: 21300000, guid: 34ec62fc083f47840a8c3f17c6a0ee85, type: 3}
+    displayPrefab: {fileID: 1799671481141602, guid: cb90a01bcc6a41c4980a48385fed01e2,
+      type: 2}
+    stamina: 80
+    speed: 80
+    sword: 85
+    foxy: 80
+    defend: 70
+  - agentType: 2
+    name: "\u5CA9\u4E95\u4E09\u90CE"
+    homeland: "\u5C71\u68A8"
+    nickname: "\u5730\u5934\u86C7"
+    brief: "\u6A2A\u884C\u4E61\u91CC\u7684\u6076\u9738\uFF0C\u5CA9\u4E95\u56DB\u90CE\u7684\u54E5\u54E5"
+    head: {fileID: 21300000, guid: 36271dbdaa9f77443801b4e93139fac9, type: 3}
+    displayPrefab: {fileID: 100000, guid: 7dc3cbdb506432843b613962c3b70566, type: 2}
+    stamina: 60
+    speed: 60
+    sword: 60
+    foxy: 60
+    defend: 50
+  - agentType: 3
+    name: "\u5CA9\u4E95\u56DB\u90CE"
+    homeland: "\u5C71\u68A8"
+    nickname: "\u5730\u5934\u86C7"
+    brief: "\u6A2A\u884C\u4E61\u91CC\u7684\u6076\u9738\uFF0C\u5CA9\u4E95\u4E09\u90CE\u7684\u5F1F\u5F1F"
+    head: {fileID: 21300000, guid: 65281460ff26796419ca6180eed9f56b, type: 3}
+    displayPrefab: {fileID: 100000, guid: e4963e03ed672e5469812f9ebecdcacd, type: 2}
+    stamina: 60
+    speed: 60
+    sword: 60
+    foxy: 60
+    defend: 50
+  - agentType: 0
+    name: "\u5188\u672C\u4E94\u5341\u516D"
+    homeland: "\u7426\u7389"
+    nickname: 
+    brief: 
+    head: {fileID: 21300000, guid: 80dddd40e4193b948967c21ffb8ccc34, type: 3}
+    displayPrefab: {fileID: 100026, guid: a3a9039fb743750469f4a1c444969923, type: 2}
+    stamina: 10
+    speed: 30
+    sword: 50
+    foxy: 70
+    defend: 90
+  - agentType: 1
+    name: 
+    homeland: 
+    nickname: 
+    brief: 
+    head: {fileID: 21300000, guid: ea17c8448d903bc4cb149f5e3db11fa0, type: 3}
+    displayPrefab: {fileID: 100026, guid: a3a9039fb743750469f4a1c444969923, type: 2}
+    stamina: 0
+    speed: 0
+    sword: 0
+    foxy: 0
+    defend: 0
+  - agentType: 4
+    name: 
+    homeland: 
+    nickname: 
+    brief: 
+    head: {fileID: 21300000, guid: cc4676980890419498bf2be09a9c0b34, type: 3}
+    displayPrefab: {fileID: 100026, guid: a1f2a8dccf1c4d74cbee178ef48ab200, type: 2}
+    stamina: 0
+    speed: 0
+    sword: 0
+    foxy: 0
+    defend: 0
+  - agentType: -1
+    name: "\u672A\u77E5"
+    homeland: "\u672A\u77E5"
+    nickname: "\u672A\u77E5"
+    brief: "\u672A\u77E5"
+    head: {fileID: 21300000, guid: 08d23deccd52e9b42b2878cb6459724c, type: 3}
+    displayPrefab: {fileID: 0}
+    stamina: 0
+    speed: 0
+    sword: 0
+    foxy: 0
+    defend: 0

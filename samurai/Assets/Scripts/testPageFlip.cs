@@ -10,7 +10,7 @@ public class testPageFlip : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        fp.onPageShow.AddListener(OnPageShow);
+        //fp.onPageShow.AddListener(OnPageShow);
     }
 
     // Update is called once per frame

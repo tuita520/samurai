@@ -28,10 +28,8 @@ public class UIFacadeComponent : Singleton<UIFacadeComponent>
     // 屏幕溅血 sprite列表
     public List<Sprite> screenBloodSprites = new List<Sprite>();
         
-    protected override void Awake()
+    void Start()
     {
-        base.Awake();
-
         _facade = new UIFacade(_canvas);
 
         // 注册UI
@@ -39,21 +37,24 @@ public class UIFacadeComponent : Singleton<UIFacadeComponent>
         {
             switch (item.uiType)
             {                
-                case UIType.SPLASH:
+                case UIType.VIEW_SPLASH:
+                    _facade.RegisterViewUI(item.uiRootPrefab, null, new ViewSplash(item.uiType));
                     break;
-                case UIType.MAIN_MENU:
+                case UIType.VIEW_MAIN_MENU:
+                    _facade.RegisterViewUI(item.uiRootPrefab, null, new ViewMainMenu(item.uiType));
                     break;
-                case UIType.SELECT_STAGE:
+                case UIType.VIEW_SELECT_STAGE:
+                    _facade.RegisterViewUI(item.uiRootPrefab, new ModelSelectStage(item.uiType), new ViewSelectStage(item.uiType));
                     break;
-                case UIType.INFORMATION:
+                case UIType.VIEW_FACE:
+                    _facade.RegisterViewUI(item.uiRootPrefab, new ModelFace(item.uiType), new ViewFace(item.uiType));
                     break;
-                case UIType.LOADING:
+                case UIType.VIEW_LOADING:
+                    _facade.RegisterViewUI(item.uiRootPrefab, null, new ViewLoading(item.uiType));
                     break;
-                case UIType.ARENA:
-                    _facade.RegisterUI(item.uiRootPrefab, new ModelArena(item.uiType), new ViewArena(item.uiType));                    
-                    break;
-                case UIType.PAUSE:
-                    break;
+                case UIType.VIEW_ARENA:
+                    _facade.RegisterViewUI(item.uiRootPrefab, new ModelArena(item.uiType), new ViewArena(item.uiType));       
+                    break;                
                 default:
                     break;
             }            
@@ -61,8 +62,13 @@ public class UIFacadeComponent : Singleton<UIFacadeComponent>
 
         // 注册消息处理
         _facade.RegisterMessage((int)UIMessageType.TARGET_CHANGED, new MessageHandlerTargetChanged());
+        _facade.RegisterMessage((int)UIMessageType.SPLASH_COMPLETED, new MessageHandlerSplashCompleted());
+        _facade.RegisterMessage((int)UIMessageType.ENTER_SELECT_STAGE, new MessageHandlerEnterSelectStage());
+        _facade.RegisterMessage((int)UIMessageType.ENTER_STAGE, new MessageHandlerEnterStage());
+        _facade.RegisterMessage((int)UIMessageType.RETURN_MAIN_MENU, new MessageHandlerReturnMainMenu());
+        _facade.RegisterMessage((int)UIMessageType.EXIT_GAME, new MessageHandlerExitGame());
 
-        _facade.StartUp((int)UIType.ARENA);
+        _facade.StartUp((int)UIType.VIEW_SPLASH);
     }
 
     // Update is called once per frame

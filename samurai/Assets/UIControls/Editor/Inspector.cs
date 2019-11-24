@@ -118,4 +118,28 @@ namespace Phenix.Unity.Editor
             _gridView.InitCellsOnInspector();
         }
     }
+
+
+    [CustomEditor(typeof(SimpleScrollView)), CanEditMultipleObjects]
+    public class InspectorSimpleScrollView : UnityEditor.Editor
+    {
+        SimpleScrollView _simpleScrollView;
+
+        private void OnEnable()
+        {
+            _simpleScrollView = target as SimpleScrollView;
+        }
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            if (EditorApplication.isPlaying)
+            {
+                return;
+            }
+
+            _simpleScrollView.InitCellsOnInspector();
+        }
+    }
 }

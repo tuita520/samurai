@@ -92,7 +92,7 @@ public class Agent1 : MonoBehaviour
         {
             case AgentType.PLAYER:
                 MotionEffect = new MotionEffectPlayer();
-                (Model.Get((int)UIType.ARENA) as ModelArena).Player = this;
+                (Model.Get((int)UIType.VIEW_ARENA) as ModelArena).Player = this;
                 break;
             case AgentType.SAMURAI:
                 MotionEffect = new MotionEffectSamurai();
